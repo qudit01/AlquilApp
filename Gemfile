@@ -38,6 +38,8 @@ gem 'hirb'
 gem 'rubocop'
 
 gem 'byebug'
+
+gem 'pundit'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
