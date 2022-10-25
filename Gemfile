@@ -30,6 +30,13 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
 
+# Magical Authentication for Rails. Supports ActiveRecord, DataMapper, Mongoid and MongoMapper.
+gem 'sorcery'
+
+gem 'hirb'
+
+gem 'rubocop'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
