@@ -8,6 +8,17 @@ class UsersController < ApplicationController
     return unless @user.save! notice: 'Usuario modificado exitosamente'
   end
 
+  def edit_supervisor; end
+
+  def update_supervisor
+    authorize @user
+    if @user.update user_params
+      redirect_to @user
+    else
+      render :edit_supervisor
+    end
+  end
+
   private
 
   def find_user
@@ -15,10 +26,10 @@ class UsersController < ApplicationController
   end
 
   def finding_params
-    params.require(:user).permit(:id)
+    params.permit(:id)
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :name)
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :role)
   end
 end

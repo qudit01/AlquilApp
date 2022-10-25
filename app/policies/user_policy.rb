@@ -3,7 +3,7 @@ class UserPolicy < ApplicationPolicy
     admin?
   end
 
-  def edit_supervisor?
+  def update_supervisor?
     admin?
   end
 

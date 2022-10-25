@@ -10,5 +10,10 @@ Rails.application.routes.draw do
   root 'home#show'
 
   resources :user_sessions, only: %i[new create destroy]
-  resources :users
+  resources :users do
+    member do
+      get 'edit_supervisor', to: :edit_supervisor
+      post 'edit_supervisor', to: :update_supervisor
+    end
+  end
 end
