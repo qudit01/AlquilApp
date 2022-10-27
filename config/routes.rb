@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get 'edit_supervisor', to: :edit_supervisor
-      post 'edit_supervisor', to: :update_supervisor
+      post 'update_supervisor', to: :update_supervisor
     end
   end
 end

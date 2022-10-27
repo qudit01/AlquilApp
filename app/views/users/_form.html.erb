@@ -1,1 +1,32 @@
 <h1>Formulario general con todos los datos</h1>
+
+<%= form_with model: klass, url: url, method: :post, local: true do |f| %>
+  <div class="edit-form-row">
+    <div class="edit-form-col form-group">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, class: 'form-control' %>
+    </div>
+
+    <div class="edit-form-col form-group">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, class: 'form-control' %>
+    </div>
+
+    <div class="edit-form-col form-group">
+      <%= f.label :dni %>
+      <%= f.text_field :dni, class: 'form-control' %>
+    </div>
+
+    <div class="edit-form-col form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+    </div>
+
+    <div class="edit-form-col form-group">
+      <%= f.label :role %>
+      <%= f.select :role, [['Cliente', 'client'], ['Supervisor', 'supervisor'], ['Admin', 'admin']], class: 'form-select' %>
+    </div>
+
+    <%= f.submit 'Actualizar' %>
+  </div>
+<% end %>

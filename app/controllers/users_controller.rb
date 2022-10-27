@@ -8,10 +8,17 @@ class UsersController < ApplicationController
     return unless @user.save! notice: 'Usuario modificado exitosamente'
   end
 
-  def edit_supervisor; end
+  def edit_supervisor
+    authorize current_user
+    if @user.supervisor?
+      render :edit_supervisor
+    else
+      redirect_to root_path, alert: 'El usuario no es superusuario'
+    end
+  end
 
   def update_supervisor
-    authorize @user
+    authorize current_user
     if @user.update user_params
       redirect_to @user
     else
@@ -22,7 +29,7 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    @user = User.find_by_id(finding_params)
+    @user = User.find_by_id(finding_params[:id])
   end
 
   def finding_params
