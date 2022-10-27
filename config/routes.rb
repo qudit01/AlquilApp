@@ -16,4 +16,6 @@ Rails.application.routes.draw do
       post 'update_supervisor', to: :update_supervisor
     end
   end
+
+  resources :cars
 end
