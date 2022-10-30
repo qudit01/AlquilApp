@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'register', to: 'user_registrations#new'
   get 'login', to: 'user_sessions#new', as: :login
   post 'login', to: 'user_sessions#create'
+  delete 'logout', to: 'user_sessions#destroy', as: :logout
   root 'home#show'
 
   resources :user_sessions, only: %i[new create destroy]
