@@ -11,10 +11,13 @@ Rails.application.routes.draw do
   root 'home#show'
 
   resources :user_sessions, only: %i[new create destroy]
-  resources :users do
+  resources :users, shallow: true do
     member do
       get 'edit_supervisor', to: :edit_supervisor
       post 'update_supervisor', to: :update_supervisor
+    end
+    resources :wallet, shallow: true do
+      resources :cards
     end
   end
 

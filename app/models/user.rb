@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_one :wallet
+  has_many :cards, through: :wallet
+
   authenticates_with_sorcery!
 
   enum role: { client: 0, supervisor: 1, admin: 2 }
