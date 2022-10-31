@@ -30,4 +30,8 @@ class UserPolicy < ApplicationPolicy
   def remove_car?
     admin? || supervisor?
   end
+
+  def update_car?
+    admin? || supervisor?
+  end
 end

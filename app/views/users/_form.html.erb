@@ -1,6 +1,6 @@
 <h1>Formulario general con todos los datos</h1>
 
-<%= form_with model: klass, url: url, method: :post, local: true do |f| %>
+<%= form_with model: klass, url: url, method: method, local: true do |f| %>
   <div class="edit-form-row">
     <div class="edit-form-col form-group">
       <%= f.label :first_name %>

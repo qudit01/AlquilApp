@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  plate: MyString
+  vtv: 2022-10-27
+  insurance: MyString
+  brand: MyString
+  model: MyString
+  kilometeres: 1
+
+two:
+  plate: MyString
+  vtv: 2022-10-27
+  insurance: MyString
+  brand: MyString
+  model: MyString
+  kilometeres: 1
