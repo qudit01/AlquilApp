@@ -6,10 +6,11 @@ class CarsController < ApplicationController
   def update
     authorize Car
 
-    unless @car.update car_params
-      render :edit && return
+    if @car.update car_params
+      redirect_to car_path, success: 'Auto modificado exitosamente'
+    else
+      render :edit, status: :unprocessable_entity
     end
-    redirect_to car_path, success: 'Auto modificado exitosamente'
   end
 
   private
