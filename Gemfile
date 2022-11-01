@@ -86,4 +86,5 @@ end
 
 # Subir imagenes
 
+  
   gem "carrierwave"
