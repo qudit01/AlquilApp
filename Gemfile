@@ -82,3 +82,8 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+
+# Subir imagenes
+
+  gem "carrierwave"

@@ -1,0 +1,21 @@
+<div class="container">
+    <h2>Listado de Licencias</h2>
+    <table class="table">
+        <tr>
+            <thead>
+                <th>Imagen: </th>
+                <th>Vencimiento: </th>
+                <th>Estado: </th>
+                <th>Motivo de rechazo: </th>
+            </thead>
+        </tr>
+        <% @licenses.each do |l| %>
+        <tr>
+            <td><%= l.photo %></td>
+            <td><%= l.expire %></td>
+            <td><%= l.state %></td>
+            <td><%= l.motive %></td>
+        </tr>
+        <% end %>
+    </table>
+</div>

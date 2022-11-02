@@ -1,0 +1,24 @@
+<h1>Formulario general con todos los datos</h1>
+
+<%= form_for @license do |f| %>
+  <div class="edit-form-row">
+    <div class="edit-form-col form-group">
+      <%= f.label :photo %>
+      <%= f.file_field :photo, class: 'form-select' %>
+    </div>
+    <div class="edit-form-col form-group">
+      <%= f.label :expire %>
+      <%= f.date_field :expire, class: 'form-select' %>
+    </div>
+    <div class="edit-form-col form-group">
+      <%= f.label :state %>
+      <%= f.select :state, [['Sin licencia', 'nolicense'], ['Proxima a vencer', 'toexpire'], ['Vencida', 'expired']], class: 'form-select' %>
+    </div>
+    <div class="edit-form-col form-group">
+      <%= f.label :motive %>
+      <%= f.text_field :motive, class: 'form-select' %>
+    </div>
+
+    <%= f.submit 'Subir licencia' %>
+  </div>
+<% end %>
