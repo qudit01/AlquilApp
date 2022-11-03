@@ -1,5 +1,5 @@
 class License < ApplicationRecord
     mount_uploader :photo, ImageUploader
-    enum state: { nolicense: 0, toexpire: 1, expired: 2 }
+    enum state: { pending: 0, toexpire: 1, expired: 2, ok: 3, rejected: 4 }
     belongs_to :user
 end

@@ -11,6 +11,19 @@
       <%= link_to 'Login', login_path, id: 'sign-in-link' %>
     <% end %>
   </section>
+  <section>
+    <% if current_user %>
+      <% if current_user.client? %>
+        <% if current_user.license.nil? %>
+          <%= link_to 'Subir licencia', new_license_path %>
+        <% else %>
+        <%= link_to 'Ver estado de licencia', license_path(current_user.license) %>
+        <% end %>
+      <% else %>
+          <%= link_to 'Verificar licencias', licenses_path %>
+      <% end %>
+    <% end %>
+  </section>
 </nav>
 
 <aside>
