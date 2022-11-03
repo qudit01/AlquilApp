@@ -4,21 +4,23 @@
   <div class="edit-form-row">
     <div class="edit-form-col form-group">
       <%= f.label :photo %>
+      <h5>Formatos admitidos: JPG, JPEG y PNG </h5>
       <%= f.file_field :photo, class: 'form-select' %>
     </div>
-    <div class="edit-form-col form-group">
-      <%= f.label :expire %>
-      <%= f.date_field :expire, class: 'form-select' %>
-    </div>
-    <div class="edit-form-col form-group">
-      <%= f.label :state %>
-      <%= f.select :state, [['Sin licencia', 'nolicense'], ['Proxima a vencer', 'toexpire'], ['Vencida', 'expired']], class: 'form-select' %>
-    </div>
-    <div class="edit-form-col form-group">
-      <%= f.label :motive %>
-      <%= f.text_field :motive, class: 'form-select' %>
-    </div>
-
+    <% if current_user.admin? || current_user.supervisor? %>
+      <div class="edit-form-col form-group">
+        <%= f.label :expire %>
+        <%= f.date_field :expire, class: 'form-select' %>
+      </div>
+      <div class="edit-form-col form-group">
+        <%= f.label :state %>
+        <%= f.select :state, [['Rechazada', 'rejected'], ['Valida', 'ok']], class: 'form-select' %>
+      </div>
+      <div class="edit-form-col form-group">
+        <%= f.label :motive %>
+        <%= f.text_field :motive, class: 'form-select' %>
+      </div>
+    <% end %>
     <%= f.submit 'Subir licencia' %>
   </div>
 <% end %>

@@ -3,10 +3,18 @@
 <div class="table table-hover">
     <thead>
         <tr>
-            <th>Foto de licencia: </th><th><%= @license.photo %></th><br>
-            <th>Fecha de vencimieto: </th><th><%= @license.expire %><br>
+            <th>Foto de licencia </th><th><br>
+            <%= image_tag @license.photo.url %></th><br>
+            <% if @license.state == "ok" %>
+              <th>Fecha de vencimieto: </th><th><%= @license.expire %><br>
+            <% end %>
             <th>Estado: </th><th><%= @license.state %><br>
-            <th>Motivo de rechazo: </th><th><%= @license.motive %>
+            <% if @license.state == "rejected" %>
+              <th>Motivo de rechazo: </th><th><%= @license.motive %>
+            <% end %>
+            <% if @license.state == "toexpire" || @license.state == "rejected" %><br>
+              <%= link_to "Resubir licencia", edit_license_path %>
+            <% end %>
         </tr>
     </thead>
 </div>
