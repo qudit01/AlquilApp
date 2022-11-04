@@ -28,7 +28,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 4.0"
+gem "redis", "~> 5.0.5"
 
 # Magical Authentication for Rails. Supports ActiveRecord, DataMapper, Mongoid and MongoMapper.
 gem 'sorcery'
@@ -87,3 +87,4 @@ end
 # Subir imagenes
 
   gem "carrierwave"
+  gem "mini_magick"

@@ -1,13 +1,14 @@
 class LicensesController < ApplicationController
+  
   def index
     if current_user.admin? || current_user.supervisor?
-      @licenses = License.all
+      @licenses = License.where(state:0)
     else redirect_to root_path
     end
   end
-
+  
   def show
-    @license = License.find(params[:id])
+      @license = License.find(params[:id])
   end
 
   def new
@@ -36,11 +37,21 @@ class LicensesController < ApplicationController
 
   def update
     @license = License.find(params[:id])
-      if @license.update(license_params)
-        redirect_to licenses_path
-      else
-        render :edit
-      end
+    if current_user.client?
+      @license.state="pending"
+        if @license.update(license_params)
+          redirect_to licenses_path
+        else
+          flash[:notice] = "Por favor, subir un formato de imagen admitido (JPG, JPEG o PNG)"
+          render :edit
+        end
+    else
+        if @license.update(license_params)
+          redirect_to licenses_path
+        else
+          render :edit
+        end
+    end
   end
 
   private

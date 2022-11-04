@@ -1,21 +1,22 @@
 <div class="container">
+<% if @licenses.where(state:0).length==0 %>
+  <h5>No hay licencias pendientes de revision</h5>
+<%else%>
+<% @licenses.each do |l| %>
     <h2>Listado de Licencias</h2>
     <table class="table">
-        <tr>
-            <thead>
-                <th>Imagen: </th>
-                <th>Vencimiento: </th>
-                <th>Estado: </th>
-                <th>Motivo de rechazo: </th>
-            </thead>
-        </tr>
-        <% @licenses.each do |l| %>
-        <tr>
-            <td><%= l.photo %></td>
-            <td><%= l.expire %></td>
-            <td><%= l.state %></td>
-            <td><%= l.motive %></td>
-        </tr>
-        <% end %>
+      <tr>
+        <thead>
+          <th>Imagen: </th>
+          <th>Estado: </th>
+        </thead>
+      </tr>
+      <tr>
+        <td><%= image_tag l.photo.url %></td>
+        <td><%= l.state %></td>
+        <td><%= link_to "Verificar licencia", edit_license_path(l) %></td>
+      </tr>
     </table>
+<% end %>
+<%end%>
 </div>
