@@ -5,14 +5,14 @@
         <tr>
             <th>Foto de licencia </th><th><br>
             <%= image_tag @license.photo.url %></th><br>
-            <% if @license.state == "ok" %>
+            <% if @license.ok? %>
               <th>Fecha de vencimieto: </th><th><%= @license.expire %><br>
             <% end %>
             <th>Estado: </th><th><%= @license.state %><br>
-            <% if @license.state == "rejected" %>
+            <% if @license.rejected? %>
               <th>Motivo de rechazo: </th><th><%= @license.motive %>
             <% end %>
-            <% if @license.state == "toexpire" || @license.state == "rejected" %><br>
+            <% if @license.toexpire? || @license.rejected? || @license.expired?%><br>
               <%= link_to "Resubir licencia", edit_license_path %>
             <% end %>
         </tr>
