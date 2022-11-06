@@ -3,6 +3,21 @@ class CarsController < ApplicationController
 
   def edit; end
 
+  def delete; end
+
+  def index
+    if current_user.admin? || current_user.supervisor?
+      @cars = Car.where(remove:false)
+    else 
+      redirect_to root_path, success: 'No hay autos cargados en la base datos'
+    end
+  end
+
+  def show
+      @car = Car.find(params[:id])
+  end
+
+
   def update
     authorize Car
 
@@ -13,6 +28,27 @@ class CarsController < ApplicationController
     end
   end
 
+  def new
+    if current_user.supervisor? || current_user.client?
+      @car = Car.new
+    else redirect_to root_path
+    end
+  end
+
+  def create
+    if current_user.supervisor? || current_user.client?  
+      @car = Car.new(car_params)
+      if @car.save
+        flash[:notice] = "Auto agregado exitosamente"
+        redirect_to cars_path
+      else
+        flash[:notice] = "Error al cargar nuevo auto"
+        render :new
+      end
+    else redirect_to cars_path
+    end
+  end
+
   private
 
   def finding_params
@@ -20,7 +56,7 @@ class CarsController < ApplicationController
   end
 
   def car_params
-    params.require(:car).permit(:plate, :insurance, :brand, :model, :kilometers)
+    params.require(:car).permit(:plate, :insurance, :brand, :model, :kilometers, :car_number, :color, :photo)
   end
 
   def find_car

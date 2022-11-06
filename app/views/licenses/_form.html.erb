@@ -11,7 +11,7 @@
   <% else %>
     <div class="edit-form-col form-group">
     <%= f.label :photo %>
-    <%= image_tag @license.photo.url %></th><br>
+    <%= image_tag @license.photo.url(:mid).to_s %></th><br>
     </div>
   <% end %>
     <% if current_user.admin? || current_user.supervisor? %>

@@ -6,7 +6,7 @@ class LicensesController < ApplicationController
     else redirect_to root_path
     end
   end
-  
+
   def show
       @license = License.find(params[:id])
   end
@@ -47,6 +47,7 @@ class LicensesController < ApplicationController
         end
     else
         if @license.update(license_params)
+          flash[:notice] = "Licencia validada correctamente"
           redirect_to licenses_path
         else
           render :edit
