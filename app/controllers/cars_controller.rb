@@ -3,6 +3,21 @@ class CarsController < ApplicationController
 
   def edit; end
 
+  def delete; end
+
+  def index
+    if current_user.admin? || current_user.supervisor?
+      @cars = Car.where(remove:false)
+    else 
+      redirect_to root_path, success: 'No hay autos cargados en la base datos'
+    end
+  end
+
+  def show
+      @car = Car.find(params[:id])
+  end
+
+
   def update
     authorize Car
 

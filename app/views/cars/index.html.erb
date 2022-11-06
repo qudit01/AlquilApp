@@ -1,1 +1,31 @@
-<h1>Index de autos</h1>
+<div class="container">
+<td><%= link_to "Agregar auto", new_car_path %></td>
+<% @cars.each do |c| %>
+    <h2>Listado de Automoviles</h2>
+    <table class="table">
+      <tr>
+        <thead>
+          <th>Imagen: </th>
+          <th>Numero de auto: </th>
+          <th>Color: </th>
+          <th>Patente: </th>
+          <th>Marca: </th>
+          <th>Modelo: </th>
+          <th>Seguro: </th>
+          <th>Kilometros: </th>
+        </thead>
+      </tr>
+      <tr>
+        <td><%= image_tag c.photo.url(:thumb).to_s %></td>
+        <td><%= c.car_number %></td>
+        <td><%= c.color %></td>
+        <td><%= c.plate %></td>
+        <td><%= c.brand %></td>
+        <td><%= c.model %></td>
+        <td><%= c.insurance %></td>
+        <td><%= c.kilometers %></td>
+        <td><%= link_to "Editar auto", edit_car_path(c) %></td>
+      </tr>
+    </table>
+<% end %>
+</div>
