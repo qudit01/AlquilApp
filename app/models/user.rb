@@ -15,4 +15,8 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :role, presence: true, inclusion: { in: roles.keys }
   validates_format_of :first_name, :last_name, with: NAMES_FORMAT
+
+  def name
+    "#{first_name} #{last_name.capitalize}"
+  end
 end

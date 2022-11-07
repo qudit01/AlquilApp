@@ -6,14 +6,21 @@ class CardsController < ApplicationController
   end
 
   def create
-    if @card.create card_params
-      redirect_to card_path, success: 'Tarjeta cargada con éxito'
+    @card = Card.new card_params
+    if @card.save
+      redirect_to card_path @card, success: 'Tarjeta cargada con éxito'
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def edit; end
+  def edit
+    if current_user.cards.include? self
+      render :edit
+    else
+      redirect_to root_path, alert: 'No tienes permitido realizar esta acción'
+    end
+  end
 
   def update
     if @card.update card_params
@@ -38,7 +45,7 @@ class CardsController < ApplicationController
   end
 
   def card_params
-    params.require(:card).permit(:number, :pin, :expiration, :owner, :bank, :kind, :user, :wallet)
+    params.require(:card).permit(:number, :pin, :expiration, :owner, :bank, :kind, :user_id, :wallet_id)
   end
 
   def find_card

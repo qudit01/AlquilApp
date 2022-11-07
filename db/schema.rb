@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_31_114208) do
     t.string "crypted_password"
     t.string "salt"
     t.integer "role", default: 0
-    t.integer "wallet_id", null: false
+    t.integer "wallet_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["wallet_id"], name: "index_users_on_wallet_id"
   end

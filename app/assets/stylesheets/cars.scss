@@ -1,0 +1,167 @@
+* {
+  box-sizing: border-box;
+}
+
+.row-left {
+  flex: 20%;
+  padding: 20px;
+  flex-wrap: wrap;
+  border-right-style: inset;
+}
+
+.row-right {
+  flex: 80%;
+  flex-wrap: wrap;
+  padding: 0 70px 0 70px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.superior {
+  text-align: left;
+  padding: 10px;
+}
+
+.comments {
+  padding: 10px;
+  text-align: center;
+}
+
+.table_field {
+  color: #474747;
+  text-decoration: none;
+}
+
+.table_field>a {
+  color: #474747;
+  text-decoration: none;
+}
+
+.table_name {
+  font-weight: 700;
+}
+
+.commentBox {
+  background: #FAFAFA;
+  border: 0.081rem solid #CCCCCC;
+  box-sizing: border-box;
+  border-radius: 0.442rem;
+  display: block;
+  padding: 3%;
+  width: 100%;
+  font-family: white;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.comment-btn {
+  align-content: flex-end;
+  margin-top: 10px;
+}
+
+.comment-smiley {
+  margin-top: 25px;
+}
+
+.text_comment {
+  width: 100%;
+  height: 8rem;
+  background: #F1F3F4;
+  border: 0;
+  border-radius: 8px;
+  margin: 0 0 20px 0;
+}
+
+#btn_public {
+  float: right;
+}
+
+#comment_highlight {
+  margin: 7px;
+}
+
+.icon_comment {
+  border: 0;
+  float: left;
+  margin-left: 0.2rem;
+  padding-right: 1.3rem;
+}
+
+::placeholder {
+  font-family: Roboto;
+  font-style: italic;
+  font-size: 1em;
+  box-sizing: content-box;
+  border: 3px dotted tomato;
+  padding-top: 20px;
+}
+
+.icon_comment {
+  border: 0;
+  float: left;
+  margin-left: 0.2rem;
+  padding-right: 1.3rem;
+  cursor: pointer;
+}
+
+textarea {
+  padding: 25px;
+  resize: none;
+  display: block;
+}
+
+.coment {
+  margin: -2% 5% 5% 1%;
+  width: 100%;
+  border: 1px solid #DADADA;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.highlight {
+  box-shadow: -10px 0px 0px 0px #D95234;
+}
+
+.user_name_comment {
+  color: #0090AF;
+  font-weight: 700;
+  display: inline;
+}
+
+.answer {
+  height: 5rem;
+}
+
+.comment_answer {
+  padding: 1rem 2rem;
+}
+
+.drop_down {
+  background: white;
+  float: right;
+  border: none;
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
+
+.like {
+  float: right;
+}
+
+.like_img {
+  background: white;
+  border: none;
+  cursor: pointer;
+  float: right
+}

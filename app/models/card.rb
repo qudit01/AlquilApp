@@ -1,11 +1,11 @@
 class Card < ApplicationRecord
   belongs_to :user
-  belongs_to :wallet, -> { through(user) }
+  belongs_to :wallet
 
   enum kind: { credit: 0, debit: 1, pre_paid: 2 }
 
   validates :number, :pin, :expiration, :owner, :bank, :kind, :user, presence: true
-  validates :number, numericality: { only_integer: true }
+  validates :number, numericality: { only_integer: true }, length: { maximum: 16 }
   validates :number, uniqueness: true
   validates :pin, numericality: { only_integer: true }
   validates :pin, length: { maximum: 12 }
