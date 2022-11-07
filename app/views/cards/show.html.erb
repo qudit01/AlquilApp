@@ -1,0 +1,22 @@
+<section>
+  <header class="superior">
+    <p><%= 'Usuario de la tarjeta: ' %><span class="name"> <%= @card.user.name %> </span></p>
+  </header>
+
+  <div class="row">
+    <div class="row-left" data-controller="add">
+      <h4 class="name"> Datos de la tarjeta </h4>
+      <h4 class="name"> Dueño </h4>
+      <h2><%= @card.owner %></h2>
+      <h4 class="name"> Banco </h4>
+      <p><%= @card.bank %></p>
+      <h4> Tipo de tarjeta </h4>
+      <p><%= @card.kind %></p>
+      <h4 class="name"> Numero </h4>
+      <p><%= @card.number %></p>
+      <h4 class="name">Fecha de vencimiento</h4>
+      <p><%= @card.expiration %></p>
+      <h4 class="name">Pin</h4>
+      <p><%= @card.pin %></p>
+    </div>
+</section>

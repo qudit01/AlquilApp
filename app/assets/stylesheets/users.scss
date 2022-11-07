@@ -1,0 +1,97 @@
+.index_user_add {
+    background: #D3D3D3;
+}
+
+.index_user {
+    background: white;
+    margin: 2rem 10% 0 10%;
+}
+
+.filter_user {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.search-field {
+    height: 2.5rem;
+    width: 26.75rem;
+    padding: .625rem 2.1875rem .625rem .9375rem;
+    border: none;
+    outline: none;
+    background: #FAFAFA;
+    border: .081rem solid #CCCCCC;
+    box-sizing: border-box;
+    border-radius: .4419rem;
+    margin: 0;
+    display: inline-block;
+    margin: 0rem .3125rem .375rem 0rem;
+}
+
+.search-button {
+    background: transparent;
+    border: none;
+    outline: none;
+    margin-left: -2.8125rem;
+}
+
+.search-button img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: cover;
+    padding-top: .2rem .2rem;
+}
+
+table tr {
+    outline: lightgrey solid .0625rem;
+    border-radius: .625rem;
+}
+
+.users_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0 1em 0;
+    caption-side: top;
+}
+
+th,
+td {
+    text-align: center;
+    width: 69.125rem;
+    height: 4.0625rem;
+}
+
+tr td {
+    border-radius: 50%;
+}
+
+.name {
+    color: #009999;
+    text-transform: uppercase;
+}
+
+.head_table {
+    outline: none;
+}
+
+.users_table tbody tr:hover {
+    background-color: lightgrey;
+}
+
+.form_user {
+    display: flex;
+    flex-direction: row;
+}
+
+.section_va_school {
+    padding-top: 1rem;
+}
+
+.section_va_school>.check {
+    display: flex;
+    margin: 1rem;
+}
+
+.check_no {
+    margin: auto;
+}
