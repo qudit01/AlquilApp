@@ -6,12 +6,11 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   get 'register', to: 'user_registrations#new'
+  post 'register/user', to: 'user_registrations#create'
   get 'login', to: 'user_sessions#new', as: :login
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy', as: :logout
   root 'user_sessions#show'
-  user_session_url = '/user_sessions'
-  resource 'user_session'
 
   resources :user_sessions, only: %i[new create destroy]
   resources :users, shallow: true do
