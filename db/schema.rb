@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_31_114208) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_06_182645) do
   create_table "cards", force: :cascade do |t|
     t.integer "number", null: false
     t.integer "pin", null: false
@@ -34,6 +34,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_31_114208) do
     t.integer "kilometers", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "car_number"
+    t.string "color"
+    t.string "photo"
+    t.boolean "remove", default: false
   end
 
   create_table "licenses", force: :cascade do |t|
@@ -56,9 +60,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_31_114208) do
     t.string "crypted_password"
     t.string "salt"
     t.integer "role", default: 0
-<<<<<<< HEAD
     t.integer "wallet_id"
+    t.integer "license_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["license_id"], name: "index_users_on_license_id"
     t.index ["wallet_id"], name: "index_users_on_wallet_id"
   end
 
@@ -72,14 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_31_114208) do
 
   add_foreign_key "cards", "users"
   add_foreign_key "cards", "wallets"
+  add_foreign_key "users", "licenses"
   add_foreign_key "users", "wallets"
   add_foreign_key "wallets", "users"
-=======
-    t.integer "license_id"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["license_id"], name: "index_users_on_license_id"
-  end
-
-  add_foreign_key "users", "licenses"
->>>>>>> 71a846fa5f501c8231730a9634ce555324667b5c
 end

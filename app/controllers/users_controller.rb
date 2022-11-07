@@ -2,6 +2,17 @@ class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new]
   before_action :find_user, except: %i[new create]
 
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new user_params
+    unless @user.save
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def edit; end
 
   def update
@@ -34,6 +45,10 @@ class UsersController < ApplicationController
 
   def finding_params
     params.permit(:id)
+  end
+
+  def user_params_edit
+    params.require(:user).permit(:name, :last_name)
   end
 
   def user_params

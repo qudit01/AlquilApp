@@ -1,7 +1,7 @@
 <main class="main">
   <header>
-    <span class="session_span"><%= 'Sesión' %></span>
-    <span class="right_session_span"><%= t'Registro' %></span>
+    <span class="session_span"><%= link_to 'Sesión', :login %></span>
+    <span class="right_session_span"><%= 'Registro' %></span>
   </header>
   <hr>
   <div class="grid">
@@ -9,8 +9,8 @@
       <%= image_tag 'Logo_1.png'%>
     </section>
     <aside class="aside_signup">
-      <h1> <%= 'Iniciar sesión' %> </h1>
-      <%= render 'form' %>
+      <h1> <%= 'Registrarme' %> </h1>
+      <%= render 'register' %>
     </aside>
   </div>
 </main>

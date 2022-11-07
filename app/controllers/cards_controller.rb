@@ -6,9 +6,9 @@ class CardsController < ApplicationController
   end
 
   def create
-    @card = Card.new card_params
+    @card = current_user.cards.build(card_params)
     if @card.save
-      redirect_to card_path @card, success: 'Tarjeta cargada con éxito'
+      redirect_to card_path(@card), success: 'Tarjeta cargada con éxito'
     else
       render :new, status: :unprocessable_entity
     end
