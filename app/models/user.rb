@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_many :cards, through: :wallet
 
   authenticates_with_sorcery!
-
+  has_one :license
   enum role: { client: 0, supervisor: 1, admin: 2 }
 
   validates :first_name, :last_name, :email, :dni, presence: true

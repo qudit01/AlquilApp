@@ -36,6 +36,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_31_114208) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "licenses", force: :cascade do |t|
+    t.date "expire"
+    t.string "photo"
+    t.integer "state", default: 0
+    t.string "motive"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -46,6 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_31_114208) do
     t.string "crypted_password"
     t.string "salt"
     t.integer "role", default: 0
+<<<<<<< HEAD
     t.integer "wallet_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["wallet_id"], name: "index_users_on_wallet_id"
@@ -63,4 +74,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_31_114208) do
   add_foreign_key "cards", "wallets"
   add_foreign_key "users", "wallets"
   add_foreign_key "wallets", "users"
+=======
+    t.integer "license_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["license_id"], name: "index_users_on_license_id"
+  end
+
+  add_foreign_key "users", "licenses"
+>>>>>>> 71a846fa5f501c8231730a9634ce555324667b5c
 end

@@ -1,0 +1,37 @@
+<h1>Formulario general con todos los datos</h1>
+
+<%= form_for @license do |f| %>
+  <div class="edit-form-row">
+  <% if current_user.client? %>
+    <div class="edit-form-col form-group">
+      <%= f.label :photo %>
+      <h5>Formatos admitidos: JPG, JPEG y PNG </h5>
+      <%= f.file_field :photo, class: 'form-select' %>
+    </div>
+  <% else %>
+    <div class="edit-form-col form-group">
+    <%= f.label :photo %>
+    <%= image_tag @license.photo.url(:mid).to_s %></th><br>
+    </div>
+  <% end %>
+    <% if current_user.admin? || current_user.supervisor? %>
+      <div class="edit-form-col form-group">
+        <%= f.label :state %>
+        <%= f.select :state, [['Rechazada', 'rejected'], ['Valida', 'ok']], class: 'form-select' %>
+      </div>
+      <div class="edit-form-col form-group">
+        <%= f.label :expire %>
+        <%= f.date_field :expire, class: 'form-select' %>
+      </div>
+      <div class="edit-form-col form-group">
+        <%= f.label :motive %>
+        <%= f.text_field :motive, class: 'form-select' %>
+      </div>
+    <% end %>
+    <% if current_user.client? %>
+      <%= f.submit 'Subir licencia' %>
+    <% else %>
+      <%= f.submit 'Verificar licencia' %>
+    <%end%>
+  </div>
+<% end %>
