@@ -6,7 +6,7 @@ class UserSessionsController < ApplicationController
 
   def create
     @user = login(params[:email], params[:password])
-    if @user.present? && @user.role?
+    if @user.present? && @user.role? && !@user.blocked
       redirect_to(users_path, notice: 'Sesión iniciada!')
     else
       flash.now[:alert] = 'Ingreso erróneo...'

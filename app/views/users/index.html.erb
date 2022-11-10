@@ -1,1 +1,29 @@
 <h1>Página principal</h1>
+<div class="container">
+<td><%= link_to "Agregar supervisor", new_supervisor_path %></td>
+<% if !@user.nil? %>
+<h2>Listado de Usuarios Supervisores</h2>
+    <table class="table">
+    <tr>
+        <thead>
+          <th>Nombre </th>
+          <th>Apellido </th>
+          <th>DNI </th>
+          <th>Mail </th>
+        </thead>
+      </tr>
+      <tr>
+      <% @user.each do |u| %>
+        <td><%= u.name%></td>
+        <td><%= u.last_name %></td>
+        <td><%= u.dni %></td>
+        <td><%= u.email %></td>
+        <td><%= button_to "Eliminar", delete_supervisor_user_path(u), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }%></td>
+      </tr>
+    <% end %>
+    </table>
+<%else%>
+    <h3>No hay supervisores</h3>
+<% end %>
+
+</div>

@@ -25,6 +25,7 @@
         <td><%= c.insurance %></td>
         <td><%= c.kilometers %></td>
         <td><%= link_to "Editar auto", edit_car_path(c) %></td>
+        <td><%= button_to "Eliminar auto", remove_car_car_path(c)%></td>
       </tr>
     </table>
 <% end %>
