@@ -1,0 +1,37 @@
+<h1>Formulario para crear usuario supervisor</h1>
+
+<% if flash[:alert] %>
+  <div class='alert'><%= flash[:alert] %></div>
+<% end %>
+
+<%= form_with model: @user, url: new_supervisor_path, method: :post , class: 'form_inicio' do |form| %>
+
+  <%= form.label :nombre %>
+  <%= form.text_field :first_name, class: 'textBox', placeholder: 'Ingrese el nombre' %>
+  <div class='error_message'><% @user.errors[:first_name].to_sentence %></div>
+
+  <%= form.label :apellido %>
+  <%= form.text_field :last_name, class: 'textBox', placeholder: 'Ingrese el Apellido' %>
+  <div class='error_message'><% @user.errors[:last_name].to_sentence %></div>
+
+  <%= form.label :email %>
+  <%= form.email_field :email, class: 'textBox', placeholder: 'Ingrese el email' %>
+  <div class='error_message'><% @user.errors[:email].to_sentence %></div>
+
+  <%= form.label :dni %>
+  <%= form.number_field :dni, class: 'textBox', placeholder: 'Ingrese el dni' %>
+  <div class='error_message'><% @user.errors[:dni].to_sentence %></div>
+
+  <%= form.label 'Contraseña' %>
+  <%= form.password_field :password, class: 'textBox', placeholder: 'Ingrese la contraseña' %>
+  <div class='error_message'><% @user.errors[:password].to_sentence %></div>
+
+  <%= form.label 'Confirme contraseña' %>
+  <%= form.password_field :password_confirmation, class: 'textBox', placeholder: 'Confirme la contraseña' %>
+  <div class='error_message'><% @user.errors[:password_confirmation].to_sentence %></div>
+
+  <%= form.hidden_field :role, value: :supervisor %>
+  <br>
+  <%= form.submit 'Crear cuenta', class: 'btn' %>
+  <br>
+<% end %>

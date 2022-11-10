@@ -15,9 +15,41 @@ class UsersController < ApplicationController
 
   def edit; end
 
+  def index
+    if current_user.admin?
+      @user = User.where(role: "supervisor")
+    else 
+      redirect_to root_path, success: 'No podes'
+    end
+  end
+
+
   def update
     return unless @user.save! notice: 'Usuario modificado exitosamente'
   end
+
+  def new_supervisor 
+    if current_user.admin?
+      @user = User.new 
+    else
+      render :root_path
+    end
+  end
+
+  def create_supervisor
+    if current_user.admin?
+      @user = User.new
+      @user.role = "supervisor"
+      unless @user.save
+        render :new, status: :unprocessable_entity
+      end
+    else
+      render :root_path
+    end
+  end
+
+
+
 
   def edit_supervisor
     authorize current_user

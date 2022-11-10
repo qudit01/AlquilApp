@@ -23,6 +23,11 @@
         <li>
             <%= link_to 'Administracion de automoviles', cars_path, class: 'nav_item' %>
         </li>
+        <% if current_user.admin? %>
+        <li>
+            <%= link_to 'Administrar supervisores', users_path, class: 'nav_item' %>
+        </li>
+        <% end %>
         <% end %>
       <% end %>
     <li><%= link_to "Cerrar sesión", :logout, id: 'sign-out-link', data: { "turbo-method": :delete }, class: 'nav_item' %></li>

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   post 'register/user', to: 'user_registrations#create'
   get 'login', to: 'user_sessions#new', as: :login
   post 'login', to: 'user_sessions#create'
+  get 'new_supervisor', to: 'new_supervisor#new'
+  post 'create_supervisor', to: 'create_supervisor#create'
   delete 'logout', to: 'user_sessions#destroy', as: :logout
   root 'user_sessions#show'
 
@@ -28,5 +30,6 @@ Rails.application.routes.draw do
   resources :cars
 
   resources :licenses
+  
 
 end
