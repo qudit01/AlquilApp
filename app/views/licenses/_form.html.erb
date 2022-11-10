@@ -27,6 +27,7 @@
         <%= f.label :motive %>
         <%= f.text_field :motive, class: 'form-select' %>
       </div>
+      <% f.hidden_field :user_id, value: current_user.id %>
     <% end %>
     <% if current_user.client? %>
       <%= f.submit 'Subir licencia' %>

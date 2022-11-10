@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new]
-  before_action :find_user, except: %i[new create]
+  before_action :find_user, except: %i[new create new_supervisor create_supervisor] 
 
   def new
     @user = User.new
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def index
     if current_user.admin?
-      @user = User.where(role: "supervisor")
+      @user = User.where(role: "supervisor", blocked: false)
     else 
       redirect_to root_path, success: 'No podes'
     end
@@ -37,18 +37,27 @@ class UsersController < ApplicationController
   end
 
   def create_supervisor
+    authorize User
+      @user = User.new user_params
+      @user.role = 'supervisor'
+      @user.wallet = Wallet.new
+      if @user.save
+        redirect_to users_path, notice: 'Usuario supervisor creado con exito'
+      else
+        render :new_supervisor, status: :unprocessable_entity
+      end
+  end
+
+  def delete_supervisor 
     if current_user.admin?
-      @user = User.new
-      @user.role = "supervisor"
-      unless @user.save
-        render :new, status: :unprocessable_entity
+      @user.blocked=true
+      if @user.save
+        redirect_to users_path
       end
     else
       render :root_path
     end
   end
-
-
 
 
   def edit_supervisor
@@ -84,6 +93,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :role)
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :role, :dni)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_06_182645) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_10_023421) do
   create_table "cards", force: :cascade do |t|
     t.integer "number", null: false
     t.integer "pin", null: false
@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_06_182645) do
     t.integer "role", default: 0
     t.integer "wallet_id"
     t.integer "license_id"
+    t.boolean "blocked", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["license_id"], name: "index_users_on_license_id"
     t.index ["wallet_id"], name: "index_users_on_wallet_id"

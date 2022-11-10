@@ -4,7 +4,7 @@
   <div class='alert'><%= flash[:alert] %></div>
 <% end %>
 
-<%= form_with model: @user, url: new_supervisor_path, method: :post , class: 'form_inicio' do |form| %>
+<%= form_with model: @user, url: create_supervisor_path, method: :post , class: 'form_inicio' do |form| %>
 
   <%= form.label :nombre %>
   <%= form.text_field :first_name, class: 'textBox', placeholder: 'Ingrese el nombre' %>

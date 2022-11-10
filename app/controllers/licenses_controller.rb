@@ -14,15 +14,15 @@ class LicensesController < ApplicationController
   def new
     if current_user.client?
       @license = License.new
-    else redirect_to root_path
+    else 
+      redirect_to root_path
     end
   end
 
   def create
-    @license = License.new(license_params)
-    @license.user = current_user
-    current_user.license = @license
-    if @license.save
+    current_user.license = @license = License.new(user_id: current_user.id)
+    @license.photo = params[:license][:photo]
+    if @license.save!
       flash[:notice] = "Licencia subida con exito!"
       redirect_to licenses_path
     else
@@ -56,7 +56,12 @@ class LicensesController < ApplicationController
   end
 
   private
+
+  def upload_photo
+    params.require(:license).permit(:photo)
+  end
+
   def license_params
-      params.require(:license).permit(:photo, :expire, :state, :motive)
+    params.require(:license).permit(:expire, :state, :motive)
   end
 end
