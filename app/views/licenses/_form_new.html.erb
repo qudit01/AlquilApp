@@ -1,0 +1,49 @@
+<h1>Ingresá los datos del coche!</h1>
+
+<%= form_for @car do |f| %>
+
+    <div class="form-group col-md-12">
+          <label style="margin-left: 0px; padding-left: 0px;" for="image-input" class="btn btn-warning upload-logo-btn">Subir foto</label>
+          <%= f.file_field :photo,
+            class: 'file_input',
+              accept: 'image/png, image/jpg, image/gif, image/jpeg',
+              onchange: 'readURL(this);',
+                    id: 'image-input',
+                      style: 'display: none;' %>
+    <img id="img_prev" src="#" alt="your image" style="display: none;" />
+    </div>
+
+    <%= f.label 'Numero de auto' %>
+    <%= f.number_field :car_number, class: 'form-control' %>
+    <div class='error_message'><%= @car.errors[:car_number].to_sentence %></div>
+
+    <%= f.label 'Color' %>
+    <%= f.text_field :color, class: 'form-control' %>
+    <div class='error_message'><%= @car.errors[:color].to_sentence %></div>
+
+    <%= f.label 'Marca' %>
+    <%= f.text_field :brand, class: 'form-control' %>
+    <div class='error_message'><%= @car.errors[:brand].to_sentence %></div>
+
+    <%= f.label 'Modelo' %>
+    <%= f.text_field :model, class: 'form-control' %>
+    <div class='error_message'><%= @car.errors[:model].to_sentence %></div>
+
+    <%= f.label 'Patente' %>
+    <%= f.text_field :plate, class: 'form-control' %>
+    <div class='error_message'><%= @car.errors[:plate].to_sentence %></div>
+
+    <%= f.label 'Compañia de seguros' %>
+    <%= f.text_field :insurance, class: 'form-control' %>
+    <div class='error_message'><%= @car.errors[:insurance].to_sentence %></div>
+
+    <%= f.label 'Kilometraje' %>
+    <%= f.text_field :kilometers, default: 0, class: 'form-control' %>
+    <div class='error_message'><%= @car.errors[:kilometers].to_sentence %></div>
+
+    <div class="form-submit-close-btns">
+      <%= f.submit 'Agregar auto', class:'btn new_user' %>
+      <button data-action="click->turbomodals#submitEnd" class="btn new_user">Cerrar</button>
+    </div>
+  </div>
+<% end %>

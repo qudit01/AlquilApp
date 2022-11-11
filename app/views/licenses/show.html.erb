@@ -4,7 +4,7 @@
     <thead>
         <tr>
             <th>Foto de licencia </th><th><br>
-            <%= image_tag @license.photo.url %></th><br>
+            <%= image_tag @license.photo.url(:mid).to_s %></th><br>
             <% if @license.ok? %>
               <th>Fecha de vencimieto: </th><th><%= @license.expire %><br>
             <% end %>

@@ -1,0 +1,46 @@
+<% if current_user.client? %>
+<h1>Subi tu licencia para poder utilizar Alquilapp!</h1>
+<%else%>
+<h1>Revisa los datos de la licencia para validarla!</h1>
+<%end%>
+
+<%= form_for @license do |f| %>
+  <% if current_user.client? %>
+    <div class="form-group col-md-12">
+          <label style="margin-left: 0px; padding-left: 0px;" for="image-input" class="btn btn-warning upload-logo-btn">Subir foto</label>
+          <%= f.file_field :photo,
+            class: 'file_input',
+              accept: 'image/png, image/jpg, image/gif, image/jpeg',
+              onchange: 'readURL(this);',
+                    id: 'image-input',
+                      style: 'display: none;' %>
+    <img id="img_prev" src="#" alt="your image" style="display: none;" />
+    </div><br>
+  <%else%>
+    <%= f.label 'Foto de licencia' %>
+    <%= image_tag @license.photo.url(:mid).to_s %>
+  <%end%>
+  <% if current_user.admin? || current_user.supervisor? %>
+    <%= f.label 'Estado' %>
+    <%= f.select :state, [['Rechazada', 'rejected'], ['Valida', 'ok']], class: 'form-control' %><br>
+
+    <%= f.label 'Fecha de vencimiento' %>
+    <%= f.date_field :expire, class: 'form-control' %>
+
+    <%= f.label 'Mootivo de rechazo' %>
+    <%= f.text_field :motive, class: 'form-control' %>
+  <%end%>
+    <% if current_user.client? %>
+    <div class="form-submit-close-btns">
+      <%= f.submit 'Subir licencia', class:'btn new_user' %>
+      <button data-action="click->turbomodals#submitEnd" class="btn new_user">Cerrar</button>
+    </div>
+    <%else%>
+      <div class="form-submit-close-btns">
+      <%= f.submit 'Verificar licencia', class:'btn new_user' %>
+      <button data-action="click->turbomodals#submitEnd" class="btn new_user">Cerrar</button>
+    </div>
+    <%end%>
+  </div>
+<%end%>
+

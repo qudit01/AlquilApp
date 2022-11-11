@@ -28,8 +28,8 @@
         <td><%= c.model %></td>
         <td><%= c.insurance %></td>
         <td><%= c.kilometers %></td>
-        <td><%= link_to "Modificar", edit_car_path(c) %></td>
-        <td><%= button_to "Eliminar auto", remove_car_car_path(c), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }%></td>
+        <td><%= link_to "Modificar", edit_car_path(c),  class: 'btn' %></td>
+        <td><%= button_to "Eliminar auto", remove_car_car_path(c), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }, class: 'btn'%></td>
       </tr>
     </table>
   <% end %>

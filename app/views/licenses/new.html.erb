@@ -1,1 +1,12 @@
-<%= render 'form', method: :post %>
+<section class="index_user">
+<%= turbo_frame_tag :modal do %>
+  <div class="modals" data-controller="turbomodals">
+    <div class="form_container">
+      <div class="title">
+        <h1 class="add_edit_title"><%= 'Licencia' %></h1>
+      </div>
+      <%= render 'form_edit', method: :post %>
+    </div>
+  </div>
+<% end %>
+</section>
