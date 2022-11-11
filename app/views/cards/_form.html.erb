@@ -1,29 +1,29 @@
 <h1>Ingresá los datos de tu tarjeta</h1>
 
 <%= form_with model: @card, url: url, method: method, local: true, class: 'form_margin_top' do |f| %>
-      <%= f.label :number %>
+      <%= f.label 'Numero de tarjeta' %>
       <%= f.number_field :number, placeholder: 'Sin espacios!', class: 'textBox' %>
-      <div class="error_message"><% @card.errors[:number].to_sentence %></div>
+      <div class="error_message"><%= @card.errors[:number].to_sentence %></div>
 
       <%= f.label :pin %>
       <%= f.number_field :pin, class: 'textBox' %>
-      <div class="error_message"><% @card.errors[:pin].to_sentence %></div>
+      <div class="error_message"><%= @card.errors[:pin].to_sentence %></div>
 
-      <%= f.label :expiration %>
+      <%= f.label 'Fecha de expiración' %>
       <%= f.date_field :expiration, class: 'textBox' %>
-      <div class="error_message"><% @card.errors[:expiration].to_sentence %></div>
+      <div class="error_message"><%= @card.errors[:expiration].to_sentence %></div>
 
-      <%= f.label :owner %>
+      <%= f.label 'Dueño de la tarjeta' %>
       <%= f.text_field :owner, placeholder: 'Tal cual aparece en la tarjeta', class: 'textBox' %>
-      <div class="error_message"><% @card.errors[:owner].to_sentence %></div>
+      <div class="error_message"><%= @card.errors[:owner].to_sentence %></div>
 
-      <%= f.label :bank %>
+      <%= f.label 'Banco' %>
       <%= f.text_field :bank, placeholder: 'Nos facilita el tráfico en las transferencias', class: 'textBox' %>
-      <div class="error_message"><% @card.errors[:bank].to_sentence %></div>
+      <div class="error_message"><%= @card.errors[:bank].to_sentence %></div>
 
-      <%= f.label :kind %>
-      <%= f.select :kind, [['Crédito', :credit], ['Débito', :debit], ['Pre-paga', :pre_paid]], placeholder: 'Nos facilita el tráfico en las transferencias', class: 'textBox' %>
-      <div class="error_message"><% @card.errors[:kind].to_sentence %></div>
+      <%= f.label 'Tipo de tarjeta' %>
+      <%= f.select :kind, [[I18n.t('.credit'), 'credit'], [I18n.t('.debit'), 'debit'], [I18n.t('.pre_paid'), 'pre_paid']], {}, placeholder: 'Nos facilita el tráfico en las transferencias', class: 'textBox form-select' %>
+      <div class="error_message"><%= @card.errors[:kind].to_sentence %></div>
 
       <%= f.hidden_field :wallet_id, value: current_user.wallet.id %>
       <%= f.hidden_field :user_id, value: current_user.id %>

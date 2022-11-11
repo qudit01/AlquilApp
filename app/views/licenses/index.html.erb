@@ -1,6 +1,6 @@
 <div class="container">
-<% if @licenses.where(state:0).length==0 %>
-  <h5>No hay licencias pendientes de revision</h5>
+<% if @licenses.empty? %>
+  <h1>No hay licencias pendientes de revision</h1>
 <%else%>
 <% @licenses.each do |l| %>
     <h2>Listado de Licencias</h2>

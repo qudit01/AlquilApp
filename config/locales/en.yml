@@ -31,3 +31,13 @@
 
 en:
   hello: "Hello world"
+  cards:
+    card:
+      form:
+        kind:
+          credit: 'Crédito'
+          debit: 'Débito'
+          pre_paid: 'Pre paga'
+  credit: 'Crédito'
+  debit: 'Débito'
+  pre_paid: 'Pre paga'

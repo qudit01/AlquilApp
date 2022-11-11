@@ -1,3 +1,19 @@
-<h3><%=t('.welcome', name: current_user.name)%>!</h3>
-<h4><%=t('.ur_email', email: current_user.email)%></h4>
-<%= button_to t('.logout'), login_path , method: :delete %>
+<h1>Estos son tus datos</h1>
+<table class="users_table table table-hover">
+<tr>
+    <thead class="head_table">
+      <th class="name">Nombre </th>
+      <th class="name">Apellido </th>
+      <th class="name">DNI </th>
+      <th class="name">Mail </th>
+      <th class="name"><%= 'Tus tarjetas' if current_user.cards.present? %></th>
+    </thead>
+  </tr>
+  <tr>
+    <td class="table_field"><%= current_user.first_name %></td>
+    <td class="table_field"><%= current_user.last_name %></td>
+    <td class="table_field"><%= current_user.dni %></td>
+    <td class="table_field"><%= current_user.email %></td>
+    <td><%= link_to 'Ver tarjetas', wallet_cards_path(current_user.wallet), class: 'btn new_user' %></td>
+  </tr>
+</table>

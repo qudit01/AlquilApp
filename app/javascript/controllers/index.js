@@ -9,6 +9,9 @@ eagerLoadControllersFrom("controllers", application)
 import TurbomodalsController from "./turbomodals_controller.js"
 application.register("turbomodals", TurbomodalsController)
 
+import PreviewImgController from "./preview_img.js"
+application.register("previewimg", PreviewImgController)
+
 // Lazy load controllers as they appear in the DOM (remember not to preload controllers in import map!)
 // import { lazyLoadControllersFrom } from "@hotwired/stimulus-loading"
 // lazyLoadControllersFrom("controllers", application)
