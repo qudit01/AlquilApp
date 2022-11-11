@@ -9,14 +9,14 @@ class UserSessionsController < ApplicationController
     if @user.present? && @user.role? && !@user.blocked
       redirect_to(users_path, notice: 'Sesión iniciada!')
     else
-      flash.now[:alert] = 'Ingreso erróneo...'
-      render action: 'show', status: :unprocessable_entity
+      flash.now[:alert] = 'Email/Contraseña incorrecto'
+      render action: 'new', status: :unprocessable_entity
     end
   end
 
   def destroy
     logout
-    redirect_to root_path, status: :see_other, notice: 'Sesión cerrada!'
+    redirect_to(login_path, status: :see_other, notice: 'Sesión cerrada!')
   end
 
   private

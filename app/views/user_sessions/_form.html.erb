@@ -1,12 +1,15 @@
 <% if flash[:alert] %>
   <div class='alert'><%= flash[:alert] %></div>
 <% end %>
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+<% end %>
 <%= form_with url: user_sessions_path, method: :post , class: 'form_inicio' do |form| %>
   <%= form.label :email %>
   <%= form.text_field :email, class: 'textBox', placeholder: 'Ingrese su email' %>
   <%= form.label :password,'Contraseña' %>
   <%= form.password_field :password, class:'textBox', placeholder: 'Ingrese su contraseña' %>
   <br>
-  <%= form.submit 'Logearme', class: 'btn' %>
+  <%= form.submit 'Iniciar sesión', class: 'btn' %>
   <br>
 <% end %>
