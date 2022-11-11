@@ -1,0 +1,16 @@
+<main class="main">
+  <header>
+    <span class="session_span"><%= link_to 'Sesión', :login %></span>
+    <span class="right_session_span"><%= 'Registro' %></span>
+  </header>
+  <hr>
+  <div class="grid">
+    <section class="sign_in_img">
+      <%= image_tag 'Logo_1.png'%>
+    </section>
+    <aside class="aside_signup">
+      <h1> <%= 'Registrarme' %> </h1>
+      <%= render 'register' %>
+    </aside>
+  </div>
+</main>

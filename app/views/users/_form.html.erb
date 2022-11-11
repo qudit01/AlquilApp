@@ -1,0 +1,35 @@
+<%= form_with model: klass, url: url, method: method, local: true do |f| %>
+  <div class="edit-form-row">
+    <div class="edit-form-col form-group">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, class: 'form-control' %>
+      <div class='error_message'><%= @user.errors[:first_name].to_sentence %></div>
+    </div>
+
+    <div class="edit-form-col form-group">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, class: 'form-control' %>
+      <div class='error_message'><%= @user.errors[:last_name].to_sentence %></div>
+    </div>
+
+    <div class="edit-form-col form-group">
+      <%= f.label :dni %>
+      <%= f.text_field :dni, class: 'form-control' %>
+      <div class='error_message'><%= @user.errors[:dni].to_sentence %></div>
+    </div>
+
+    <div class="edit-form-col form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+      <div class='error_message'><%= @user.errors[:email].to_sentence %></div>
+    </div>
+
+    <div class="edit-form-col form-group">
+      <%= f.label :role %>
+      <%= f.select :role, [['Cliente', 'client'], ['Supervisor', 'supervisor'], ['Admin', 'admin']], class: 'form-select' %>
+      <div class='error_message'><%= @user.errors[:role].to_sentence %></div>
+    </div>
+
+    <%= f.submit 'Actualizar' %>
+  </div>
+<% end %>

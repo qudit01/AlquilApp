@@ -1,0 +1,51 @@
+<h1>Formulario general con todos los datos para autos</h1>
+
+<%= form_for @car do |f| %>
+  <div class="edit-form-row">
+    <div class="edit-form-col form-group">
+    <%= f.label :photo %>
+    <h5>Formatos admitidos: JPG, JPEG y PNG </h5>
+    <%= f.file_field :photo, class: 'form-select' %>
+    </div>
+
+  <div class="edit-form-row">
+    <div class="edit-form-col form-group">
+      <%= f.label :car_number %>
+      <%= f.number_field :car_number, class: 'form-control' %>
+    </div>
+
+  <div class="edit-form-row">
+    <div class="edit-form-col form-group">
+      <%= f.label :color %>
+      <%= f.text_field :color, class: 'form-control' %>
+    </div>
+
+  <div class="edit-form-row">
+    <div class="edit-form-col form-group">
+      <%= f.label :brand %>
+      <%= f.text_field :brand, class: 'form-control' %>
+    </div>
+
+    <div class="edit-form-col form-group">
+      <%= f.label :model %>
+      <%= f.text_field :model, class: 'form-control' %>
+    </div>
+
+    <div class="edit-form-col form-group">
+      <%= f.label :plate %>
+      <%= f.text_field :plate, class: 'form-control' %>
+    </div>
+
+    <div class="edit-form-col form-group">
+      <%= f.label :insurance %>
+      <%= f.text_field :insurance, class: 'form-control' %>
+    </div>
+
+    <div class="edit-form-col form-group">
+      <%= f.label :kilometers %>
+      <%= f.text_field :kilometers, default: 0, class: 'form-control' %>
+    </div>
+
+    <%= f.submit 'Agregar auto' %>
+  </div>
+<% end %>

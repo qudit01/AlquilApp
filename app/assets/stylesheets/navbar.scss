@@ -1,0 +1,121 @@
+.nav_pad {
+  padding: 1rem;
+}
+
+.nav_header {
+  background-color: #ff9900;
+}
+
+.nav_links{
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 2%;
+  clear: both;
+}
+
+.nav_links li{
+  display: inline-block;
+  padding: 0 20px;
+}
+
+.nav_links li a {
+  transition: all 0.3s ease 0s;  
+  text-decoration: none;
+  color: rgb(40, 141, 167);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.nav_links li a::hover {
+  background-color: #ff9a00;
+  border-radius: 0.20rem;
+}
+
+.nav_links button{
+  padding: 9px 25px;
+  height: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;  
+}
+
+.nav_links button::hover{
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 0.20rem;
+}
+
+.nav_item{
+  display: flex;
+  align-items: center;
+  filter: grayscale(100%) opacity(0.6);
+  transition: var(--transition-speed);
+}
+
+.nav_menu{
+  cursor: pointer;
+  margin-right: auto;
+}
+
+.nav_user{
+  cursor: pointer;
+  border: none;
+  margin-left: auto;
+}
+
+.nav_item:hover {
+  filter: grayscale(0%) opacity(1); 
+}
+
+body::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #fff164;
+}
+
+.rol-span {
+  font-style: italic;
+  color: #BEC2C4;
+}
+
+.mainmenubtn {
+  
+  background-color: skyblue;
+  color: white;
+  cursor: pointer;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  position: relative;
+  width: 3rem;
+}
+
+.dropdown-child {
+  display: none;
+  background-color: skyblue;
+  min-width: 200px;
+}
+
+.dropdown-child a {
+  color: blue;
+  padding: 20px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-child {
+  display: block;
+}
