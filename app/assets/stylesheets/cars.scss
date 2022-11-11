@@ -165,3 +165,20 @@ textarea {
   cursor: pointer;
   float: right
 }
+
+.add-car-span {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.add-car-span h2{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.add-car-span .btn{
+  border-radius: 2.216rem;
+}
