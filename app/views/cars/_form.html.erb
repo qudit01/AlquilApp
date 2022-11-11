@@ -32,6 +32,7 @@
       <div><%= klass.errors[:kilometers].to_sentence%></div>
     </div>
 
-    <%= f.submit 'Actualizar' %>
+    <%= f.submit 'Actualizar', data: { turbo_confirm: '¿Confirma la modificacion de datos del auto?' }  %>
+    
   </div>
 <% end %>

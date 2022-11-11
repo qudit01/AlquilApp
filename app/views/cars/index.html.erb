@@ -1,9 +1,8 @@
 <div class="container">
 <td><%= link_to "Agregar auto", new_car_path %></td>
-<% @cars.each do |c| %>
     <h2>Listado de Automoviles</h2>
     <table class="table">
-      <tr>
+          <tr>
         <thead>
           <th>Imagen: </th>
           <th>Numero de auto: </th>
@@ -15,6 +14,10 @@
           <th>Kilometros: </th>
         </thead>
       </tr>
+          </table>
+<% @cars.each do |c| %>
+    <table class="table">
+
       <tr>
         <td><%= image_tag c.photo.url(:thumb).to_s %></td>
         <td><%= c.car_number %></td>
@@ -24,8 +27,8 @@
         <td><%= c.model %></td>
         <td><%= c.insurance %></td>
         <td><%= c.kilometers %></td>
-        <td><%= link_to "Editar auto", edit_car_path(c) %></td>
-        <td><%= button_to "Eliminar auto", remove_car_car_path(c)%></td>
+        <td><%= link_to "Modificar", edit_car_path(c) %></td>
+        <td><%= button_to "Eliminar auto", remove_car_car_path(c), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }%></td>
       </tr>
     </table>
 <% end %>

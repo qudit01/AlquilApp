@@ -9,7 +9,7 @@ class CarsController < ApplicationController
     authorize Car
     @car.remove = true
     if @car.save
-      redirect_to cars_path, notice: "¡Auto eliminado correctamente!"
+      redirect_to cars_path, notice: "Auto eliminado con exito"
     end
   end
 
@@ -31,7 +31,7 @@ class CarsController < ApplicationController
     authorize Car
 
     if @car.update car_params
-      redirect_to car_path, success: 'Auto modificado exitosamente'
+      redirect_to cars_path, notice: 'Auto modificado exitosamente'
     else
       render :edit, status: :unprocessable_entity
     end

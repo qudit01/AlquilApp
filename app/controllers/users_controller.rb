@@ -52,7 +52,7 @@ class UsersController < ApplicationController
     if current_user.admin?
       @user.blocked=true
       if @user.save
-        redirect_to users_path
+        redirect_to users_path, notice: 'Usuario eliminado con exito'
       end
     else
       render :root_path
