@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= favicon_link_tag asset_path('Logo_3.png') %>
   </head>
 
   <body>
@@ -16,16 +17,20 @@
     <% end %>
     <%= turbo_frame_tag :modal %>
     <section>
+      <% if flash[:success] %>
+        <div class="success"><%= flash[:success] %></div>
+      <% end %>
+
       <% if flash[:notice] %>
-      <div class="notice"><%= flash[:notice] %></div>
+        <div class="notice"><%= flash[:notice] %></div>
       <% end %>
 
       <% if flash[:alert] %>
-      <div class="alert"><%= flash[:alert] %></div>
+        <div class="alert"><%= flash[:alert] %></div>
       <% end %>
 
       <% if flash[:error] %>
-      <%= flash[:error] %>
+        <div class="alert"><%= flash[:error] %></div>
       <% end %>
     </section>
     <%= yield %>
