@@ -1,10 +1,14 @@
-<%= form_with model: @wallet, url: url, method: method, local: true, class: 'form_margin_top' do |f| %>
-    <%= f.label 'Dinero a cargar' %>
-    <%= f.number_field :money, class: 'textBox' %>
+<% if flash[:alert] %>
+  <div class='alert'><%= flash[:alert] %></div>
+<% end %>
 
-    <%= f.label 'Tarjeta a utilizar' %>
-    <% cards = @wallet.cards.map { |card| [card.owner, card.id] } %>
-    <%= f.select :kind, cards, {}, class: 'textBox form-select' %>
+<%= form_with model: @wallet, url: url, method: method, local: true, class: 'form_margin_top' do |f| %>
+  <%= f.label 'Dinero a cargar' %>
+  <%= f.number_field :some_money, class: 'textBox', default: 0 %>
+
+  <%= f.label 'Tarjeta a utilizar' %>
+  <% cards = @wallet.cards.map { |card| [card.owner, card.id] } %>
+  <%= f.select :kind, cards, {}, class: 'textBox form-select' %>
 
   <div class="form-submit-close-btns">
     <%= f.submit 'Confirmar transacción', class:'btn new_user' %>
