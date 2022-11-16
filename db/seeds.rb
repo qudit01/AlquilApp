@@ -6,40 +6,47 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+users = []
 3.times do |index|
+  puts 'Generando usuario...'
   User.create(first_name: 'Emi',
-              last_name: "Seedeado",
+              last_name: 'Seedeado',
               role: 1,
               email: "emilio_#{index}@gmail.com",
               password: 1234,
               password_confirmation: 1234,
-              dni: 1_234_123 + index)
+              dni: 1_234_123 + index,
+              birthday: Time.zone.now - 18.years)
 end
 
 3.times do |index|
+  puts 'Generando billetera...'
   Wallet.create(money: 100_000,
                 user: User.find(index + 1))
 end
 
 3.times do |index|
+  puts 'Generando tarjetas...'
   Card.create(number: 1_234_432_112_341_230 + index,
               pin: 120 + index,
               expiration: Time.zone.now + 100.days + index.days,
-              owner: "Un nombre sedeeado",
-              bank: "Banco sedeeado",
+              owner: 'Un nombre sedeeado',
+              bank: 'Banco sedeeado',
               kind: rand(0..2),
               user: User.find(index + 1),
               wallet: User.find(index + 1).wallet)
 end
 
 3.times do |index|
+  puts 'Generando usuario...'
   User.create(first_name: 'Emi',
-              last_name: "Seedeado",
+              last_name: 'Seedeado',
               role: 2,
-              email: "emilio_#{index+2}@gmail.com",
+              email: "emilio_#{index + 2}@gmail.com",
               password: 1234,
               password_confirmation: 1234,
-              dni: 1_234_123 + index+2)
+              dni: 1_234_123 + index + 2,
+              birthday: Time.zone.now - 18.years)
 end
 
 3.times do |index|
@@ -48,11 +55,12 @@ end
 end
 
 3.times do |index|
+  puts 'Generando tarjetas...'
   Card.create(number: 1_234_432_112_341_230 + index,
-              pin: 120 + index+2,
+              pin: 120 + index + 2,
               expiration: Time.zone.now + 100.days + index.days,
-              owner: "Un nombre sedeeado",
-              bank: "Banco sedeeado",
+              owner: 'Un nombre sedeeado',
+              bank: 'Banco sedeeado',
               kind: rand(0..2),
               user: User.find(index + 3),
               wallet: User.find(index + 3).wallet)
