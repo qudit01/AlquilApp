@@ -6,7 +6,7 @@ class WalletsController < ApplicationController
   end
 
   def create
-    @wallet = current_user.wallet.build(wallet_params)
+    @wallet = Wallet.create(wallet_params)
     if @wallet.save
       redirect_to wallet_path, success: 'Billetera creada con éxito'
     else
@@ -18,7 +18,7 @@ class WalletsController < ApplicationController
 
   def update
     if @wallet.update wallet_params
-      redirect_to wallet_path, success: 'Billetera creada con éxito'
+      redirect_to user_path(@wallet.user), success: 'Dinero cargado!'
     else
       render :edit, status: :unprocessable_entity
     end

@@ -1,11 +1,13 @@
-<h1>Formulario para la billetera </h1>
+<%= form_with model: @wallet, url: url, method: method, local: true, class: 'form_margin_top' do |f| %>
+    <%= f.label 'Dinero a cargar' %>
+    <%= f.number_field :money, class: 'textBox' %>
 
-<%= form_with model: @wallet, url: user_wallets_path(@wallet, user_id: 1), method: :post, local: true do |f| %>
-  <div class="edit-form-row">
-    <div class="edit-form-col form-group">
-      <%= f.label :money %>
-      <%= f.number_field :money, class: 'form-control' %>
-    </div>
-    <%= f.submit 'Actualizar' %>
+    <%= f.label 'Tarjeta a utilizar' %>
+    <% cards = @wallet.cards.map { |card| [card.owner, card.id] } %>
+    <%= f.select :kind, cards, {}, class: 'textBox form-select' %>
+
+  <div class="form-submit-close-btns">
+    <%= f.submit 'Confirmar transacción', class:'btn new_user' %>
+    <button data-action="click->turbomodals#submitEnd" class="btn new_user">Cerrar</button>
   </div>
 <% end %>
