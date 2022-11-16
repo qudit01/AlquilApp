@@ -1,28 +1,36 @@
-<section class="index_user">
-  <section>
-    <table class='users_table'>
-      <thead>
-        <tr class='head_table'>
-          <th class='name'>Dueño</th>
-          <th class='name'>Banco</th>
-          <th class='name'>Numero</th>
-          <th class='name'>Tipo de tarjeta</th>
-          <th class='name'>Fecha de expiración</th>
-          <th class='name'>Pin</th>
-        </tr>
-      </thead>
-      <tbody id="users">
-        <% current_user.cards.each do |card| %>
-          <tr>
-            <td><%= card.owner %></td>
-            <td><%= card.bank %></td>
-            <td><%= card.number %></td>
-            <td><%= card.kind %></td>
-            <td><%= card.expiration %></td>
-            <td><%= card.pin %></td>
+<% if current_user.cards.empty? %>
+  <h1>No tienes ninguna tarjeta cargada por el momento!</h1>
+  <h1>
+    Haz click aquí para cargar una tarjeta a la plataforma:
+    <%= link_to "Agregar tarjeta", new_wallet_card_path(current_user.wallet) %>
+  </h1>
+<% else %>
+  <section class="index_user">
+    <section>
+      <table class='users_table'>
+        <thead>
+          <tr class='head_table'>
+            <th class='name'>Dueño</th>
+            <th class='name'>Banco</th>
+            <th class='name'>Numero</th>
+            <th class='name'>Tipo de tarjeta</th>
+            <th class='name'>Fecha de expiración</th>
+            <th class='name'>Pin</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody id="users">
+          <% current_user.cards.each do |card| %>
+            <tr>
+              <td><%= card.owner %></td>
+              <td><%= card.bank %></td>
+              <td><%= card.number %></td>
+              <td><%= card.kind %></td>
+              <td><%= card.expiration %></td>
+              <td><%= card.pin %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
   </section>
-</section>
+<% end %>

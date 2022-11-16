@@ -13,7 +13,7 @@ class UserRegistrationsController < ApplicationController
       auto_login(@user, notice: 'Registro exitoso!')
       redirect_to(users_path, notice: 'Registro exitoso!')
     else
-      flash.now[:alert] = 'Registro erróneo...'
+      flash.now[:alert] = 'Se produjo un error al registrarse, revisar los campos'
       render action: 'new'
     end
   end
@@ -21,6 +21,6 @@ class UserRegistrationsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :dni, :role, :email, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :dni, :birthday, :role, :email, :password, :password_confirmation)
   end
 end
