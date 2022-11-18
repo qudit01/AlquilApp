@@ -23,6 +23,19 @@ class User < ApplicationRecord
     "#{first_name} #{last_name.capitalize}"
   end
 
+  def rol
+    if role=='supervisor'
+      "#{'Supervisor'}"
+    else
+      if role=='admin'
+        "#{'Administrador'}"
+      else
+        "#{'Cliente'}"
+      end
+    end
+  end
+
+
   def age
     Time.zone.now.year - birthday.year
   end
