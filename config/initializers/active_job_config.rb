@@ -1,0 +1,1 @@
+Active::Base.queue_adapter = :sidekiq

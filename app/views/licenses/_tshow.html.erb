@@ -1,0 +1,22 @@
+
+<div class="container">
+<div class="table table-hover">
+    <thead>
+        <tr>
+            <th>Foto de licencia de </th><th><%= @license.user&.name+', '%><%= @license.user&.age%><th> años</th><br>
+            <%= image_tag @license.photo.url(:mid).to_s %></th><br>
+            <% if @license.ok? %>
+              <th>Fecha de vencimieto: </th><th><%= @license.expire %><br>
+            <% end %>
+            <th>Estado: </th><th><%= @license&.estado %><br>
+            <% if @license.rejected? %>
+              <th>Motivo de rechazo: </th><th><%= @license.motive %>
+            <% end %>
+            <% if @license.toexpire? || @license.rejected? || @license.expired?%><br>
+              <%= link_to "Resubir licencia", edit_license_path, class: 'btn' %>
+            <% end %>
+        </tr>
+    </thead>
+
+</div>
+</div>
