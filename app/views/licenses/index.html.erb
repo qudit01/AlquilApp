@@ -13,8 +13,8 @@
       </tr>
       <tr>
         <td><%= image_tag l.photo.url(:thumb).to_s %></td>
-        <td><%= l.state %></td>
-        <td><%= link_to "Verificar licencia", edit_license_path(l) %></td>
+        <td><%= l&.estado %></td>
+        <td><%= link_to "Verificar licencia", edit_license_path(l), class: 'btn' %></td>
       </tr>
     </table>
 <% end %>

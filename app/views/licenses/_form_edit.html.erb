@@ -2,6 +2,7 @@
 <h1>Subi tu licencia para poder utilizar Alquilapp!</h1>
 <%else%>
 <h1>Revisa los datos de la licencia para validarla!</h1>
+<h1>Licencia de <%= @license.user&.name+', '%><%= @license.user&.age%><th> años</th></h1>
 <%end%>
 
 <%= form_for @license do |f| %>

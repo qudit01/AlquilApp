@@ -22,6 +22,10 @@
   <%= form.number_field :dni, class: 'textBox', placeholder: 'Ingrese el dni' %>
   <div class='error_message'><%= @user.errors[:dni].to_sentence %></div>
 
+  <%= f.label 'Fecha de nacimiento' %>
+  <%= f.date_field :birthday, class: 'form-control' %>
+  <div class='error_message'><%= @user.errors[:birthday].to_sentence %></div>
+
   <%= form.label 'Contraseña' %>
   <%= form.password_field :password, class: 'textBox', placeholder: 'Ingrese la contraseña' %>
   <div class='error_message'><%= @user.errors[:password].to_sentence %></div>

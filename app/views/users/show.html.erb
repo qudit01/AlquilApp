@@ -6,6 +6,8 @@
       <th class="name">Apellido </th>
       <th class="name">DNI </th>
       <th class="name">Mail </th>
+      <th class="name">Edad </th>
+      <th class="name">Dinero disponible</th>
       <th class="name"><%= 'Tus tarjetas' if current_user.cards.present? %></th>
     </thead>
   </tr>
@@ -14,6 +16,8 @@
     <td class="table_field"><%= current_user.last_name %></td>
     <td class="table_field"><%= current_user.dni %></td>
     <td class="table_field"><%= current_user.email %></td>
-    <td><%= link_to 'Ver tarjetas', wallet_cards_path(current_user.wallet), class: 'btn new_user' %></td>
+    <td class="table_field"><%= current_user.age %> años</td>
+    <td class="table_field">$<%= current_user.wallet.money %></td>
+    <td><%= link_to 'Ver mis tarjetas', wallet_cards_path(current_user.wallet), class: 'btn new_user' %></td>
   </tr>
 </table>

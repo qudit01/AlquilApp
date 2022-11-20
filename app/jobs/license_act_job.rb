@@ -1,9 +1,8 @@
 class LicenseActJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
+  def perform
     @licenses = License.where(state:"ok")
-    @licenses = License.all
     @licenses.each do |l|
       if (l.expire.month == Time.now.month+3)
         l.state="toexpire"
