@@ -4,6 +4,20 @@
 
 <%= form_with model: @user, url: register_user_path, method: :post , class: 'form_inicio' do |form| %>
 
+  <%# Geolocalizacion %>
+  <script>
+	  navigator.geolocation.getCurrentPosition((pos) => 
+      {document.querySelector("#user_latitude").value =`${pos.coords.latitude}`;
+	  });
+	
+    navigator.geolocation.getCurrentPosition((pos) => 
+      {document.querySelector("#user_longitude").value =`${pos.coords.longitude}`;
+    });
+  </script>
+  
+  <%= form.hidden_field :latitude %>
+  <%= form.hidden_field :longitude %>
+
   <%= form.label :nombre %>
   <%= form.text_field :first_name, class: 'textBox', placeholder: 'Ingrese su nombre' %>
   <div class='error_message'><%= @user.errors[:first_name].to_sentence %></div>
@@ -33,7 +47,15 @@
   <div class='error_message'><%= @user.errors[:password_confirmation].to_sentence %></div>
 
   <%= form.hidden_field :role, value: :client %>
+  <%= form.text_field :location_point, hidden: true %>
+  <%= form.hidden_field :location_point, hidden: true %>
   <br>
   <%= form.submit 'Registrarme', class: 'btn' %>
   <br>
+
+
+
 <% end %>
+
+
+  

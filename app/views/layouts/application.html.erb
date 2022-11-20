@@ -34,5 +34,19 @@
       <% end %>
     </section>
     <%= yield %>
+
+    <%= form_with url: locations_path, html: { id: "location-form" } do |f| %>
+	  <%= f.hidden_field :lat %>
+	  <%= f.hidden_field :lng %>
+	<% end %>
+
+	<script>
+	  navigator.geolocation.getCurrentPosition((pos) => {
+	    document.querySelector("#lat").value = pos.coords.latitude;
+	    document.querySelector("#lng").value = pos.coords.longitude;
+	    document.querySelector("#location-form").requestSubmit();
+	  });
+	</script>
+  
   </body>
 </html>

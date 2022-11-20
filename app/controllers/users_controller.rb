@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
   def edit; end
 
+
   def index
     if current_user.admin?
       @user = User.where(role: "supervisor", blocked: false)
@@ -93,6 +94,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :role, :dni, :birthday)
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :role, :dni, :birthday, :latitude, :longitude)
   end
 end
