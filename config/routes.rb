@@ -38,6 +38,8 @@ Rails.application.routes.draw do
   end
 
   resources :licenses
+
+  resources :locations, only: :create
   
  
 
