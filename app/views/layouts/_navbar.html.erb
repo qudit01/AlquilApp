@@ -1,7 +1,7 @@
 <section class="nav_header">
   <nav class="nav_pad">
     <ul class="nav_links">
-      <li><%= link_to 'Alquilapp', users_path, class:"nav_item" %></li>
+      <li><%= link_to 'Alquilapp', cars_path, class:"nav_item" %></li>
       <li><%= link_to 'Listado de usuarios', users_path, class:"nav_item" if current_user&.admin? || current_user&.supervisor? %></li>
       <li><%= link_to 'Agregar tarjeta', new_wallet_card_path(current_user.wallet), class: 'nav_item' %></li>
       <% if current_user.cards.present? %>
