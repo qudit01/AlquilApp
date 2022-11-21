@@ -1,6 +1,7 @@
 class LicensesController < ApplicationController
-  
-  LicenseActJob.set(wait: 1.second).perform_later
+
+    LicenseActJob.set.perform_later
+
 
   def index
     if current_user.admin? || current_user.supervisor?
@@ -57,6 +58,8 @@ class LicensesController < ApplicationController
         end
     end
   end
+
+
 
   private
 
