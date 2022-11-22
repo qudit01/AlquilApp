@@ -20,11 +20,13 @@ class CarsController < ApplicationController
     else 
       redirect_to root_path, success: 'No hay autos cargados en la base datos'
     end
-    if @car.latitude != nil && @car.longitude != nil
-      c1 = current_user.latitude - @car.latitude
-      c2 = current_user.longitude - @car.longitude
-      @car.position = Math.sqrt((c1 * c1) + (c2 * c2))
-
+    @cars.each do |c|
+      if c.latitude != nil && c.longitude != nil
+        c1 = current_user.latitude - c.latitude
+        c2 = current_user.longitude - c.longitude
+        c.position = Math.sqrt((c1 * c1) + (c2 * c2))
+      end
+    end
   end
 
   def show
