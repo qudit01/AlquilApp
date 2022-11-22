@@ -20,13 +20,16 @@ class UsersController < ApplicationController
     if current_user.admin?
       @user = User.where(role: "supervisor", blocked: false)
     else 
-      redirect_to root_path, success: 'No podes'
+      render :edit, status: :unprocessable_entity
     end
   end
 
-
   def update
-    return unless @user.save! notice: 'Usuario modificado exitosamente'
+    if @user.update user_params
+      redirect_to users_path, notice: 'Sus datos se modificaron exitosamente'
+    else
+      render :edit, notice: 'noo'
+    end
   end
 
   def new_supervisor 

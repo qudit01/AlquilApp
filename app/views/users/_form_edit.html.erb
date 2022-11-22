@@ -1,0 +1,23 @@
+<%= form_for @user do |f| %>
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name, class: 'form-control' %>
+  <div class='error_message'><%= @user.errors[:first_name].to_sentence %></div>
+
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name, class: 'form-control' %>
+  <div class='error_message'><%= @user.errors[:last_name].to_sentence %></div>
+
+  <%= f.label :dni %>
+  <%= f.text_field :dni, class: 'form-control' %>
+  <div class='error_message'><%= @user.errors[:dni].to_sentence %></div>
+
+  <%= f.label 'Fecha de nacimiento' %>
+  <%= f.date_field :birthday, class: 'form-control' %>
+  <div class='error_message'><%= @user.errors[:birthday].to_sentence %></div>
+
+  <%= f.label :email %>
+  <%= f.email_field :email, class: 'form-control' %>
+  <div class='error_message'><%= @user.errors[:email].to_sentence %></div>
+
+  <%= f.submit 'Actualizar' %>
+<% end %>
