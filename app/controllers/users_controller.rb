@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     if current_user.admin?
       @user = User.where(role: "supervisor", blocked: false)
     else 
-      render :edit, status: :unprocessable_entity
+      redirect_to root_path, success: 'No podes'
     end
   end
 
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     if @user.update user_params
       redirect_to users_path, notice: 'Sus datos se modificaron exitosamente'
     else
-      render :edit, notice: 'noo'
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -99,4 +99,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :role, :dni, :birthday, :latitude, :longitude)
   end
+
 end
