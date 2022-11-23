@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get 'edit_supervisor', to: :edit_supervisor
       post 'update_supervisor', to: :update_supervisor
       post 'delete_supervisor', to: :delete_supervisor
+      get 'show_supervisor', to: :show_supervisor
     end
     resources :wallets, shallow: true do
       resources :cards do

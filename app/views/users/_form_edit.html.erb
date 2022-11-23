@@ -20,7 +20,7 @@
   <div class='error_message'><%= @user.errors[:email].to_sentence %></div>
 
   <div class="form-submit-close-btns">
-      <%= f.submit 'Modificar datos', class:'btn new_user' %>
-      <td><%= link_to 'Cerrar', users_path(current_user), class: 'btn new_user' %></td>
-    </div>
+    <%= f.submit 'Modificar datos', class:'btn new_user' %>
+    <td><%= link_to 'Cerrar', users_path(current_user), class: 'btn new_user' %></td>
+  </div>
 <% end %>
