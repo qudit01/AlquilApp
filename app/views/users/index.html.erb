@@ -1,10 +1,11 @@
-<h1>Página principal</h1>
 <div class="container">
-<td><%= link_to "Agregar supervisor", new_supervisor_path, data: { turbo_frame: 'modal' } %></td>
-<% if !@user.nil? %>
-<h2>Listado de Usuarios Supervisores</h2>
+  <span class="add-car-span">
+    <h2>Listado de Usuarios Supervisores</h2>
+    <td><%= link_to "Agregar supervisor", new_supervisor_path, data: { turbo_frame: 'modal' }, class: 'btn' %></td>
+  </span>
+  <% if !@user.nil? %>
     <table class="table">
-    <tr>
+      <tr>
         <thead>
           <th>Nombre </th>
           <th>Apellido </th>
@@ -23,8 +24,7 @@
       </tr>
     <% end %>
     </table>
-<%else%>
+  <% else %>
     <h3>No hay supervisores</h3>
-<% end %>
-
+  <% end %>
 </div>
