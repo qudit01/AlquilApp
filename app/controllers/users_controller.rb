@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
   def edit; end
 
+
   def index
     if current_user.admin?
       @user = User.where(role: "supervisor", blocked: false)
@@ -23,9 +24,12 @@ class UsersController < ApplicationController
     end
   end
 
-
   def update
-    return unless @user.save! notice: 'Usuario modificado exitosamente'
+    if @user.update user_params
+      redirect_to users_path, notice: 'Sus datos se modificaron exitosamente'
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def new_supervisor 
@@ -93,6 +97,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :role, :dni, :birthday)
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :role, :dni, :birthday, :latitude, :longitude)
   end
+
 end

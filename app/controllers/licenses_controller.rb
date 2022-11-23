@@ -1,5 +1,8 @@
 class LicensesController < ApplicationController
-  
+
+    LicenseActJob.set.perform_later
+
+
   def index
     if current_user.admin? || current_user.supervisor?
       @licenses = License.where(state:0)
@@ -39,7 +42,8 @@ class LicensesController < ApplicationController
     @license = License.find(params[:id])
     if current_user.client?
       @license.state="pending"
-        if @license.update(license_params)
+        if @license.update(upload_photo)
+          flash[:notice] = "La foto ha sido subida con exito, sera corroborada por nuestro personal a la brevedad para que pueda continuar utilizando nuestros servicios"
           redirect_to licenses_path
         else
           flash[:notice] = "Por favor, subir un formato de imagen admitido (JPG, JPEG o PNG)"
@@ -54,6 +58,8 @@ class LicensesController < ApplicationController
         end
     end
   end
+
+
 
   private
 

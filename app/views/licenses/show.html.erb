@@ -1,21 +1,13 @@
-
-<div class="container">
-<div class="table table-hover">
-    <thead>
-        <tr>
-            <th>Foto de licencia </th><th><br>
-            <%= image_tag @license.photo.url(:mid).to_s %></th><br>
-            <% if @license.ok? %>
-              <th>Fecha de vencimieto: </th><th><%= @license.expire %><br>
-            <% end %>
-            <th>Estado: </th><th><%= @license.state %><br>
-            <% if @license.rejected? %>
-              <th>Motivo de rechazo: </th><th><%= @license.motive %>
-            <% end %>
-            <% if @license.toexpire? || @license.rejected? || @license.expired?%><br>
-              <%= link_to "Resubir licencia", edit_license_path %>
-            <% end %>
-        </tr>
-    </thead>
-</div>
-</div>
+<section class="index_user">
+<%= turbo_frame_tag :modal do %>
+  <div class="modals" data-controller="turbomodals">
+    <div class="form_container">
+      <div class="title">
+        <h1 class="add_edit_title"><%= 'Licencia de conducir' %></h1>
+      </div>
+      <%= render 'tshow', method: :get %>
+      <%= link_to "Cerrar", root_path, class: 'btn' %>
+    </div>
+  </div>
+<% end %>
+</section>

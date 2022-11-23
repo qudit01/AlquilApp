@@ -20,6 +20,13 @@ class CarsController < ApplicationController
     else 
       redirect_to root_path, success: 'No hay autos cargados en la base datos'
     end
+    @cars.each do |c|
+      if c.latitude != nil && c.longitude != nil
+        c1 = current_user.latitude - c.latitude
+        c2 = current_user.longitude - c.longitude
+        c.position = Math.sqrt((c1 * c1) + (c2 * c2))
+      end
+    end
   end
 
   def show
@@ -64,7 +71,7 @@ class CarsController < ApplicationController
   end
 
   def car_params
-    params.require(:car).permit(:plate, :insurance, :brand, :model, :kilometers, :car_number, :color, :photo)
+    params.require(:car).permit(:plate, :insurance, :brand, :model, :kilometers, :car_number, :color, :photo, :latitude, :longitude, :position)
   end
 
   def find_car
