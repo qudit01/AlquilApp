@@ -1,6 +1,6 @@
-<turbo-stream action="prepend" target="cars">
+<turbo-stream action="replace" target='<%= dom_id(@user) %>'>
   <template>
-    <%= render @car %>
+    <%= render @users %>
   </template>
 </turbo-stream>
 <turbo-stream action="update" target="modal">

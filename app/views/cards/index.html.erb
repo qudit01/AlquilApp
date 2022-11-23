@@ -2,7 +2,7 @@
   <h1>No tienes ninguna tarjeta cargada por el momento!</h1>
   <h1>
     Haz click aquí para cargar una tarjeta a la plataforma:
-    <%= link_to "Agregar tarjeta", new_wallet_card_path(current_user.wallet) %>
+    <%= link_to "Agregar tarjeta", new_wallet_card_path(current_user.wallet), data: {turbo_frame: 'modal'} %>
   </h1>
 <% else %>
   <section class="index_user">

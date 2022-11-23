@@ -24,9 +24,12 @@ class UsersController < ApplicationController
     end
   end
 
-
   def update
-    return unless @user.save! notice: 'Usuario modificado exitosamente'
+    if @user.update user_params
+      redirect_to users_path, notice: 'Sus datos se modificaron exitosamente'
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def new_supervisor 
@@ -60,9 +63,8 @@ class UsersController < ApplicationController
     end
   end
 
-
   def edit_supervisor
-    authorize current_user
+    authorize User
     if @user.supervisor?
       render :edit_supervisor
     else
@@ -71,9 +73,9 @@ class UsersController < ApplicationController
   end
 
   def update_supervisor
-    authorize current_user
+    authorize User
     if @user.update user_params
-      redirect_to @user
+      redirect_to show_supervisor_user_path(@user), notice: 'Usuario editado con éxito'
     else
       render :edit_supervisor
     end
@@ -96,4 +98,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :role, :dni, :birthday, :latitude, :longitude)
   end
+
 end

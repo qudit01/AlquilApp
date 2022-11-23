@@ -1,7 +1,7 @@
 <div class="container">
   <span class="add-car-span">
     <h2>Listado de Automoviles</h2>
-    <%= link_to "Agregar auto", new_car_path, class: 'btn' %>
+    <%= link_to "Agregar auto", new_car_path, data: {turbo_frame: "modal"}, class: 'btn' %>
   </span>
   <table class="table">
     <tr>
@@ -16,9 +16,8 @@
         <th>Kilometros: </th>
       </thead>
     </tr>
-  </table>
   <% @cars.each do |c| %>
-    <table class="table">
+    <tbody>
       <tr>
         <td><%= image_tag c.photo.url(:thumb).to_s %></td>
         <td><%= c.car_number %></td>
@@ -28,10 +27,11 @@
         <td><%= c.model %></td>
         <td><%= c.insurance %></td>
         <td><%= c.kilometers %></td>
+        <td><%= link_to 'Modificar', edit_car_path(c), data: { turbo_frame: 'modal' },  class: 'btn' %></td>
+        <td><%= link_to "Ver mas detalles", car_path(c),  class: 'btn' %></td>
+        <td><%= button_to "Eliminar auto", remove_car_car_path(c), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }, class: 'btn'%></td>
       </tr>
-      <td><%= link_to "Modificar", edit_car_path(c),  class: 'btn' %></td>
-      <td><%= link_to "Ver mas detalles", car_path(c),  class: 'btn' %></td>
-      <td><%= button_to "Eliminar auto", remove_car_car_path(c), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }, class: 'btn'%></td>
-    </table>
+    </tbody>
   <% end %>
+  </table>
 </div>

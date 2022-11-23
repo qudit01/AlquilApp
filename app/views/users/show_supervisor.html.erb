@@ -1,0 +1,19 @@
+<h1>Datos del superusuario</h1>
+<table class="users_table table table-hover">
+<tr>
+    <thead class="head_table">
+      <th class="name">Nombre </th>
+      <th class="name">Apellido </th>
+      <th class="name">DNI </th>
+      <th class="name">Mail </th>
+      <th class="name">Edad </th>
+    </thead>
+  </tr>
+  <tr>
+    <td class="table_field"><%= @user.first_name %></td>
+    <td class="table_field"><%= @user.last_name %></td>
+    <td class="table_field"><%= @user.dni %></td>
+    <td class="table_field"><%= @user.email %></td>
+    <td class="table_field"><%= @user.age %> años</td>
+  </tr>
+</table>

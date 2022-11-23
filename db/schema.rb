@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_15_231534) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_18_201642) do
   create_table "cards", force: :cascade do |t|
     t.integer "number", null: false
     t.integer "pin", null: false
@@ -38,6 +38,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_231534) do
     t.string "color"
     t.string "photo"
     t.boolean "remove", default: false
+    t.float "latitude"
+    t.float "longitude"
+    t.float "position"
   end
 
   create_table "licenses", force: :cascade do |t|
@@ -64,6 +67,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_15_231534) do
     t.integer "license_id"
     t.boolean "blocked", default: false
     t.datetime "birthday", null: false
+    t.float "latitude"
+    t.float "longitude"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["license_id"], name: "index_users_on_license_id"
     t.index ["wallet_id"], name: "index_users_on_wallet_id"
