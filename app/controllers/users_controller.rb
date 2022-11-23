@@ -63,9 +63,8 @@ class UsersController < ApplicationController
     end
   end
 
-
   def edit_supervisor
-    authorize current_user
+    authorize User
     if @user.supervisor?
       render :edit_supervisor
     else
@@ -74,9 +73,9 @@ class UsersController < ApplicationController
   end
 
   def update_supervisor
-    authorize current_user
+    authorize User
     if @user.update user_params
-      redirect_to @user
+      redirect_to show_supervisor_user_path(@user), notice: 'Usuario editado con éxito'
     else
       render :edit_supervisor
     end

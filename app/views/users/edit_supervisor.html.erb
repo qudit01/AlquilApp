@@ -1,2 +1,12 @@
-<h1>Formulario para editar usuario supervisor</h1>
-<%= render 'form', role: 'supervisor', klass: @user, url: update_supervisor_user_path(@user), method: :put %>
+<section class="index_user">
+<%= turbo_frame_tag :modal do %>
+  <div class="modals" data-controller="turbomodals">
+    <div class="form_container">
+      <div class="title">
+        <h1 class="add_edit_title"><%= 'Modificar superusuario' %></h1>
+      </div>
+      <%= render 'form', role: 'supervisor', klass: @user, url: update_supervisor_user_path(@user), method: :post %>
+    </div>
+  </div>
+<% end %>
+</section>

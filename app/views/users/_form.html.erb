@@ -8,7 +8,7 @@
   <div class='error_message'><%= @user.errors[:last_name].to_sentence %></div>
 
   <%= f.label :dni %>
-  <%= f.text_field :dni, class: 'form-control' %>
+  <%= f.text_field :dni, class: 'form-control', disabled: true %>
   <div class='error_message'><%= @user.errors[:dni].to_sentence %></div>
 
   <%= f.label 'Fecha de nacimiento' %>
@@ -16,12 +16,15 @@
   <div class='error_message'><%= @user.errors[:birthday].to_sentence %></div>
 
   <%= f.label :email %>
-  <%= f.email_field :email, class: 'form-control' %>
+  <%= f.email_field :email, class: 'form-control', disabled: true %>
   <div class='error_message'><%= @user.errors[:email].to_sentence %></div>
 
   <%= f.label :role %>
   <%= f.select :role, [['Cliente', 'client'], ['Supervisor', 'supervisor'], ['Admin', 'admin']], class: 'form-select' %>
   <div class='error_message'><%= @user.errors[:role].to_sentence %></div>
 
-  <%= f.submit 'Actualizar' %>
+  <div class="form-submit-close-btns">
+    <%= f.submit 'Actualizar usuario', class:'btn new_user' %>
+    <button data-action="click->turbomodals#submitEnd" class="btn new_user">Cerrar</button>
+  </div>
 <% end %>
