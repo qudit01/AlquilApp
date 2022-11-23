@@ -1,10 +1,10 @@
-<h1>Usuario específico</h1>
+<h1>Tarjeta específica</h1>
 <section class="user-show-row">
   <aside class="user-show-col">
     <%= @wallet.user.name %>
-    <%= @wallet.cards do |card| %>
+    <% @wallet.cards do |card| %>
       <%= card.bank %>
-      <%= card.owner.first_name card.owner.last_name %>
+      <%= card.owner card.owner %>
       <%= card.kind %>
     <% end if @wallet.cards.present? %>
     <%= @wallet.money %>
