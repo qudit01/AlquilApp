@@ -7,6 +7,7 @@ class UserRegistrationsController < ApplicationController
   end
 
   def create
+    debugger
     @user = User.new user_params
     @user.wallet = Wallet.new
     if @user.save

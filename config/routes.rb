@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post 'login', to: 'user_sessions#create'
   get 'new_supervisor', to: 'users#new_supervisor'
   post 'create_supervisor', to: 'users#create_supervisor'
-  get 'logout', to: 'user_sessions#destroy', as: :logout
+  delete 'logout', to: 'user_sessions#destroy', as: :logout
   root 'users#show'
 
   resources :user_sessions, only: %i[new create destroy]
