@@ -14,7 +14,6 @@
         <th>Modelo: </th>
         <th>Seguro: </th>
         <th>Kilometros: </th>
-        <th>Acciones </th>
       </thead>
     </tr>
   <% @cars.each do |c| %>
@@ -28,11 +27,9 @@
         <td><%= c.model %></td>
         <td><%= c.insurance %></td>
         <td><%= c.kilometers %></td>
-        <td>
-          <%= link_to 'Modificar', edit_car_path(c), data: { turbo_frame: 'modal' },  class: 'btn' %>
-          <%= link_to "Ver mas detalles", car_path(c),  class: 'btn' %>
-          <%= button_to "Eliminar auto", remove_car_car_path(c), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }, class: 'btn'%>
-        </td>
+        <td><%= link_to 'Modificar', edit_car_path(c), data: { turbo_frame: 'modal' },  class: 'btn' %></td>
+        <td><%= link_to "Ver mas detalles", car_path(c),  class: 'btn' %></td>
+        <td><%= button_to "Eliminar auto", remove_car_car_path(c), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }, class: 'btn'%></td>
       </tr>
     </tbody>
   <% end %>
