@@ -1,37 +1,8 @@
-<div class="container">
-  <span class="add-car-span">
-    <h2>Listado de Automoviles</h2>
-    <%= link_to "Agregar auto", new_car_path, data: {turbo_frame: "modal"}, class: 'btn' %>
-  </span>
-  <table class="table">
-    <tr>
-      <thead>
-        <th>Imagen: </th>
-        <th>Numero de auto: </th>
-        <th>Color: </th>
-        <th>Patente: </th>
-        <th>Marca: </th>
-        <th>Modelo: </th>
-        <th>Seguro: </th>
-        <th>Kilometros: </th>
-      </thead>
-    </tr>
-  <% @cars.each do |c| %>
-    <tbody>
-      <tr>
-        <td><%= image_tag c.photo.url(:thumb).to_s %></td>
-        <td><%= c.car_number %></td>
-        <td><%= c.color %></td>
-        <td><%= c.plate %></td>
-        <td><%= c.brand %></td>
-        <td><%= c.model %></td>
-        <td><%= c.insurance %></td>
-        <td><%= c.kilometers %></td>
-        <td><%= link_to 'Modificar', edit_car_path(c), data: { turbo_frame: 'modal' },  class: 'btn' %></td>
-        <td><%= link_to "Ver mas detalles", car_path(c),  class: 'btn' %></td>
-        <td><%= button_to "Eliminar auto", remove_car_car_path(c), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }, class: 'btn'%></td>
-      </tr>
-    </tbody>
-  <% end %>
-  </table>
-</div>
+<h1></h1>
+
+    <% if current_user.client?%>
+      <%= render 'index_client', method: :get %>
+    <% else %>
+      <%= render 'index_superusr', method: :get %>
+    <% end %>
+

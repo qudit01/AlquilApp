@@ -17,14 +17,21 @@ class CarsController < ApplicationController
   def index
     if current_user.admin? || current_user.supervisor?
       @cars = Car.where(remove:false)
-    else 
-      redirect_to root_path, success: 'No hay autos cargados en la base datos'
-    end
-    @cars.each do |c|
-      if c.latitude != nil && c.longitude != nil
-        c1 = current_user.latitude - c.latitude
-        c2 = current_user.longitude - c.longitude
-        c.position = Math.sqrt((c1 * c1) + (c2 * c2))
+    else
+      if current_user.license.state == "ok" || current_user.license.state == "toexpire"
+        @cars = Car.where(remove:false)
+        @cars.each do |c|
+          if c.latitude != nil && c.longitude != nil
+            c1 = current_user.latitude - c.latitude
+            c2 = current_user.longitude - c.longitude
+            c.position = Math.sqrt((c1 * c1) + (c2 * c2))
+            c.save
+          end
+        @cars = Car.where(position: 0..5)
+        end
+      else 
+          flash[:notice] = 'Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad.'
+          redirect_to users_path
       end
     end
   end
