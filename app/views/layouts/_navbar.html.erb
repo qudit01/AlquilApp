@@ -3,9 +3,9 @@
     <ul class="nav_links">
       <li><%= link_to 'Alquilapp', cars_path, class:"nav_item" %></li>
       <li><%= link_to 'Listado de usuarios', users_path, class:"nav_item" if current_user&.admin? || current_user&.supervisor? %></li>
-      <li><%= link_to 'Agregar tarjeta', new_wallet_card_path(current_user.wallet), class: 'nav_item' %></li>
+      <li><%= link_to 'Agregar tarjeta', new_wallet_card_path(current_user.wallet), data: {turbo_frame: 'modal'}, class: 'nav_item' %></li>
       <% if current_user.cards.present? %>
-        <li><%= link_to 'Cargar dinero', edit_wallet_path(current_user.wallet), class: 'nav_item' %></li>
+        <li><%= link_to 'Cargar dinero', edit_wallet_path(current_user.wallet), data: {turbo_frame: 'modal'}, class: 'nav_item' %></li>
       <% end %>
       <li class="nav_user"><%= link_to current_user&.name+' ('+current_user&.rol+')' , user_path(current_user), class:"nav_item"%></li>
       <% if current_user %>

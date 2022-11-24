@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post 'login', to: 'user_sessions#create'
   get 'new_supervisor', to: 'users#new_supervisor'
   post 'create_supervisor', to: 'users#create_supervisor'
-  delete 'logout', to: 'user_sessions#destroy', as: :logout
+  get 'logout', to: 'user_sessions#destroy', as: :logout
   root 'users#show'
 
   resources :user_sessions, only: %i[new create destroy]
@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get 'edit_supervisor', to: :edit_supervisor
       post 'update_supervisor', to: :update_supervisor
       post 'delete_supervisor', to: :delete_supervisor
+      get 'show_supervisor', to: :show_supervisor
     end
     resources :wallets, shallow: true do
       resources :cards do

@@ -1,10 +1,31 @@
-<h1>Auto específico</h1>
-<section class="user-show-row">
-  <aside class="user-show-col">
-    <%= @car.brand %>
-    <%= @car.model %>
-    <%= @car.plate %>
-    <%= @car.insurance %>
-    <%= @car.kilometers %>
-  </aside>
-</section>
+<div class="container">
+  <span class="add-car-span">
+  <h2>Auto N°<%= @car.car_number %></h2>
+  </span>
+  <table class="table">
+    <tr>
+      <thead>
+        <th>Imagen: </th>
+        <th>                  </th>
+        <th>Color: </th>
+        <th>Patente: </th>
+        <th>Marca: </th>
+        <th>Modelo: </th>
+        <th>Seguro: </th>
+        <th>Kilometros: </th>
+      </thead>
+    </tr>
+  </table>
+    <table class="table">
+      <tr>
+        <td><%= image_tag @car.photo.url(:thumb).to_s %></td>
+        <td><%= @car.color %></td>
+        <td><%= @car.plate %></td>
+        <td><%= @car.brand %></td>
+        <td><%= @car.model %></td>
+        <td><%= @car.insurance %></td>
+        <td><%= @car.kilometers %></td>
+      </tr>
+    </table>
+    <td><%= button_to "Alquilar auto", root_path, class: 'btn'%></td>
+</div>
