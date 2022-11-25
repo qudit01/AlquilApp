@@ -1,10 +1,12 @@
 class User < ApplicationRecord
   has_one :wallet
   has_many :cards, through: :wallet
+  has_one :rental
 
   authenticates_with_sorcery!
   has_one :license
   enum role: { client: 0, supervisor: 1, admin: 2 }
+  enum state: { stall: 0, travelling: 1 }
 
   validates :first_name, :last_name, :email, :dni, presence: true
   validates :email, uniqueness: { message: 'El email ingresado ya se encuentra en uso' }
@@ -35,9 +37,20 @@ class User < ApplicationRecord
     end
   end
 
-
   def age
     Time.zone.now.year - birthday.year
+  end
+
+  def license?
+    !license.nil?
+  end
+
+  def cant_rent?(rental)
+    rental.price >= wallet.money
+  end
+
+  def see_cars?
+    license? && stall? && wallet.money >= 1
   end
 
   private
