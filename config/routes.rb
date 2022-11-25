@@ -31,6 +31,8 @@ Rails.application.routes.draw do
 
 
   resources :cars
+
+  get 'index_ver_mas_autos', to: 'cars#index_ver_mas_autos'
   
   resources :cars, shallow: true do
     member do

@@ -36,6 +36,15 @@ class CarsController < ApplicationController
     end
   end
 
+  def index_ver_mas_autos
+    if current_user.license.state == "ok" || current_user.license.state == "toexpire"
+      @cars = Car.where(remove:false)
+    else
+      flash[:notice] = "No hay autos"
+    end
+  end
+
+
   def show
       @car = Car.find(params[:id])
   end
