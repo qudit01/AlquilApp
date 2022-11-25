@@ -6,7 +6,7 @@
      <h1> Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad. </h1>
   <% else %>
     <% if @cars.length == 0 %>
-      <h1> No hay autos disponibles en un radio de 5 cuadras de su ubicacion actual, si desea ver todos los autos disponibles mas alla del radio de 5 cuadras </h1>
+      <h1> No hay autos disponibles en un radio de 5 cuadras de su ubicación actual, si desea ver todos los autos disponibles presione el botón </h1>
         <td><%= link_to "+ Ver más autos", index_ver_mas_autos_path ,  class: 'btn', spadding: '14px 25px' %></td>
     <% else %>
       <table class="table">
