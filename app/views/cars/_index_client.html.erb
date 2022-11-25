@@ -1,14 +1,14 @@
 <div class="container">
-  <span class="add-car-span">
-    <h2>Listado de Automoviles</h2>
-  </span>
   <% if current_user.license.state == 'pending' || current_user.license.state == 'expired' || current_user.license.state == 'rejected' %>
      <h1> Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad. </h1>
   <% else %>
     <% if @cars.length == 0 %>
-      <h1> No hay autos disponibles en un radio de 5 cuadras de su ubicación actual, si desea ver todos los autos disponibles presione el botón </h1>
-        <td><%= link_to "+ Ver más autos", index_ver_mas_autos_path ,  class: 'btn', spadding: '14px 25px' %></td>
+      <h4> No hay autos disponibles en un radio de 5 cuadras de su ubicación actual, si desea ver todos los autos disponibles presione el botón </h4>
+        <%= link_to "+ Ver más autos", index_ver_mas_autos_path ,  class: 'btn'%>
     <% else %>
+      <span class="add-car-span">
+         <h2>Listado de Automoviles</h2>
+      </span>
       <table class="table">
         <tr>
           <thead>
@@ -39,11 +39,5 @@
       <% end %>
     <% end %>
   <% end %>
-
-  <div>
-    <img src="https://maps.google.com/maps/api/staticmap?center=Chicago,IL&zoom=8&size=512x512&maptype=roadmap&sensor=false&key=AIzaSyATZsyZ3w93zw2n3bGuZx_kwnHhHRfVQHM" alt="Static Map of La Plata"></img>
-  </div>
-
-
 </div>
 
