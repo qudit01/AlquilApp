@@ -13,21 +13,21 @@ class RentalsController < ApplicationController
 
   def create
     if current_user.travelling?
-      flash[:alert] = 'Ya tienes un viaje en curso'
+      flash[:alert] = 'Ya tienes un viaje en curso, finaliza el actual y vuelve a intentarlo'
       redirect_to user_path(current_user) and return
     end
     @rental = Rental.new(user: current_user,
                          car: @car,
                          hours: rental_params[:hours],
                          price: rental_params[:hours].to_f * rental_params[:price].to_f)
-    if @rental.valid?
-      update_user_and_car
-      @rental.save
-      redirect_to car_path(@car), notice: '¡Alquiler realizado con éxito! Tu auto te está esperando!'
-    elsif !current_user.can_rent?(@rental.price)
-      redirect_to cars_path, alert: 'No tienes suficientes fondos'
+    if current_user.can_rent?(@rental.price)
+      if @rental.valid?
+        update_user_and_car
+        @rental.save
+        redirect_to car_path(@car), notice: '¡Alquiler realizado con éxito! Tu auto te está esperando!'
+      end
     else
-      redirect_to cars_path, alert: 'Algo ha salido mal'
+      redirect_to cars_path, alert: 'No cuenta con suficiente dinero para este alquiler. Por favor, ingrese más dinero en la billetera virtual y vuelva a intentarlo'
     end
   end
 

@@ -46,8 +46,8 @@ class User < ApplicationRecord
     !license.nil?
   end
 
-  def cant_rent?(rental)
-    rental.price >= wallet.money
+  def can_rent?(price)
+    wallet.money >= price
   end
 
   def see_cars?

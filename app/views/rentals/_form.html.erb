@@ -4,12 +4,7 @@
 
 <%= form_with model: @rental, url: url, method: method, local: true, class: 'form_margin_top' do |f| %>
   <%= f.label 'Tiempo a usar el vehículo (en horas)' %>
-  <%= f.number_field :hours, class: 'textBox', min: 0.1 %>
-
-  <%= f.label 'Tarjeta a utilizar' %>
-  <% cards = current_user.cards.map { |card| [card.owner, card.id] } %>
-  <%= f.select :kind, cards, {}, class: 'textBox form-select' %>
-  <div class='error_message'><%= @rental.errors[:kind].to_sentence %></div>
+  <%= f.number_field :hours, class: 'textBox', min: 0.1, max: 24, step: 0.01 %>
 
   <%= f.hidden_field :price, value: 22.5 %>
   <p>Precio base del servicio por un mínimo de media hora: $22.5</p>

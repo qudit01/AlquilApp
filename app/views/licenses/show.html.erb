@@ -6,7 +6,7 @@
         <h1 class="add_edit_title"><%= 'Licencia de conducir' %></h1>
       </div>
       <%= render 'tshow', method: :get %>
-      <%= link_to "Cerrar", root_path, class: 'btn' %>
+      <button data-action='click->turbomodals#submitEnd' class='btn new_user'>Cerrar</button>
     </div>
   </div>
 <% end %>
