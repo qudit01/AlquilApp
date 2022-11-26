@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_one :wallet
   has_many :cards, through: :wallet
   has_one :rental
+  has_one :car, through: :rental
 
   authenticates_with_sorcery!
   has_one :license
@@ -51,6 +52,10 @@ class User < ApplicationRecord
 
   def see_cars?
     license? && stall? && wallet.money >= 1
+  end
+
+  def money
+    wallet.money
   end
 
   private

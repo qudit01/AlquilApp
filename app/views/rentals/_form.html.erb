@@ -1,0 +1,32 @@
+<% if flash[:alert] %>
+  <div class='alert'><%= flash[:alert] %></div>
+<% end %>
+
+<%= form_with model: @rental, url: url, method: method, local: true, class: 'form_margin_top' do |f| %>
+  <%= f.label 'Tiempo a usar el vehículo (en horas)' %>
+  <%= f.number_field :hours, class: 'textBox', min: 0.1 %>
+
+  <%= f.label 'Tarjeta a utilizar' %>
+  <% cards = current_user.cards.map { |card| [card.owner, card.id] } %>
+  <%= f.select :kind, cards, {}, class: 'textBox form-select' %>
+  <div class='error_message'><%= @rental.errors[:kind].to_sentence %></div>
+
+  <%= f.hidden_field :price, value: 22.5 %>
+  <p>Precio base del servicio por un mínimo de media hora: $22.5</p>
+  <p>Precio estimado: $<span id="rental-estimate-price">22.5</span></p>
+  <div class="form-submit-close-btns">
+    <%= f.submit 'Confirmar reserva', class:'btn new_user' %>
+    <button data-action='click->turbomodals#submitEnd' class='btn new_user'>Cerrar</button>
+  </div>
+<% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    document.getElementById('rental-estimate-price').innerHTML = (document.getElementById('rental_hours').value * 22.5);
+    document.getElementById('rental_price').innerHTML = document.getElementById('rental-estimate-price').innerHTML
+  });
+  document.getElementById('rental_hours').addEventListener('change', function () {
+    document.getElementById('rental-estimate-price').innerHTML = (document.getElementById('rental_hours').value * 22.5);
+    document.getElementById('rental_price').innerHTML = document.getElementById('rental-estimate-price').innerHTML
+  });
+</script>

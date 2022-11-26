@@ -1,15 +1,30 @@
 class RentalsController < ApplicationController
   before_action :find_data
+  before_action :find_rental, only: %i[destroy show edit update]
 
-  def show; end
+  def show
+    destroy
+  end
 
   def new
-    @rental = Rental.new(user: @user, car: @car)
+    @rental = Rental.new
+    @car = Car.find params[:car_id]
+  end
+
+  def create
+    if current_user.travelling?
+      flash[:alert] = 'Ya tienes un viaje en curso'
+      redirect_to user_path(current_user) and return
+    end
+    @rental = Rental.new(user: current_user,
+                         car: @car,
+                         hours: rental_params[:hours],
+                         price: rental_params[:hours].to_f * rental_params[:price].to_f)
     if @rental.valid?
       update_user_and_car
       @rental.save
-      redirect_to user_path(@user), notice: '¡Alquiler realizado con éxito! Tu auto te está esperando!'
-    elsif !@user.can_rent?(@rental.price)
+      redirect_to car_path(@car), notice: '¡Alquiler realizado con éxito! Tu auto te está esperando!'
+    elsif !current_user.can_rent?(@rental.price)
       redirect_to cars_path, alert: 'No tienes suficientes fondos'
     else
       redirect_to cars_path, alert: 'Algo ha salido mal'
@@ -17,22 +32,11 @@ class RentalsController < ApplicationController
   end
 
   def update_user_and_car
-    @rental.user.state = 'travelling'
-    @rental.user.wallet.money -= @rental.price
-    @rental.user.save
-    @rental.car.state = 'taken'
-    @rental.car.save
-  end
-
-  def create
-    @rental = Rental.new(params)
-    if @rental.valid?
-      @rental.user.state = 'travelling'
-      @rental.car.state = 'taken'
-      @rental.save
-    else
-      redirect_to cars_path, alert: 'No tienes suficientes fondos'
-    end
+    current_user.travelling!
+    current_user.wallet.money -= @rental.price * @rental.hours
+    current_user.wallet.save
+    @car.taken!
+    @car.save
   end
 
   def index; end
@@ -41,14 +45,25 @@ class RentalsController < ApplicationController
     redirect_to user_path(current_user), 'Alquiler exitoso!'
   end
 
+  def destroy
+    @rental.delete
+    current_user.stall!
+    @car.available!
+    redirect_to cars_path, notice: 'Viaje finalizado con éxito!'
+  end
+
   private
 
   def rental_params
-    params.require(:rental).permit(:user, :car, :price)
+    params.require(:rental).permit(:user, :car, :price, :hours)
   end
 
   def find_data
-    @user = User.find(params[:user])
-    @car = Car.find(params[:car])
+    @car = Car.find(params[:car_id])
+  end
+
+  def find_rental
+    find_data
+    @rental = Rental.find params[:id]
   end
 end

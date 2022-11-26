@@ -42,7 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_201433) do
     t.float "longitude"
     t.float "position"
     t.integer "state", default: 0
-    t.float "fuel"
+    t.float "fuel", default: 0.0
   end
 
   create_table "licenses", force: :cascade do |t|
@@ -89,7 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_201433) do
   end
 
   create_table "wallets", force: :cascade do |t|
-    t.integer "money", default: 0
+    t.float "money", default: 0.0
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

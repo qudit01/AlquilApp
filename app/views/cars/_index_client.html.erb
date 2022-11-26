@@ -32,7 +32,7 @@
         <td><%= car.insurance %></td>
         <td><%= t(car.state) %></td>
         <td><%= car.kilometers %></td>
-        <td><%= link_to 'Alquilar', new_rental_path(user: current_user, car: car), method: :post, class: 'btn' %></td>
+        <td><%= link_to 'Alquilar', new_rental_path(user_id: current_user, car_id: car), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
     </tr>
     </tbody>
   <% end %>

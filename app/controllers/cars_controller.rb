@@ -18,7 +18,7 @@ class CarsController < ApplicationController
     if current_user.admin? || current_user.supervisor?
       @cars = Car.where(remove:false)
     else
-      if current_user.license.state == "ok" || current_user.license.state == "toexpire"
+      if current_user.license.ok? || current_user.license.toexpire?
         @cars = Car.where(remove:false)
         @cars.each do |c|
           if c.latitude != nil && c.longitude != nil

@@ -2,6 +2,7 @@
   <nav class="nav_pad">
     <ul class="nav_links">
       <li><%= link_to 'VEHÍCULOS CERCANOS A TU ZONA', cars_path %></li>
+      <li><%= link_to 'FINALIZAR  VIAJE', rental_path(id: current_user.rental, car_id: current_user.rental.car, action: :destroy), method: :delete, action: :destroy if current_user.travelling? %></li>
       <li><%= link_to 'Listado de usuarios', users_path, class:"nav_item" if current_user&.admin? || current_user&.supervisor? %></li>
       <li><%= link_to 'Agregar tarjeta', new_wallet_card_path(current_user.wallet), data: {turbo_frame: 'modal'}, class: 'nav_item' %></li>
       <% if current_user.cards.present? %>
