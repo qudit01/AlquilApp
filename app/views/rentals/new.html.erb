@@ -3,10 +3,9 @@
   <div class="modals" data-controller="turbomodals">
     <div class="form_container">
       <div class="title">
-        <h1 class="add_edit_title"><%= 'Licencia de conducir' %></h1>
+        <h1 class="add_edit_title"><%= 'Datos de la reserva' %></h1>
       </div>
-      <%= render 'tshow', method: :get %>
-      <button data-action='click->turbomodals#submitEnd' class='btn new_user'>Cerrar</button>
+      <%= render 'form', url: rentals_path(user_id: current_user, car_id: @car), method: :post %>
     </div>
   </div>
 <% end %>

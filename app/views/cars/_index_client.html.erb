@@ -16,22 +16,25 @@
         <th>Marca: </th>
         <th>Modelo: </th>
         <th>Seguro: </th>
+        <th>Estado: </th>
         <th>Kilometros: </th>
       </thead>
     </tr>
-  </table>
-  <% @cars.each do |c| %>
-    <table class="table">
+  <% @cars.availables.each do |car| %>
+    <tbody>
       <tr>
-        <td><%= image_tag c.photo.url(:thumb).to_s %></td>
-        <td><%= c.car_number %></td>
-        <td><%= c.color %></td>
-        <td><%= c.plate %></td>
-        <td><%= c.brand %></td>
-        <td><%= c.model %></td>
-        <td><%= c.insurance %></td>
-        <td><%= c.kilometers %></td>
+        <td><%= image_tag car.photo.url(:thumb).to_s %></td>
+        <td><%= car.car_number %></td>
+        <td><%= car.color %></td>
+        <td><%= car.plate %></td>
+        <td><%= car.brand %></td>
+        <td><%= car.model %></td>
+        <td><%= car.insurance %></td>
+        <td><%= t(car.state) %></td>
+        <td><%= car.kilometers %></td>
+        <td><%= link_to 'Alquilar', new_rental_path(user_id: current_user, car_id: car), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
     </tr>
-    </table>
+    </tbody>
   <% end %>
+  </table>
 </div>

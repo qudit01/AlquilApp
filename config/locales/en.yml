@@ -41,3 +41,14 @@ en:
   credit: 'Crédito'
   debit: 'Débito'
   pre_paid: 'Pre paga'
+  cars:
+    index_client:
+      state:
+        available: 'Disponible'
+        taken: 'Tomado'
+    car:
+      state:
+        available: 'Disponible'
+        taken: 'Tomado'
+  available: 'Disponible'
+  taken: 'Tomado'

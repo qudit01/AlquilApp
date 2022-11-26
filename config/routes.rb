@@ -29,19 +29,19 @@ Rails.application.routes.draw do
     end
   end
 
-
   resources :cars
-  
+
   resources :cars, shallow: true do
     member do
       post 'remove_car', to: :remove_car
     end
   end
 
+  resources :rentals do
+    post 'generate', to: 'rentals#generate'
+  end
+
   resources :licenses
 
   resources :locations, only: :create
-  
- 
-
 end

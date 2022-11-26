@@ -6,62 +6,54 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-users = []
-3.times do |index|
+roles = [0, 1, 2]
+9.times do |index|
   puts 'Generando usuario...'
-  User.create(first_name: 'Emi',
-              last_name: 'Seedeado',
-              role: 1,
-              email: "emilio_#{index}@gmail.com",
+  User.create(first_name: 'Lionel',
+              last_name: 'Messo',
+              role: roles[index % 3],
+              email: "messi_#{index}@gmail.com",
               password: 1234,
               password_confirmation: 1234,
               dni: 1_234_123 + index,
-              birthday: Time.zone.now - 18.years)
+              birthday: Time.zone.now - 18.years,
+              latitude: -34,
+              longitude: -57,
+              state: 0,
+              license: License.create)
 end
 
-3.times do |index|
+9.times do |index|
   puts 'Generando billetera...'
   Wallet.create(money: 100_000,
                 user: User.find(index + 1))
 end
 
-3.times do |index|
+9.times do |index|
   puts 'Generando tarjetas...'
   Card.create(number: 1_234_432_112_341_230 + index,
               pin: 120 + index,
               expiration: Time.zone.now + 100.days + index.days,
-              owner: 'Un nombre sedeeado',
-              bank: 'Banco sedeeado',
+              owner: User.find(index + 1).name,
+              bank: 'Santander',
               kind: rand(0..2),
               user: User.find(index + 1),
               wallet: User.find(index + 1).wallet)
 end
 
-3.times do |index|
-  puts 'Generando usuario...'
-  User.create(first_name: 'Emi',
-              last_name: 'Seedeado',
-              role: 2,
-              email: "emilio_#{index + 2}@gmail.com",
-              password: 1234,
-              password_confirmation: 1234,
-              dni: 1_234_123 + index + 2,
-              birthday: Time.zone.now - 18.years)
-end
-
-3.times do |index|
-  Wallet.create(money: 100_000,
-                user: User.find(index + 3))
-end
-
-3.times do |index|
-  puts 'Generando tarjetas...'
-  Card.create(number: 1_234_432_112_341_230 + index,
-              pin: 120 + index + 2,
-              expiration: Time.zone.now + 100.days + index.days,
-              owner: 'Un nombre sedeeado',
-              bank: 'Banco sedeeado',
-              kind: rand(0..2),
-              user: User.find(index + 3),
-              wallet: User.find(index + 3).wallet)
+9.times do |index|
+  puts 'Generando vehículo...'
+  @car = Car.create(
+    plate: "AAA#{index}",
+    insurance: 'Sancor seguros',
+    brand: 'Ford',
+    model: 'Sport',
+    kilometers: index * (index + 1),
+    car_number: index,
+    color: "Azul ópalo",
+    latitude: -34,
+    longitude: -57,
+    fuel: 0
+  )
+  puts @car.errors[:car_number]
 end
