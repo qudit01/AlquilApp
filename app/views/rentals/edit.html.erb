@@ -1,0 +1,12 @@
+<section class="index_user">
+<%= turbo_frame_tag :modal do %>
+  <div class="modals" data-controller="turbomodals">
+    <div class="form_container">
+      <div class="title">
+        <h1 class="add_edit_title"><%= 'Datos de la reserva' %></h1>
+      </div>
+      <%= render 'form_edit', url: rental_path(current_user.rental, car_id:current_user.rental.car_id), method: :patch %>
+    </div>
+  </div>
+<% end %>
+</section>
