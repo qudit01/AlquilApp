@@ -26,5 +26,5 @@
       </tr>
     </tbody>
   </table>
-  <td><%= link_to "Alquilar auto", new_rental_path(@car.id) ,  class: 'btn'%></td>
+  <td><%= link_to 'Alquilar', new_rental_path(user_id: current_user, car_id: @car.id), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
 </div>
