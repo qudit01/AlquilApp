@@ -6,8 +6,6 @@
       <th class="name">Apellido </th>
       <th class="name">DNI </th>
       <th class="name">Mail </th>
-      <th class="name">Edad </th>
-      <th class="name">Dinero disponible</th>
       <th class="name"><%= 'Tus tarjetas' if current_user.cards.present? %></th>
     </thead>
   </tr>
@@ -21,4 +19,5 @@
     <td><%= link_to 'Ver mis tarjetas', wallet_cards_path(current_user.wallet), class: 'btn new_user' %></td>
     <td><%= link_to 'Modificar mis datos', edit_user_path(current_user), class: 'btn new_user' %></td>
   </tr>
+
 </table>

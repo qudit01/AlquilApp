@@ -1,40 +1,44 @@
 <div class="container">
-  <span class="add-car-span">
-    <h2>Listado de Automoviles</h2>
-  </span>
-  <% if @cars.nil? %>
-    <h1> No hay autos disponibles en un radio de 5 cuadras de su ubicacion actual, si desea ver todos los autos disponibles mas alla del radio de 5 cuadras </h1>
-     <td><%= link_to "+ Ver más autos", index_20_path ,  class: 'btn' %></td>
-  <% end%>
-  <table class="table">
-    <tr>
-      <thead>
-        <th>Imagen: </th>
-        <th>Numero de auto: </th>
-        <th>Color: </th>
-        <th>Patente: </th>
-        <th>Marca: </th>
-        <th>Modelo: </th>
-        <th>Seguro: </th>
-        <th>Estado: </th>
-        <th>Kilometros: </th>
-      </thead>
-    </tr>
-  <% @cars.availables.each do |car| %>
-    <tbody>
-      <tr>
-        <td><%= image_tag car.photo.url(:thumb).to_s %></td>
-        <td><%= car.car_number %></td>
-        <td><%= car.color %></td>
-        <td><%= car.plate %></td>
-        <td><%= car.brand %></td>
-        <td><%= car.model %></td>
-        <td><%= car.insurance %></td>
-        <td><%= t(car.state) %></td>
-        <td><%= car.kilometers %></td>
-        <td><%= link_to 'Alquilar', new_rental_path(user_id: current_user, car_id: car), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
-    </tr>
-    </tbody>
+  <% if current_user.license.state == 'pending' || current_user.license.state == 'expired' || current_user.license.state == 'rejected' %>
+     <h1> Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad. </h1>
+  <% else %>
+    <% if @cars.length == 0 %>
+      <h4> No hay autos disponibles en un radio de 5 cuadras de su ubicación actual, si desea ver todos los autos disponibles presione el botón </h4>
+        <%= link_to "+ Ver más autos", index_ver_mas_autos_path ,  class: 'btn'%>
+    <% else %>
+      <span class="add-car-span">
+         <h2>Listado de Automoviles</h2>
+      </span>
+      <table class="table">
+        <tr>
+          <thead>
+            <th>Imagen </th>
+            <th>Numero de auto </th>
+            <th>Color </th>
+            <th>Patente </th>
+            <th>Marca </th>
+            <th>Modelo </th>
+            <th>Seguro </th>
+            <th>Kilometros </th>
+          </thead>
+        </tr>
+      </table>
+      <% @cars.each do |c| %>
+        <table class="table">
+          <tr>
+            <td><%= image_tag c.photo.url(:thumb).to_s %></td>
+            <td><%= c.car_number %></td>
+            <td><%= c.color %></td>
+            <td><%= c.plate %></td>
+            <td><%= c.brand %></td>
+            <td><%= c.model %></td>
+            <td><%= c.insurance %></td>
+            <td><%= c.kilometers %></td>
+        </tr>
+        </table>
+      <% end %>
+    <% end %>
   <% end %>
-  </table>
 </div>
+
+

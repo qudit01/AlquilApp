@@ -1,0 +1,37 @@
+<div class="container">
+  <% if @cars.length == 0 %>
+    <h1> No hay autos disponibles en este momento, intentelo mas tarde </h1>
+  <% else %>
+    <span class="add-car-span">
+      <h2>Listado de Automoviles</h2>
+    </span>
+    <table class="table">
+      <tr>
+        <thead>
+          <th>Imagen </th>
+          <th>Numero de auto </th>
+          <th>Color </th>
+          <th>Patente </th>
+          <th>Marca </th>
+          <th>Modelo </th>
+          <th>Seguro </th>
+          <th>Kilometros </th>
+        </thead>
+      </tr>
+    </table>
+    <% @cars.each do |c| %>
+      <table class="table">
+        <tr>
+          <td><%= image_tag c.photo.url(:thumb).to_s %></td>
+          <td><%= c.car_number %></td>
+          <td><%= c.color %></td>
+          <td><%= c.plate %></td>
+          <td><%= c.brand %></td>
+          <td><%= c.model %></td>
+          <td><%= c.insurance %></td>
+          <td><%= c.kilometers %></td>
+      </tr>
+      </table>
+    <% end %>
+  <% end %>
+ </div>
