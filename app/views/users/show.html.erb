@@ -18,6 +18,9 @@
     <td class="table_field">$<%= current_user.wallet.money.to_f %></td>
     <td><%= link_to 'Ver mis tarjetas', wallet_cards_path(current_user.wallet), class: 'btn new_user' %></td>
     <td><%= link_to 'Modificar mis datos', edit_user_path(current_user), class: 'btn new_user' %></td>
+    <% if current_user.travelling? %>
+    <td><%= link_to 'Ver alquiler', rental_path(current_user.rental,car_id:current_user.rental.car_id), class: 'btn new_user' %></td>
+    <% end %>
   </tr>
 
 </table>

@@ -1,14 +1,40 @@
 class RentalsController < ApplicationController
   before_action :find_data
-  before_action :find_rental, only: %i[destroy show edit update]
+  before_action :find_rental, only: %i[destroy show]
+
+  def delete
+    destroy
+  end
 
   def show
-    destroy
+    @rental = Rental.find params[:id]
   end
 
   def new
     @rental = Rental.new
     @car = Car.find params[:car_id]
+  end
+
+  def edit
+    @rental=current_user.rental
+  end
+
+  def update
+    @rental=current_user.rental
+    hr=@rental.hours
+    h=rental_params[:hours].to_f
+    if current_user.can_rent?(@rental.price)
+      if @rental.update rental_params
+        update_user_and_car
+        @rental.hours= hr+h
+        @rental.save
+        redirect_to user_path(current_user), notice: '¡Alquiler extendido con exito!'
+      else
+        render :edit, notice: 'Ocurrio un error inesperado, por favor intente nuevamente'
+      end
+    else
+      redirect_to user_path(current_user), notice:'No cuenta con suficiente dinero para este alquiler. Por favor, ingrese más dinero en la billetera virtual y vuelva a intentarlo'
+    end
   end
 
   def create

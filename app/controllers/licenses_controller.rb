@@ -48,6 +48,8 @@ class LicensesController < ApplicationController
     if current_user.client?
       @license.pending?
       if @license.update(upload_photo)
+        @license.state="pending"
+        @license.save
         flash[:notice] = 'La foto ha sido subida con exito, sera corroborada por nuestro personal a la brevedad para que pueda continuar utilizando nuestros servicios'
         redirect_to licenses_path
       else
