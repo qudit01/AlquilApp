@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new]
-  before_action :find_user, except: %i[new create new_supervisor create_supervisor] 
+  before_action :find_user, except: %i[new create new_supervisor create_supervisor]
 
   def new
     @user = User.new
@@ -8,18 +8,17 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new user_params
-    unless @user.save
-      render :new, status: :unprocessable_entity
-    end
+    return if @user.save
+
+    render :new, status: :unprocessable_entity
   end
 
   def edit; end
 
-
   def index
     if current_user.admin?
-      @user = User.where(role: "supervisor", blocked: false)
-    else 
+      @user = User.where(role: 'supervisor', blocked: false)
+    else
       redirect_to root_path, success: 'No podes'
     end
   end
@@ -32,9 +31,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def new_supervisor 
+  def new_supervisor
     if current_user.admin?
-      @user = User.new 
+      @user = User.new
     else
       render :root_path
     end
@@ -42,19 +41,19 @@ class UsersController < ApplicationController
 
   def create_supervisor
     authorize User
-      @user = User.new user_params
-      @user.role = 'supervisor'
-      @user.wallet = Wallet.new
-      if @user.save
-        redirect_to users_path, notice: 'Usuario supervisor creado con exito'
-      else
-        render :new_supervisor, status: :unprocessable_entity
-      end
+    @user = User.new user_params
+    @user.role = 'supervisor'
+    @user.wallet = Wallet.new
+    if @user.save
+      redirect_to users_path, notice: 'Usuario supervisor creado con exito'
+    else
+      render :new_supervisor, status: :unprocessable_entity
+    end
   end
 
-  def delete_supervisor 
+  def delete_supervisor
     if current_user.admin?
-      @user.blocked=true
+      @user.blocked = true
       if @user.save
         redirect_to users_path, notice: 'Usuario eliminado con exito'
       end

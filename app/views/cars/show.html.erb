@@ -6,7 +6,6 @@
     <tr>
       <thead>
         <th>Imagen: </th>
-        <th>                  </th>
         <th>Color: </th>
         <th>Patente: </th>
         <th>Marca: </th>
@@ -15,8 +14,7 @@
         <th>Kilometros: </th>
       </thead>
     </tr>
-  </table>
-    <table class="table">
+    <tbody class="table">
       <tr>
         <td><%= image_tag @car.photo.url(:thumb).to_s %></td>
         <td><%= @car.color %></td>
@@ -26,6 +24,6 @@
         <td><%= @car.insurance %></td>
         <td><%= @car.kilometers %></td>
       </tr>
-    </table>
-    <td><%= button_to "Alquilar auto", root_path, class: 'btn'%></td>
+    </tbody>
+  </table>
 </div>

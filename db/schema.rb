@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_18_201642) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_25_201433) do
   create_table "cards", force: :cascade do |t|
     t.integer "number", null: false
     t.integer "pin", null: false
@@ -41,6 +41,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_201642) do
     t.float "latitude"
     t.float "longitude"
     t.float "position"
+    t.integer "state", default: 0
+    t.float "fuel", default: 0.0
   end
 
   create_table "licenses", force: :cascade do |t|
@@ -51,6 +53,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_201642) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+  end
+
+  create_table "rentals", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "car_id", null: false
+    t.float "price", default: 22.5
+    t.float "hours", default: 0.3
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["car_id"], name: "index_rentals_on_car_id"
+    t.index ["user_id"], name: "index_rentals_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -69,13 +82,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_201642) do
     t.datetime "birthday", null: false
     t.float "latitude"
     t.float "longitude"
+    t.integer "state", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["license_id"], name: "index_users_on_license_id"
     t.index ["wallet_id"], name: "index_users_on_wallet_id"
   end
 
   create_table "wallets", force: :cascade do |t|
-    t.integer "money", default: 0
+    t.float "money", default: 0.0
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -84,6 +98,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_18_201642) do
 
   add_foreign_key "cards", "users"
   add_foreign_key "cards", "wallets"
+  add_foreign_key "rentals", "cars"
+  add_foreign_key "rentals", "users"
   add_foreign_key "users", "licenses"
   add_foreign_key "users", "wallets"
   add_foreign_key "wallets", "users"

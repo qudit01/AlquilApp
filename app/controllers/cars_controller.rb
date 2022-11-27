@@ -18,7 +18,7 @@ class CarsController < ApplicationController
     if current_user.admin? || current_user.supervisor?
       @cars = Car.where(remove:false)
     else
-      if current_user.license.state == "ok" || current_user.license.state == "toexpire"
+      if current_user.license.ok? || current_user.license.toexpire?
         @cars = Car.where(remove:false)
         @cars.each do |c|
           if c.latitude != nil && c.longitude != nil
@@ -30,7 +30,8 @@ class CarsController < ApplicationController
         @cars = Car.where(position: 0..5)
         end
       else 
-          flash[:notice] = 'Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad.'
+          flash[:alert] = 'Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad.'
+          redirect_to users_path
       end
     end
   end
