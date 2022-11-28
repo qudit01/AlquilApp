@@ -52,7 +52,6 @@ class CarsController < ApplicationController
 
   def update
     authorize Car
-
     if @car.update car_params
       redirect_to cars_path, notice: 'Auto modificado exitosamente'
     else

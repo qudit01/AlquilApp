@@ -14,21 +14,25 @@
         <th>Modelo: </th>
         <th>Seguro: </th>
         <th>Kilometros: </th>
+        <th>Siendo usado? </th>
       </thead>
     </tr>
-  <% @cars.each do |c| %>
+  <% @cars.each do |car| %>
     <tbody class="table">
       <tr>
-        <td><%= image_tag c.photo.url(:thumb).to_s %></td>
-        <td><%= c.car_number %></td>
-        <td><%= c.color %></td>
-        <td><%= c.plate %></td>
-        <td><%= c.brand %></td>
-        <td><%= c.model %></td>
-        <td><%= c.insurance %></td>
-        <td><%= c.kilometers %></td>
-        <td><%= link_to "Modificar", edit_car_path(c),  class: 'btn' %></td>
-        <td><%= button_to "Eliminar auto", remove_car_car_path(c), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }, class: 'btn'%></td>
+        <td><%= image_tag car.photo.url(:thumb).to_s %></td>
+        <td><%= car.car_number %></td>
+        <td><%= car.color %></td>
+        <td><%= car.plate %></td>
+        <td><%= car.brand %></td>
+        <td><%= car.model %></td>
+        <td><%= car.insurance %></td>
+        <td><%= car.kilometers %></td>
+        <td><%= car.taken? ? 'Si' : 'No' %></td>
+        <% if car.available? %>
+          <td><%= link_to "Modificar", edit_car_path(car), data: {turbo_frame: 'modal'},  class: 'btn' %></td>
+          <td><%= button_to "Eliminar auto", remove_car_car_path(car), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }, class: 'btn'%></td>
+        <% end %>
       </tr>
     </tbody>
   <% end %>
