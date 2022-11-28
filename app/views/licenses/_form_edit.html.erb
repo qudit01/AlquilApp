@@ -1,7 +1,7 @@
 <% if current_user.client? %>
-<h1>Subi tu licencia para poder utilizar Alquilapp!</h1>
+<h1>¡Subi tu licencia para poder utilizar Alquilapp!</h1>
 <%else%>
-<h1>Revisa los datos de la licencia para validarla!</h1>
+<h1>¡Revisa los datos de la licencia para validarla!</h1>
 <h1>Licencia de <%= @license.user&.name+', '%><%= @license.user&.age%><th> años</th></h1>
 <%end%>
 
@@ -28,7 +28,7 @@
     <%= f.label 'Fecha de vencimiento' %>
     <%= f.date_field :expire, class: 'form-control' %>
 
-    <%= f.label 'Mootivo de rechazo' %>
+    <%= f.label 'Motivo de rechazo' %>
     <%= f.text_field :motive, class: 'form-control' %>
   <%end%>
     <% if current_user.client? %>

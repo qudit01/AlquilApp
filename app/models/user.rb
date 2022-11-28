@@ -11,8 +11,8 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name, :email, :dni, presence: true
   validates :email, uniqueness: { message: 'El email ingresado ya se encuentra en uso' }
-  validates :dni, uniqueness: { message: 'El dni ingresado ya se encuentra en uso' }
-  validates :dni, numericality: { only_integer: true, message: 'Solo se permiten números!' }
+  validates :dni, uniqueness: { message: 'El DNI ingresado ya se encuentra en uso' }
+  validates :dni, numericality: { only_integer: true, message: 'Solo se permiten números' }
   validates :email, email: true
   validates :password, length: { minimum: 3, maximum: 300, too_short: 'Debe ser de mas de 3 caractéres' }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
@@ -63,6 +63,6 @@ class User < ApplicationRecord
   def age_validation
     return if age > 17
 
-    errors.add(:birthday, 'Debes ser mayor de 17 para usar la plataforma!')
+    errors.add(:birthday, '¡Debes ser mayor de 17 para usar la plataforma!')
   end
 end

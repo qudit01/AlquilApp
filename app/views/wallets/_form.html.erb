@@ -7,7 +7,7 @@
   <%= f.number_field :some_money, class: 'textBox', default: 0 %>
 
   <%= f.label 'Tarjeta a utilizar' %>
-  <% cards = @wallet.cards.map { |card| [card.owner, card.id] } %>
+  <% cards = @wallet.cards.map { |card| [card.number, card.id] } %>
   <%= f.select :kind, cards, {}, class: 'textBox form-select' %>
 
   <div class="form-submit-close-btns">

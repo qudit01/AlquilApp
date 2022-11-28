@@ -1,5 +1,5 @@
 <% if current_user.cards.empty? %>
-  <h1>No tienes ninguna tarjeta cargada por el momento!</h1>
+  <h1>¡No tienes ninguna tarjeta cargada por el momento!</h1>
   <h1>
     Haz click aquí para cargar una tarjeta a la plataforma:
     <%= link_to "Agregar tarjeta", new_wallet_card_path(current_user.wallet), data: {turbo_frame: 'modal'} %>
@@ -15,7 +15,6 @@
             <th class='name'>Numero</th>
             <th class='name'>Tipo de tarjeta</th>
             <th class='name'>Fecha de expiración</th>
-            <th class='name'>Pin</th>
           </tr>
         </thead>
         <tbody id="users">
@@ -26,7 +25,6 @@
               <td><%= card.number %></td>
               <td><%= card.kind %></td>
               <td><%= card.expiration %></td>
-              <td><%= card.pin %></td>
             </tr>
           <% end %>
         </tbody>

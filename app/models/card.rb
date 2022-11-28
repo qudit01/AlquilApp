@@ -5,7 +5,7 @@ class Card < ApplicationRecord
   enum kind: { credit: 0, debit: 1, pre_paid: 2 }
 
   validates :number, :pin, :expiration, :owner, :bank, :kind, :user,
-            presence: { message: 'No puede quedar vacío!' }
+            presence: { message: '¡No puede quedar vacío!' }
   validates :number, numericality: { only_integer: true, message: 'Solo se admiten números' },
                      length: { maximum: 16, minimun: 4,
                                too_long: 'El máximo de números para una tarjeta es de 16' }
