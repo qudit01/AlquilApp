@@ -2,21 +2,21 @@
 <% if @licenses.empty? %>
   <h1>No hay licencias pendientes de revision</h1>
 <%else%>
-<% @licenses.each do |l| %>
-    <h2>Listado de Licencias</h2>
-    <table class="table">
+<h2>Listado de Licencias</h2>
+ <table class="table">
       <tr>
         <thead>
           <th>Imagen: </th>
           <th>Estado: </th>
         </thead>
       </tr>
+<% @licenses.each do |l| %>
       <tr>
         <td><%= image_tag l.photo.url(:thumb).to_s %></td>
         <td><%= l&.estado %></td>
         <td><%= link_to "Verificar licencia", edit_license_path(l), class: 'btn' %></td>
       </tr>
-    </table>
 <% end %>
+</table>
 <%end%>
 </div>

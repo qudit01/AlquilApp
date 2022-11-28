@@ -31,8 +31,8 @@
     <%= image_tag @license.photo.url(:mid).to_s %>
   <%end%>
   <% if current_user.admin? || current_user.supervisor? %>
-    <%= f.label 'Estado' %>
-    <%= f.select :state, [['Rechazada', 'rejected'], ['Valida', 'ok']], class: 'form-control' %><br>
+    <div> <%= f.label 'Estado' %> 
+    <%= f.select :state, [['Rechazada', 'rejected'], ['Valida', 'ok']], class: 'form-control' %><br> </div>
 
     <%= f.label 'Fecha de vencimiento' %>
     <%= f.date_field :expire, class: 'form-control' %>

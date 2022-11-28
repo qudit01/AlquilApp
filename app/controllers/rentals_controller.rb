@@ -75,7 +75,7 @@ class RentalsController < ApplicationController
     @rental.delete
     current_user.stall!
     @car.available!
-    redirect_to cars_path, notice: 'Viaje finalizado con éxito!'
+    redirect_to cars_path, notice: '¡Viaje finalizado con éxito! Gracias por utilizar nuestros servicios'
   end
 
   private
