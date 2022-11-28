@@ -19,8 +19,7 @@ roles = [0, 1, 2]
               birthday: Time.zone.now - 18.years,
               latitude: -34,
               longitude: -57,
-              state: 0,
-              license: License.create)
+              state: 0)
 end
 
 9.times do |index|
