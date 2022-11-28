@@ -20,7 +20,7 @@ class WalletsController < ApplicationController
     if verify_money_availability
       @wallet.money += wallet_params[:some_money].to_i
       if @wallet.save
-        redirect_to user_path(current_user), success: 'Dinero cargado!'
+        redirect_to user_path(current_user), notice: 'Dinero ingresado'
       else
         flash[:alert] = 'Error con el metodo de pago, intente mas tarde o ingrese uno nuevo'
         render :edit, status: :unprocessable_entity

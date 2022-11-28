@@ -19,7 +19,7 @@
         <%= form.email_field :email, class: 'textBox', placeholder: 'Ingrese el email' %>
         <div class='error_message'><%= @user.errors[:email].to_sentence %></div>
 
-        <%= form.label :dni %>
+        <%= form.label 'DNI' %>
         <%= form.number_field :dni, class: 'textBox', placeholder: 'Ingrese el dni' %>
         <div class='error_message'><%= @user.errors[:dni].to_sentence %></div>
 

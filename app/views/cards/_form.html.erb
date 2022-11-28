@@ -2,7 +2,7 @@
 
 <%= form_with model: @card, url: url, method: method, local: true, class: 'form_margin_top' do |f| %>
       <%= f.label 'Numero de tarjeta' %>
-      <%= f.number_field :number, placeholder: 'Sin espacios!', class: 'textBox' %>
+      <%= f.number_field :number, placeholder: 'Sin espacios', class: 'textBox' %>
       <div class="error_message"><%= @card.errors[:number].to_sentence %></div>
 
       <%= f.label :pin %>
