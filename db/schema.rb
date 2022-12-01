@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_25_201433) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_29_203349) do
   create_table "cards", force: :cascade do |t|
     t.integer "number", null: false
     t.integer "pin", null: false
@@ -59,9 +59,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_201433) do
     t.integer "user_id", null: false
     t.integer "car_id", null: false
     t.float "price", default: 22.5
-    t.float "hours", default: 0.3
+    t.float "hours", default: 1.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "state"
+    t.datetime "taken_at"
+    t.datetime "finished_at"
     t.index ["car_id"], name: "index_rentals_on_car_id"
     t.index ["user_id"], name: "index_rentals_on_user_id"
   end
@@ -89,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_25_201433) do
   end
 
   create_table "wallets", force: :cascade do |t|
-    t.integer "money", default: 0
+    t.float "money", default: 0.0
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

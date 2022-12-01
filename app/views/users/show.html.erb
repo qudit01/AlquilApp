@@ -20,7 +20,7 @@
     <td><%= link_to 'Ver mis tarjetas', wallet_cards_path(current_user.wallet), class: 'btn new_user' %></td>
     <td><%= link_to 'Modificar mis datos', edit_user_path(current_user), class: 'btn new_user' %></td>
     <% if current_user.travelling? %>
-    <td><%= link_to 'Ver alquiler', rental_path(current_user.rental,car_id:current_user.rental.car_id), class: 'btn new_user' %></td>
+    <td><%= link_to 'Ver alquiler', rental_path(current_user.rentals.last,car_id:current_user.rentals.last.car_id), class: 'btn new_user' %></td>
     <% end %>
   </tr>
 
