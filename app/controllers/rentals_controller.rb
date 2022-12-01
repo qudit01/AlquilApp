@@ -47,6 +47,8 @@ class RentalsController < ApplicationController
                          hours: rental_params[:hours],
                          price: rental_params[:hours].to_f * rental_params[:price].to_f)
     if current_user.can_rent?(@rental.price)
+      @rental.taken_at = DateTime.now
+      @rental.travelling!
       if @rental.valid?
         update_user_and_car
         @rental.save
@@ -59,7 +61,6 @@ class RentalsController < ApplicationController
 
   def update_user_and_car
     current_user.travelling!
-    current_user.wallet.money -= @rental.price * @rental.hours
     current_user.wallet.save
     @car.taken!
     @car.save
@@ -72,7 +73,9 @@ class RentalsController < ApplicationController
   end
 
   def destroy
-    @rental.delete
+    current_user.wallet.money -= @rental.price * @rental.hours * (@rental.time_passed? ? 3 : 1)
+    @rental.finished!
+    @rental.finished_at = DateTime.now
     current_user.stall!
     @car.available!
     redirect_to cars_path, notice: '¡Viaje finalizado con éxito! Gracias por utilizar nuestros servicios'
