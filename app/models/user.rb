@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_one :wallet
   has_many :cards, through: :wallet
-  has_one :rental
+  has_many :rentals
   has_one :car, through: :rental
 
   authenticates_with_sorcery!
@@ -46,8 +46,16 @@ class User < ApplicationRecord
     !license.nil?
   end
 
-  def can_rent?(price)
+  def can_rent_on_money?(price)
     wallet.money >= price
+  end
+
+  def can_rent_on_time?(car)
+    return true if rentals.empty?
+
+    return unless rentals.last.car.id == car.id
+
+    (DateTime.now.hour - rentals.last.finished_at.hour).positive?
   end
 
   def see_cars?
