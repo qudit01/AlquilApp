@@ -1,0 +1,23 @@
+
+<%= form_for @fine do |f| %>
+  <div class="edit-form-col form-group">
+    <%= f.label 'Tipo' %>
+    <%= f.select :type, [['Tanque no lleno'],['Transito'],['Daños a terceros'], ['Daños al vehiculo'],['Uso indebido'],['Otros']], class: 'form-control' %>
+  </div>
+
+  <div class="edit-form-col form-group">
+    <%= f.label 'Motivo' %>
+    <%= f.text_field :motive %>
+  </div>
+
+  <div class="edit-form-col form-group">
+    <%= f.label 'Monto'%>
+    <%= f.number_field :price %>
+  </div>
+
+  <div class="form-submit-close-btns">
+  <%= f.submit 'Generar multa', class:'btn new_user' %>
+  <button data-action="click->turbomodals#submitEnd" class="btn new_user">Cerrar</button>
+</div>
+
+<% end %>

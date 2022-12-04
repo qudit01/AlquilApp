@@ -19,4 +19,27 @@
     </table>
 <% end %>
 <%end%>
+<% if @licenses_not.empty? %>
+  <h1>No hay licencias no validas</h1>
+<%else%>
+<% @licenses_not.each do |l| %>
+    <h2>Listado de Licencias no validas</h2>
+    <table class="table">
+      <tr>
+        <thead>
+          <th>Imagen: </th>
+          <th>Usuario: </th>
+          <th>Estado: </th>
+          <th>Motivo de rechazo: </th>
+        </thead>
+      </tr>
+      <tr>
+        <td><%= image_tag l.photo.url(:thumb).to_s %></td>
+        <td><%= l.user.name %></td>
+        <td><%= l&.estado %></td>
+        <td><%= l.motive %></td>
+      </tr>
+    </table>
+<% end %>
+<%end%>
 </div>

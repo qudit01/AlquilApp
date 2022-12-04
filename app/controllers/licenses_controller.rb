@@ -5,6 +5,7 @@ class LicensesController < ApplicationController
   def index
     if current_user.admin? || current_user.supervisor?
       @licenses = License.where(state: 0)
+      @licenses_not = License.where(state:1..4)
     else
       redirect_to root_path
     end
