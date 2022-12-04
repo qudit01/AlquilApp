@@ -18,20 +18,25 @@ class CarsController < ApplicationController
     if current_user.admin? || current_user.supervisor?
       @cars = Car.where(remove:false)
     else
-      if current_user.license.last.ok? || current_user.license.last.toexpire?
-        @cars = Car.where(remove:false, state: 'available')
-        @cars.each do |c|
-          if c.latitude != nil && c.longitude != nil
-            c1 = current_user.latitude - c.latitude
-            c2 = current_user.longitude - c.longitude
-            c.position = Math.sqrt((c1 * c1) + (c2 * c2))
-            c.save
+      if !current_user.license.empty?
+        if current_user.license.last.ok? || current_user.license.last.toexpire?
+          @cars = Car.where(remove:false, state: 'available')
+          @cars.each do |c|
+            if c.latitude != nil && c.longitude != nil
+              c1 = current_user.latitude - c.latitude
+              c2 = current_user.longitude - c.longitude
+              c.position = Math.sqrt((c1 * c1) + (c2 * c2))
+              c.save
+            end
+          @cars = Car.where(position: 0..5, state: 'available')
           end
-        @cars = Car.where(position: 0..5, state: 'available')
+        else 
+            flash[:alert] = 'Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad.'
+            redirect_to users_path
         end
-      else 
-          flash[:alert] = 'Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad.'
-          redirect_to users_path
+      else
+        flash[:alert] = 'Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad.'
+            redirect_to users_path
       end
     end
   end
