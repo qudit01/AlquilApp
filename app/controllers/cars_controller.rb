@@ -18,7 +18,7 @@ class CarsController < ApplicationController
     if current_user.admin? || current_user.supervisor?
       @cars = Car.where(remove:false)
     else
-      if current_user.license.ok? || current_user.license.toexpire?
+      if current_user.license.last.ok? || current_user.license.last.toexpire?
         @cars = Car.where(remove:false, state: 'available')
         @cars.each do |c|
           if c.latitude != nil && c.longitude != nil
@@ -37,7 +37,7 @@ class CarsController < ApplicationController
   end
 
   def index_ver_mas_autos
-    if current_user.license.state == "ok" || current_user.license.state == "toexpire"
+    if current_user.license.last.state == "ok" || current_user.license.last.state == "toexpire"
       @cars = Car.where(remove:false, state: 'available')
     else
       flash[:notice] = "No hay autos"

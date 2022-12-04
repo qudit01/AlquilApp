@@ -29,7 +29,7 @@ class LicensesController < ApplicationController
   end
 
   def create
-    current_user.license = @license = License.new(user_id: current_user.id)
+    @license = License.new(user_id: current_user.id)
     @license.photo = params[:license][:photo]
     if @license.valid?
       @license.save

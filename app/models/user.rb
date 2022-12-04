@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_one :car, through: :rental
 
   authenticates_with_sorcery!
-  has_one :license
+  has_many :license
   enum role: { client: 0, supervisor: 1, admin: 2 }
   enum state: { stall: 0, travelling: 1 }
 
