@@ -1,9 +1,12 @@
-<h1>New fine</h1>
-
-<%= render "form", fine: @fine %>
-
-<br>
-
-<div>
-  <%= link_to "Back to fines", fines_path %>
-</div>
+<section class="index_user">
+<%= turbo_frame_tag :modal do %>
+  <div class="modals" data-controller="turbomodals">
+    <div class="form_container">
+      <div class="title">
+        <h1 class="add_edit_title"><%= 'Nueva multa al usuario @rental.user.name' %></h1>
+      </div>
+      <%= render 'form', method: :post %>
+    </div>
+  </div>
+<% end %>
+</section>
