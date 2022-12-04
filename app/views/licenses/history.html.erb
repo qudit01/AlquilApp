@@ -1,0 +1,43 @@
+<div class="container">
+<% if @licenses_rejected.nil?%>
+  <h1>No tienes licencias rechazadas en tu historial</h1>
+<%else%>
+    <table class="table">
+    <h2>Listado de tus licencias rechazadas</h2>
+    <% @licenses_rejected.each do |l| %>
+      <tr>
+        <thead>
+          <th>Imagen: </th>
+          <th>Estado: </th>
+          <th>Motivo de rechazo: </th>
+        </thead>
+      </tr>
+      <tr>
+        <td><%= image_tag l.photo.url(:thumb).to_s %></td>
+        <td><%= l&.estado %></td>
+        <td><%= l.motive %></td>
+      </tr>
+    <% end %>
+    </table>
+<% end %>
+<%if @licenses_expired.nil?%>
+    <h1>No tienes licencias vencidas en tu historial</h1>
+<%else%>
+  <table class="table">
+  <h2>Listado de tus licencias vencidas</h2>
+    <% @licenses_expired.each do |l| %>
+        <tr>
+            <thead>
+            <th>Imagen: </th>
+            <th>Estado: </th>
+            <th>Fecha de vencimiento: </th>
+            </thead>
+        </tr>
+        <tr>
+            <td><%= image_tag l.photo.url(:thumb).to_s %></td>
+            <td><%= l&.estado %></td>
+            <td><%= l.expire %></td>
+        </tr>
+    <%end%>
+    </table>
+<% end %>

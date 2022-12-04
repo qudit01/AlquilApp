@@ -15,6 +15,9 @@
         <% if @license.toexpire? || @license.rejected? || @license.expired?%><br>
           <%= link_to "Resubir licencia", new_license_path, class: 'btn' %>
         <% end %>
+        <% if !@license.nil?%><br>
+          <%= link_to "Historial de licencias", history_path, class: 'btn' %>
+        <% end %>
       </tr>
     </thead>
   </div>
