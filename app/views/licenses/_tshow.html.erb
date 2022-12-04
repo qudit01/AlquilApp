@@ -13,7 +13,7 @@
           <th>Motivo de rechazo: </th><th><%= @license.motive %>
         <% end %>
         <% if @license.toexpire? || @license.rejected? || @license.expired?%><br>
-          <%= link_to "Resubir licencia", edit_license_path, class: 'btn' %>
+          <%= link_to "Resubir licencia", new_license_path, class: 'btn' %>
         <% end %>
       </tr>
     </thead>
