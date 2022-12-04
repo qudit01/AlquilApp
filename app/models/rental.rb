@@ -1,6 +1,7 @@
 class Rental < ApplicationRecord
   belongs_to :user
   belongs_to :car
+  has_many :fines
 
   validates :hours, numericality: { greater_than: 0.1 }
   validate :money?
