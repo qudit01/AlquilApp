@@ -25,19 +25,17 @@ class LicensesController < ApplicationController
     else
       redirect_to root_path
     end
-    @license
   end
 
   def create
     current_user.license = @license = License.new(user_id: current_user.id)
     @license.photo = params[:license][:photo]
-    if @license.valid?
-      @license.save
-      flash[:notice] = 'Licencia subida con exito!'
+    if @license.save!
+      flash[:notice] = '¡Licencia subida con exito!'
       redirect_to licenses_path
     else
-      flash[:alert] = 'Por favor, subir un formato de imagen admitido (JPG, JPEG o PNG)'
-      render :new, status: :unprocessable_entity
+      flash[:notice] = 'Por favor, subir un formato de imagen admitido (JPG, JPEG o PNG)'
+      render :new
     end
   end
 
@@ -48,13 +46,14 @@ class LicensesController < ApplicationController
   def update
     @license = License.find(params[:id])
     if current_user.client?
+      @license.pending?
       if @license.update(upload_photo)
-        @license.pending!
+        @license.state="pending"
         @license.save
         flash[:notice] = 'La foto ha sido subida con exito, sera corroborada por nuestro personal a la brevedad para que pueda continuar utilizando nuestros servicios'
         redirect_to licenses_path
       else
-        flash[:alert] = 'Por favor, subir un formato de imagen admitido (JPG, JPEG o PNG)'
+        flash[:notice] = 'Por favor, subir un formato de imagen admitido (JPG, JPEG o PNG)'
         render :edit
       end
     else

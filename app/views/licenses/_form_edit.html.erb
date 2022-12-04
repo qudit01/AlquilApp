@@ -5,17 +5,9 @@
 <h1>Licencia de <%= @license.user&.name+', '%><%= @license.user&.age%><th> años</th></h1>
 <%end%>
 
-<% if flash[:notice] %>
-  <div class="notice"><%= flash[:notice] %></div>
-<% end %>
-
-<% if flash[:alert] %>
-  <div class="alert"><%= flash[:alert] %></div>
-<% end %>
-
 <%= form_for @license do |f| %>
   <% if current_user.client? %>
-    <div class="form-submit-close-btns">
+    <div class="form-group col-md-12">
           <label style="margin-left: 0px; padding-left: 0px;" for="image-input" class="btn btn-warning upload-logo-btn">Subir foto</label>
           <%= f.file_field :photo,
             class: 'file_input',
@@ -24,8 +16,7 @@
                     id: 'image-input',
                       style: 'display: none;' %>
     <img id="img_prev" src="#" alt="your image" style="display: none;" />
-    </div>
-    <br>
+    </div><br>
   <%else%>
     <%= f.label 'Foto de licencia' %>
     <%= image_tag @license.photo.url(:mid).to_s %>
