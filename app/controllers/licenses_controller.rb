@@ -68,6 +68,11 @@ class LicensesController < ApplicationController
     end
   end
 
+  def history
+    @licenses_expired = current_user.license.where(state: 2)
+    @licenses_rejected = current_user.license.where(state:'rejected')
+  end
+
   private
 
   def upload_photo

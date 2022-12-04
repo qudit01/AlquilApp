@@ -46,4 +46,6 @@ Rails.application.routes.draw do
   resources :licenses
 
   resources :locations, only: :create
+
+  get 'history', to: 'licenses#history'
 end
