@@ -42,7 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_203349) do
     t.float "longitude"
     t.float "position"
     t.integer "state", default: 0
-    t.float "fuel", default: 0.0
+    t.float "fuel"
   end
 
   create_table "licenses", force: :cascade do |t|

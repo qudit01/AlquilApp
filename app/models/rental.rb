@@ -19,7 +19,7 @@ class Rental < ApplicationRecord
   end
 
   def time_passed?
-    ((taken_at.hour + hours) - DateTime.now.hour).negative?
+    (taken_at.hour + hours - DateTime.now.hour).negative?
   end
 
   private

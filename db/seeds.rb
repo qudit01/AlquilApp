@@ -34,7 +34,7 @@ end
               pin: 120 + index,
               expiration: Time.zone.now + 100.days + index.days,
               owner: User.find(index + 1).name,
-              bank: 'Santander',
+              bank: 'VISA',
               kind: rand(0..2),
               user: User.find(index + 1),
               wallet: User.find(index + 1).wallet)

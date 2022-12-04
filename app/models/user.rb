@@ -46,12 +46,16 @@ class User < ApplicationRecord
     !license.nil?
   end
 
-  def can_rent?(price)
-    if rentals.empty?
-      wallet.money >= price
-    else
-      wallet.money >= price && (DateTime.now - rentals.last&.finished_at).hour > 3
-    end
+  def can_rent_on_money?(price)
+    wallet.money >= price
+  end
+
+  def can_rent_on_time?(car)
+    return true if rentals.empty?
+
+    return unless rentals.last.car.id == car.id
+
+    (DateTime.now.hour - rentals.last.finished_at.hour).positive?
   end
 
   def see_cars?

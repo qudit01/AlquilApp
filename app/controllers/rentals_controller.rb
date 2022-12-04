@@ -46,16 +46,20 @@ class RentalsController < ApplicationController
                          car: @car,
                          hours: rental_params[:hours],
                          price: rental_params[:hours].to_f * rental_params[:price].to_f)
-    if current_user.can_rent?(@rental.price)
-      @rental.taken_at = DateTime.now
-      @rental.travelling!
-      if @rental.valid?
-        update_user_and_car
-        @rental.save
-        redirect_to rental_path(@rental, car_id: @rental.car), notice: '¡Alquiler realizado con éxito! ¡Tu auto te está esperando!'
+    if current_user.can_rent_on_time?(@car)
+      if current_user.can_rent_on_money?(@rental.price)
+        @rental.taken_at = DateTime.now
+        @rental.travelling!
+        if @rental.valid?
+          update_user_and_car
+          @rental.save
+          redirect_to rental_path(@rental, car_id: @rental.car), notice: '¡Alquiler realizado con éxito! ¡Tu auto te está esperando!'
+        end
+      else
+        redirect_to cars_path, alert: 'No cuenta con suficiente dinero para este alquiler. Por favor, ingrese más dinero en la billetera virtual y vuelva a intentarlo'
       end
     else
-      redirect_to cars_path, alert: 'No cuenta con suficiente dinero para este alquiler. Por favor, ingrese más dinero en la billetera virtual y vuelva a intentarlo'
+      redirect_to cars_path, alert: 'No han pasado mas de 3 horas desde tu último alquiler, vuelva a intentarlo mas tarde.'
     end
   end
 
@@ -74,8 +78,7 @@ class RentalsController < ApplicationController
 
   def destroy
     current_user.wallet.money -= @rental.price * @rental.hours * (@rental.time_passed? ? 3 : 1)
-    @rental.finished!
-    @rental.finished_at = DateTime.now
+    @rental.update(finished_at: DateTime.now, state: 'finished')
     current_user.stall!
     @car.available!
     redirect_to cars_path, notice: '¡Viaje finalizado con éxito! Gracias por utilizar nuestros servicios'
