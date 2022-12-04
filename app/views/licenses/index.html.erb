@@ -2,9 +2,9 @@
 <% if @licenses.empty? %>
   <h1>No hay licencias pendientes de revision</h1>
 <%else%>
+<h2>Listado de Licencias</h2>
+<table class="table">
 <% @licenses.each do |l| %>
-    <h2>Listado de Licencias</h2>
-    <table class="table">
       <tr>
         <thead>
           <th>Imagen: </th>
@@ -16,15 +16,15 @@
         <td><%= l&.estado %></td>
         <td><%= link_to "Verificar licencia", edit_license_path(l), class: 'btn' %></td>
       </tr>
-    </table>
 <% end %>
+</table>
 <%end%>
 <% if @licenses_not.empty? %>
   <h1>No hay licencias no validas</h1>
 <%else%>
+<h2>Listado de Licencias rechazadas</h2>
+<table class="table">
 <% @licenses_not.each do |l| %>
-    <h2>Listado de Licencias no validas</h2>
-    <table class="table">
       <tr>
         <thead>
           <th>Imagen: </th>
@@ -39,7 +39,8 @@
         <td><%= l&.estado %></td>
         <td><%= l.motive %></td>
       </tr>
-    </table>
+
 <% end %>
+</table>
 <%end%>
 </div>
