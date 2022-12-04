@@ -29,6 +29,7 @@
           <% end %>
         </tbody>
       </table>
+      <%= link_to 'Agregar tarjeta', new_wallet_card_path(current_user.wallet), data: {turbo_frame: 'modal'}, class: 'btn' %>
     </section>
   </section>
 <% end %>
