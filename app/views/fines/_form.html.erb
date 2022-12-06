@@ -5,7 +5,7 @@
     <%= f.select :type, [['Tanque no lleno'],['Transito'],['Daños a terceros'], ['Daños al vehiculo'],['Uso indebido'],['Otros']], class: 'form-control' %>
   </div>
 
-  <div class="edit-form-col form-group">
+  <div class="edit-form-col form-group" id="motive_hide">
     <%= f.label 'Motivo' %>
     <%= f.text_field :motive %>
   </div>
@@ -21,3 +21,19 @@
 </div>
 
 <% end %>
+
+<script>
+function ocultarField (){
+  if(document.getElementById('fine_type').value == "Tanque no lleno") {
+    document.getElementById("motive_hide").style.display="none"
+    document.getElementById("fine_price").value=3000
+    document.getElementById("fine_price").disabled=true
+  }
+  else{
+    document.getElementById("motive_hide").style.display="";
+    document.getElementById("fine_price").value=0;
+    document.getElementById("fine_price").disabled=false;
+  }
+}
+setInterval(ocultarField, 100);
+</script>
