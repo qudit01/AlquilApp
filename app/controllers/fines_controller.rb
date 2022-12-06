@@ -65,6 +65,6 @@ class FinesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def fine_params
-      params.require(:fine).permit(:price, :motive, :type)
+      params.require(:fine).permit(:price, :type)
     end
 end
