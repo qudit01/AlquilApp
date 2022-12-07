@@ -1,59 +1,48 @@
 class FinesController < ApplicationController
-  before_action :set_fine, only: %i[ show edit update destroy ]
 
-  # GET /fines or /fines.json
   def index
-    @fines = Fine.all
+    if current_user.admin? || current_user.supervisor?
+      @fines = Fine.all
+    else
+      @fines = current_user.fines
+    end
   end
 
-  # GET /fines/1 or /fines/1.json
   def show
+    @fine = Fine.find params[:id]
   end
 
-  # GET /fines/new
   def new
     @fine = Fine.new
   end
 
-  # GET /fines/1/edit
   def edit
   end
 
-  # POST /fines or /fines.json
   def create
-    @fine = Fine.new(fine_params)
-
-    respond_to do |format|
+    @fine = Fine.new(rental: @rental, motive: params[:motive], price: params[:price], typefine: params[:typefine])
+    @rental = Rental.find params[:rental_id]
+    @user = User.find(@rental.user_id)
+    @fine.rental = @rental
+    @fine.user = @user
       if @fine.save
-        format.html { redirect_to fine_url(@fine), notice: "Fine was successfully created." }
-        format.json { render :show, status: :created, location: @fine }
+        redirect_to fine_path(@fine) 
+        flash[:notice]= "Se ha generado la multa con exito"
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @fine.errors, status: :unprocessable_entity }
+        render :new, notice: "Error al generar la multa"
       end
-    end
   end
 
-  # PATCH/PUT /fines/1 or /fines/1.json
-  def update
-    respond_to do |format|
-      if @fine.update(fine_params)
-        format.html { redirect_to fine_url(@fine), notice: "Fine was successfully updated." }
-        format.json { render :show, status: :ok, location: @fine }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @fine.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /fines/1 or /fines/1.json
-  def destroy
-    @fine.destroy
-
-    respond_to do |format|
-      format.html { redirect_to fines_url, notice: "Fine was successfully destroyed." }
-      format.json { head :no_content }
+  def pay_fine
+    @fine= Fine.find params[:format]
+    if current_user.can_rent_on_money?(@fine.price)
+      current_user.wallet.money=current_user.wallet.money-@fine.price
+      @fine.state='paid'
+      @fine.save
+      current_user.wallet.save
+      redirect_to fines_path(), notice: 'Multa saldada con exito!'
+    else
+      redirect_to fines_path(), alert: 'No cuenta con suficiente dinero para este alquiler. Por favor, ingrese más dinero en la billetera virtual y vuelva a intentarlo'
     end
   end
 
@@ -65,6 +54,6 @@ class FinesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def fine_params
-      params.require(:fine).permit(:price, :motive, :type)
+      params.require(:fine).permit(:price, :motive, :typefine)
     end
 end

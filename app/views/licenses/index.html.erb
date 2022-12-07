@@ -8,11 +8,13 @@
       <tr>
         <thead>
           <th>Imagen: </th>
+          <th>Usuario: </th>
           <th>Estado: </th>
         </thead>
       </tr>
       <tr>
         <td><%= image_tag l.photo.url(:thumb).to_s %></td>
+        <td><%= l.user.name %></td>
         <td><%= l&.estado %></td>
         <td><%= link_to "Verificar licencia", edit_license_path(l), class: 'btn' %></td>
       </tr>
@@ -20,7 +22,7 @@
 </table>
 <%end%>
 <% if @licenses_not.empty? %>
-  <h1>No hay licencias no validas</h1>
+  <h1>No hay licencias rechazadas hasta el momento</h1>
 <%else%>
 <h2>Listado de Licencias rechazadas</h2>
 <table class="table">

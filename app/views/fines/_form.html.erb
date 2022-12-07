@@ -1,11 +1,11 @@
 
-<%= form_for @fine do |f| %>
+<%= form_with url: url, method: method do |f| %>
   <div class="edit-form-col form-group">
     <%= f.label 'Tipo' %>
-    <%= f.select :type, [['Tanque no lleno'],['Transito'],['Daños a terceros'], ['Daños al vehiculo'],['Uso indebido'],['Otros']], class: 'form-control' %>
+    <%= f.select :typefine, [["Tanque no lleno"],["Transito"],["Daños a terceros"], ["Daños al vehiculo"],["Uso indebido"],["Otros"]], class: 'form-control' %>
   </div>
 
-  <div class="edit-form-col form-group">
+  <div class="edit-form-col form-group" id="motive_hide">
     <%= f.label 'Motivo' %>
     <%= f.text_field :motive %>
   </div>
@@ -13,6 +13,7 @@
   <div class="edit-form-col form-group">
     <%= f.label 'Monto'%>
     <%= f.number_field :price %>
+    <input type="number" value="3000" class="edit-form-col form-group" readonly id='ronly'>
   </div>
 
   <div class="form-submit-close-btns">
@@ -21,3 +22,20 @@
 </div>
 
 <% end %>
+
+<script>
+function ocultarField (){
+  if(document.getElementById('typefine').value == "Tanque no lleno") {
+    document.getElementById("motive_hide").style.display="none";
+    document.getElementById("price").value=3000;
+    document.getElementById("motive").value="Usted ha devuelto el automovil sin llenar el tanque de combustible";
+    document.getElementById("price").style.display="none";
+  }
+  else{
+    document.getElementById("motive_hide").style.display="";
+    document.getElementById("price").style.display="";
+    document.getElementById("ronly").style.display="none";
+  }
+}
+setInterval(ocultarField, 100);
+</script>

@@ -2,10 +2,11 @@ class User < ApplicationRecord
   has_one :wallet
   has_many :cards, through: :wallet
   has_many :rentals
+  has_many :fines
   has_one :car, through: :rental
 
   authenticates_with_sorcery!
-  has_many :license
+  has_many :licenses
   enum role: { client: 0, supervisor: 1, admin: 2 }
   enum state: { stall: 0, travelling: 1 }
 
@@ -53,9 +54,11 @@ class User < ApplicationRecord
   def can_rent_on_time?(car)
     return true if rentals.empty?
 
-    return unless rentals.last.car.id == car.id
+    rents_with_car = rentals.where(car_id: car.id)
 
-    (DateTime.now.hour - rentals.last.finished_at.hour).positive?
+    return true if rents_with_car.empty?
+
+    rents_with_car.last.finished_at.hour + 3 >= DateTime.now.hour
   end
 
   def see_cars?

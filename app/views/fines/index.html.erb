@@ -1,14 +1,21 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Fines</h1>
-
-<div id="fines">
-  <% @fines.each do |fine| %>
-    <%= render fine %>
-    <p>
-      <%= link_to "Show this fine", fine %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New fine", new_fine_path %>
+<div class="container">
+<% if @fines.empty?%>
+  <h1>No existen multas generadas</h1>
+  <td><%= link_to 'Volver a mi perfil', user_path(current_user), class: 'btn'%></td>
+<%else%>
+    <table class="table">
+    <% @fines.each do |f| %>
+      <tr>
+        <thead>
+          <th>Tipo: </th>
+          <th>Estado: </th>
+        </thead>
+      </tr>
+      <tr>
+        <td><%= f.typefine %></td>
+        <td><%= f&.estado %></td>
+        <td><%= link_to "Ver detalle de multa", fine_path(f), class:'btn new_user'  %></td>
+      </tr>
+    <% end %>
+    </table>
+<% end %>

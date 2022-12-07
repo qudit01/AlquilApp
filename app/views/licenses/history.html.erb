@@ -1,5 +1,5 @@
 <div class="container">
-<% if @licenses_rejected.nil?%>
+<% if @licenses_rejected.empty?%>
   <h1>No tienes licencias rechazadas en tu historial</h1>
 <%else%>
     <table class="table">
@@ -20,7 +20,7 @@
     <% end %>
     </table>
 <% end %>
-<%if @licenses_expired.nil?%>
+<%if @licenses_expired.empty?%>
     <h1>No tienes licencias vencidas en tu historial</h1>
 <%else%>
   <table class="table">

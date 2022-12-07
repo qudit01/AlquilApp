@@ -30,6 +30,9 @@
         </tbody>
       </table>
       <%= link_to 'Agregar tarjeta', new_wallet_card_path(current_user.wallet), data: {turbo_frame: 'modal'}, class: 'btn' %>
+      <% if current_user.cards.present? %>
+        <%= link_to 'Cargar dinero', edit_wallet_path(current_user.wallet), data: {turbo_frame: 'modal'}, class: 'btn' %>
+      <% end %>
     </section>
   </section>
 <% end %>

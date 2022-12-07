@@ -31,14 +31,31 @@
     <%= image_tag @license.photo.url(:mid).to_s %>
   <%end%>
   <% if current_user.admin? || current_user.supervisor? %>
+    
     <%= f.label 'Estado' %>
     <%= f.select :state, [['Rechazada', 'rejected'], ['Valida', 'ok']], class: 'form-control' %><br>
 
+    <div id = "hide_date">
     <%= f.label 'Fecha de vencimiento' %>
     <%= f.date_field :expire, class: 'form-control' %>
-
+    </div>
+    <div id="hide_motive">
     <%= f.label 'Motivo de rechazo' %>
     <%= f.text_field :motive, class: 'form-control' %>
+    </div>
+    <script>
+      function ocultarField (){
+        if(document.getElementById('license_state').value == "rejected") {
+          document.getElementById("hide_date").style.display="none";
+          document.getElementById("hide_motive").style.display="";
+        }
+        else if(document.getElementById('license_state').value == "ok"){
+          document.getElementById("hide_motive").style.display="none";
+          document.getElementById("hide_date").style.display="";
+        }
+      }
+      setInterval(ocultarField, 100);
+    </script>
   <%end%>
     <% if current_user.client? %>
     <div class="form-submit-close-btns">

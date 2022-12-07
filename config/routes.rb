@@ -49,4 +49,5 @@ Rails.application.routes.draw do
   resources :locations, only: :create
 
   get 'history', to: 'licenses#history'
+  get 'payfine', to: 'fines#pay_fine'
 end

@@ -70,7 +70,7 @@ class LicensesController < ApplicationController
 
   def history
     @licenses_expired = current_user.license.where(state: 2)
-    @licenses_rejected = current_user.license.where(state:'rejected')
+    @licenses_rejected = current_user.license.where(state: 4)
   end
 
   private

@@ -13,39 +13,37 @@ class CarsController < ApplicationController
     end
   end
 
-
   def index
     if current_user.admin? || current_user.supervisor?
-      @cars = Car.where(remove:false)
-    else
-      if !current_user.license.empty?
-        if current_user.license.last.ok? || current_user.license.last.toexpire?
-          @cars = Car.where(remove:false, state: 'available')
-          @cars.each do |c|
-            if c.latitude != nil && c.longitude != nil
-              c1 = current_user.latitude - c.latitude
-              c2 = current_user.longitude - c.longitude
-              c.position = Math.sqrt((c1 * c1) + (c2 * c2))
-              c.save
+      @cars = Car.where(remove: false)
+    elsif current_user.licenses.present?
+        if current_user.licenses.last&.ok? || current_user.licenses.last&.toexpire?
+          @cars = Car.where(remove: false, state: 'available')
+          @cars.each do |car|
+            if !car.latitude.nil? && !car.longitude.nil?
+              c1 = current_user.latitude - car.latitude
+              c2 = current_user.longitude - car.longitude
+              car.position = Math.sqrt((c1 * c1) + (c2 * c2))
+              car.save
             end
-          @cars = Car.where(position: 0..5, state: 'available')
+            @cars = Car.where(position: 0..5, state: 'available')
           end
-        else 
-            flash[:alert] = 'Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad.'
-            redirect_to users_path
+        else
+          flash[:alert] = 'Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad.'
+          redirect_to users_path
         end
       else
         flash[:alert] = 'Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad.'
-            redirect_to users_path
+        redirect_to users_path
       end
     end
   end
 
   def index_ver_mas_autos
-    if current_user.license.last.state == "ok" || current_user.license.last.state == "toexpire"
-      @cars = Car.where(remove:false, state: 'available')
+    if current_user.licenses.last&.state == 'ok' || current_user.licenses.last&.state == 'toexpire'
+      @cars = Car.where(remove: false, state: 'available')
     else
-      flash[:notice] = "No hay autos"
+      flash[:notice] = 'No hay autos'
     end
   end
 
@@ -101,4 +99,3 @@ class CarsController < ApplicationController
   def image_params
     params[:car][:photo]
   end
-end
