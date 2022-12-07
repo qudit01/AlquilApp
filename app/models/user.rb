@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_one :wallet
   has_many :cards, through: :wallet
   has_many :rentals
+  has_many :fines
   has_one :car, through: :rental
 
   authenticates_with_sorcery!
