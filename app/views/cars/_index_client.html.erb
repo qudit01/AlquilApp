@@ -1,27 +1,28 @@
 <div class="container">
-  <% if current_user.license.last.state == 'pending' || current_user.license.last.state == 'expired' || current_user.license.last.state == 'rejected' %>
+  <% if valid_license? %>
      <h1> Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad. </h1>
   <% else %>
-    <% if @cars.length == 0 %>
+    <% if @cars.length.zero? %>
       <h4> No hay autos disponibles en un radio de 5 cuadras de su ubicación actual, si desea ver todos los autos disponibles presione el botón </h4>
-        <%= link_to "+ Ver más autos", index_ver_mas_autos_path ,  class: 'btn'%>
+        <%= link_to '+ Ver más autos', index_ver_mas_autos_path ,  class: 'btn'%>
     <% else %>
       <span class="add-car-span">
          <h2>Listado de Automoviles</h2>
       </span>
-      <% @cars.each do |c| %>
-      <table class="table">
-        <tr>
-          <thead>
-            <th>Auto N°<%= c.car_number %></th>
-          </thead>
-        </tr>
+      <% @cars.each do |car| %>
+        <table class="table">
           <tr>
-            <td><%= image_tag c.photo.url(:thumb).to_s %></td>
-            <td><%= link_to 'Alquilar', new_rental_path(user_id: current_user, car_id: c.id), data: {turbo_frame: 'modal'}, class: 'btn'%></td>
-            <td><%= link_to "Ver mas detalles", car_path(c) ,  class: 'btn'%></td>
+            <thead>
+              <th>Auto N°<%= car.car_number %></th>
+            </thead>
+          </tr>
+          <tr>
+            <td><%= image_tag car.photo.url(:thumb).to_s %></td>
+            <td><%= link_to 'Alquilar', new_rental_path(user_id: current_user, car_id: car.id), data: {turbo_frame: 'modal'}, class: 'btn'%></td>
+            <td><%= link_to "Ver mas detalles", car_path(car) ,  class: 'btn'%></td>
+          </tr>
         </table>
-    <% end %>
+      <% end %>
     <% end %>
   <% end %>
 </div>

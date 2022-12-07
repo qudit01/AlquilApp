@@ -8,6 +8,8 @@ class Rental < ApplicationRecord
   validates :hours, numericality: { greater_than: 0.1 }
   validate :money?
 
+  scope :right_now, -> { where(state: %w[travelling extended]) }
+
   def total_price
     price * hours
   end

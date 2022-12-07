@@ -5,22 +5,34 @@
   <table class="table">
     <tr>
       <thead>
-        <th>Cliente: </th>
-        <th>Numero de auto: </th>
-        <th>Tiempo total: </th>
-        <th>Tiempo restante: </th>
-        <th>Precio total: </th>
+        <th>Cliente </th>
+        <th>DNI </th>
+        <th>Numero de auto </th>
+        <th>Tiempo total </th>
+        <th>Tomado el </th>
+        <th>A las </th>
+        <th>Tiempo límite </th>
+        <th>Tiempo restante </th>
+        <th>¿Fue extendido? </th>
+        <th>Precio total </th>
       </thead>
     </tr>
     <tbody class="table">
       <tr>
         <td><%= @rental.user.name %></td>
+        <td><%= @rental.user.dni %></td>
         <td><%= @rental.car.car_number %></td>
         <td><%= @rental.hours %></td>
-        <td><%= @rental.timeout %></td>
+        <td><%= @rental.taken_at.strftime("%d-%m-%Y")	 %></td>
+        <td><%= @rental.taken_at.strftime("%R")	 %></td>
+        <td><%= time_limit.strftime("%d-%m-%Y %R")  %></td>
+        <td><%= remaining_time(@rental).to_i %> Horas</td>
+        <td><%= @rental.extended? ? 'Si' : 'No' %></td>
         <td><%= @rental.total_price %></td>
       </tr>
     </tbody>
   </table>
-  <td><%= link_to 'Extender alquiler', edit_rental_path(@rental, car_id: @rental.car_id), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
+  <% if @rental.user.id.eql? current_user.id %>
+    <td><%= link_to 'Extender alquiler', edit_rental_path(@rental, car_id: @rental.car_id), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
+  <% end %>
 </div>
