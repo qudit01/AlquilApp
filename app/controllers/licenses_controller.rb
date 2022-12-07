@@ -5,6 +5,7 @@ class LicensesController < ApplicationController
   def index
     if current_user.admin? || current_user.supervisor?
       @licenses = License.where(state: 0)
+      @licenses_not = License.where(state: 4)
     else
       redirect_to root_path
     end
@@ -65,6 +66,11 @@ class LicensesController < ApplicationController
         render :edit
       end
     end
+  end
+
+  def history
+    @licenses_expired = current_user.license.where(state: 2)
+    @licenses_rejected = current_user.license.where(state: 4)
   end
 
   private

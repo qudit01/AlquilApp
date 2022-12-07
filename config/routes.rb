@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :fines
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -46,4 +47,6 @@ Rails.application.routes.draw do
   resources :licenses
 
   resources :locations, only: :create
+
+  get 'history', to: 'licenses#history'
 end

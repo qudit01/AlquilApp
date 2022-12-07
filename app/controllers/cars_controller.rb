@@ -16,17 +16,21 @@ class CarsController < ApplicationController
   def index
     if current_user.admin? || current_user.supervisor?
       @cars = Car.where(remove: false)
-    else
-      if current_user.licenses.last&.ok? || current_user.licenses.last&.toexpire?
-        @cars = Car.where(remove: false, state: 'available')
-        @cars.each do |car|
-          if !car.latitude.nil? && !car.longitude.nil?
-            c1 = current_user.latitude - car.latitude
-            c2 = current_user.longitude - car.longitude
-            car.position = Math.sqrt((c1 * c1) + (c2 * c2))
-            car.save
+    elsif current_user.licenses.present?
+        if current_user.licenses.last&.ok? || current_user.licenses.last&.toexpire?
+          @cars = Car.where(remove: false, state: 'available')
+          @cars.each do |car|
+            if !car.latitude.nil? && !car.longitude.nil?
+              c1 = current_user.latitude - car.latitude
+              c2 = current_user.longitude - car.longitude
+              car.position = Math.sqrt((c1 * c1) + (c2 * c2))
+              car.save
+            end
+            @cars = Car.where(position: 0..5, state: 'available')
           end
-          @cars = Car.where(position: 0..5, state: 'available')
+        else
+          flash[:alert] = 'Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad.'
+          redirect_to users_path
         end
       else
         flash[:alert] = 'Por favor cargue una foto de su licencia de conducir valida para poder utilizar la app, si ya lo hizo, por favor verifique que no haya sido rechazada, o bien espere a que un supervisor la verifique a la brevedad.'

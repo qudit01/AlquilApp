@@ -1,6 +1,7 @@
 class Rental < ApplicationRecord
   belongs_to :user
   belongs_to :car
+  has_many :fines
 
   enum state: { travelling: 0, extended: 1, finished: 2 }
   validates :state, presence: true, inclusion: { in: states.keys }
