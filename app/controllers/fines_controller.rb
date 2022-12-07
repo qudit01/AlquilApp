@@ -1,5 +1,5 @@
 class FinesController < ApplicationController
-  before_action :set_fine, only: %i[ show edit update destroy ]
+ # before_action :set_fine, only: %i[ show edit update destroy ]
 
   # GET /fines or /fines.json
   def index
@@ -8,6 +8,7 @@ class FinesController < ApplicationController
 
   # GET /fines/1 or /fines/1.json
   def show
+    @fine = Fine.find params[:id]
   end
 
   # GET /fines/new
@@ -21,17 +22,14 @@ class FinesController < ApplicationController
 
   # POST /fines or /fines.json
   def create
-    @fine = Fine.new(fine_params)
-
-    respond_to do |format|
+    @fine = Fine.new(rental: @rental, motive: params[:motive], price: params[:price], typefine: params[:typefine])
+    @rental = Rental.find params[:rental_id]
+    @fine.rental = @rental
       if @fine.save
-        format.html { redirect_to fine_url(@fine), notice: "Fine was successfully created." }
-        format.json { render :show, status: :created, location: @fine }
+        redirect_to fine_url(@fine), notice: "Fine was successfully created."
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @fine.errors, status: :unprocessable_entity }
+        render :new, notice: "wtf"
       end
-    end
   end
 
   # PATCH/PUT /fines/1 or /fines/1.json
@@ -65,6 +63,6 @@ class FinesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def fine_params
-      params.require(:fine).permit(:price, :type)
+      params.require(:fine).permit(:price, :motive, :typefine)
     end
 end

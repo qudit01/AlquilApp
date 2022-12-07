@@ -6,9 +6,9 @@
   <% @fines.each do |fine| %>
     <%= render fine %>
     <p>
-      <%= link_to "Show this fine", fine %>
+      <%= link_to "Show this fine", fine_path(fine) %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New fine", new_fine_path %>
+<%= link_to "New fine", new_fine_path() %>
