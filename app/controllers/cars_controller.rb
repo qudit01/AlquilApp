@@ -99,4 +99,3 @@ class CarsController < ApplicationController
   def image_params
     params[:car][:photo]
   end
-end

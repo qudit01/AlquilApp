@@ -1,4 +1,7 @@
 <div class="container">
+<% if @cars.nil? %>
+  <h1> No hay autos disponibles en este momento, intentelo mas tarde </h1>
+<% else %>  
   <% if @cars.length == 0 %>
     <h1> No hay autos disponibles en este momento, intentelo mas tarde </h1>
   <% else %>
@@ -18,4 +21,5 @@
         </table>
     <% end %>
   <% end %>
+  <%end%>
  </div>
