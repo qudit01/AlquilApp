@@ -79,7 +79,7 @@ class CarsController < ApplicationController
   end
 
   def new
-    if current_user.supervisor? || current_user.admin?
+    if current_user.admin?
       @car = Car.new
     else
       redirect_to users_path
