@@ -1,17 +1,21 @@
 class CarPolicy < ApplicationPolicy
   def create?
-    admin? || supervisor?
+    admin?
   end
 
   def edit?
-    admin? || supervisor?
+    supervisor?
   end
 
   def update?
-    admin? || supervisor?
+    supervisor?
   end
 
   def remove_car?
-    admin? || supervisor?
+    admin?
+  end
+
+  def block?
+    supervisor?
   end
 end

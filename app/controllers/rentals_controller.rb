@@ -7,7 +7,11 @@ class RentalsController < ApplicationController
   end
 
   def show
-    @rental_actual = Rental.find(current_user.rentals.last.id)
+    if current_user.rentals.last.state == 0
+      @rental_actual = Rental.find(current_user.rentals.last.id)
+    else
+      @rental_actual = nil
+    end
     @rental_viejos = current_user.rentals.where(state: 2)
   end
 
@@ -94,11 +98,11 @@ class RentalsController < ApplicationController
   end
 
   def find_data
-    @car = Car.find(current_user.rentals.last.car_id)
+    @car = Car.find(current_user.rentals.last.id)
   end
 
   def find_rental
     find_data
-    @rental = Rental.find params[current_user.rentals.last.id]
+    @rental = Rental.find(current_user.rentals.last.id)
   end
 end

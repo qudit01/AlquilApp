@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_04_235527) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_07_145746) do
   create_table "cards", force: :cascade do |t|
     t.integer "number", null: false
     t.integer "pin", null: false
@@ -44,6 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_235527) do
     t.integer "state", default: 0
     t.float "fuel", default: 0.0
     t.string "location"
+    t.boolean "blocked", default: false
   end
 
   create_table "fines", force: :cascade do |t|
@@ -52,6 +53,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_235527) do
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "rental_id"
+    t.integer "state", default: 0
+    t.integer "user_id"
   end
 
   create_table "licenses", force: :cascade do |t|
@@ -97,7 +101,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_235527) do
     t.float "latitude"
     t.float "longitude"
     t.integer "state", default: 0
+    t.integer "fine_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["fine_id"], name: "index_users_on_fine_id"
     t.index ["license_id"], name: "index_users_on_license_id"
     t.index ["wallet_id"], name: "index_users_on_wallet_id"
   end
@@ -115,6 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_235527) do
   add_foreign_key "rentals", "cars"
   add_foreign_key "rentals", "fines"
   add_foreign_key "rentals", "users"
+  add_foreign_key "users", "fines"
   add_foreign_key "users", "licenses"
   add_foreign_key "users", "wallets"
   add_foreign_key "wallets", "users"

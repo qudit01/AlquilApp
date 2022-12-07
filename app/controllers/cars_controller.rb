@@ -13,6 +13,22 @@ class CarsController < ApplicationController
     end
   end
 
+  def block
+    authorize Car
+    if @car.blocked?
+      @car.blocked = false
+      if @car.save
+        redirect_to cars_path, notice: "Auto desbloqueado con exito"
+      end    
+    else
+      @car.blocked = true
+      if @car.save
+        redirect_to cars_path, notice: "Auto bloqueado con exito"
+      end 
+    end
+  end
+  
+
   def index
     if current_user.admin? || current_user.supervisor?
       @cars = Car.where(remove: false)

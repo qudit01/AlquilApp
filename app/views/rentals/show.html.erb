@@ -1,7 +1,7 @@
-
+<% if @rental_actual != nil %>
   <div class="container">
     <span class="add-car-span">
-    <h2>Alquiler N°<%= @rental_actual.id %></h2>
+    <h2>Alquiler actual</h2>
     </span>
     <table class="table">
       <tr>
@@ -25,6 +25,7 @@
     </table>
     <td><%= link_to 'Extender alquiler', edit_rental_path(@rental_actual, car_id: @rental_actual.car_id), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
   </div>
+<% end %>
 
 
   <div class="container">
@@ -35,7 +36,7 @@
       <table class="table">
         <tr>
           <thead>
-            <h2>Alquiler N°<%= r.id %></h2>
+            <h3>Alquiler N°<%= r.id %></h3>
           </thead>
         </tr>
     </span>
