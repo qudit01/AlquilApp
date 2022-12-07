@@ -1,58 +1,30 @@
 class FinesController < ApplicationController
- # before_action :set_fine, only: %i[ show edit update destroy ]
 
-  # GET /fines or /fines.json
   def index
     @fines = Fine.all
   end
 
-  # GET /fines/1 or /fines/1.json
   def show
     @fine = Fine.find params[:id]
   end
 
-  # GET /fines/new
   def new
     @fine = Fine.new
   end
 
-  # GET /fines/1/edit
   def edit
   end
 
-  # POST /fines or /fines.json
   def create
     @fine = Fine.new(rental: @rental, motive: params[:motive], price: params[:price], typefine: params[:typefine])
     @rental = Rental.find params[:rental_id]
     @fine.rental = @rental
       if @fine.save
-        redirect_to fine_url(@fine), notice: "Fine was successfully created."
+        redirect_to fine_path(@fine) 
+        flash[:notice]= "Se ha generado la multa con exito"
       else
-        render :new, notice: "wtf"
+        render :new, notice: "Error al generar la multa"
       end
-  end
-
-  # PATCH/PUT /fines/1 or /fines/1.json
-  def update
-    respond_to do |format|
-      if @fine.update(fine_params)
-        format.html { redirect_to fine_url(@fine), notice: "Fine was successfully updated." }
-        format.json { render :show, status: :ok, location: @fine }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @fine.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /fines/1 or /fines/1.json
-  def destroy
-    @fine.destroy
-
-    respond_to do |format|
-      format.html { redirect_to fines_url, notice: "Fine was successfully destroyed." }
-      format.json { head :no_content }
-    end
   end
 
   private

@@ -5,7 +5,7 @@
       <div class="title">
         <h1 class="add_edit_title"><%= 'Nueva multa al usuario @rental.user.name' %></h1>
       </div>
-      <%= render 'form', url: fines_path(rental_id: 1), method: :post %>
+      <%= render 'form', url: fines_path(rental_id: params[:format]), method: :post %>
     </div>
   </div>
 <% end %>

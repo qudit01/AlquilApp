@@ -32,6 +32,9 @@
       </tr>
     </tbody>
   </table>
+  <% if current_user.supervisor? || current_user.admin?%>
+    <td><%= link_to 'Cobrar multa', new_fine_path(@rental.id), class: 'btn' %></td>
+  <% end %>
   <% if @rental.user.id.eql? current_user.id %>
     <td><%= link_to 'Extender alquiler', edit_rental_path(@rental, car_id: @rental.car_id), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
   <% end %>
