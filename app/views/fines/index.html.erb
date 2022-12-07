@@ -6,9 +6,9 @@
   <% @fines.each do |fine| %>
     <%= render fine %>
     <p>
-      <%= link_to "Show this fine", fine %>
+      <%= link_to "Ver estado de multa", fine_path(fine), class:'btn new_user'  %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New fine", new_fine_path %>
+<%= link_to "New fine", new_fine_path(), class:'btn new_user' %>

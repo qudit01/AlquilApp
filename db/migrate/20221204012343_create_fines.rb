@@ -3,7 +3,7 @@ class CreateFines < ActiveRecord::Migration[7.0]
     create_table :fines do |t|
       t.integer :price
       t.string :motive
-      t.string :type
+      t.string :typefine
 
       t.timestamps
     end
