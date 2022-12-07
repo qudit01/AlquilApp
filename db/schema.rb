@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_29_203349) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_04_235527) do
   create_table "cards", force: :cascade do |t|
     t.integer "number", null: false
     t.integer "pin", null: false
@@ -42,7 +42,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_203349) do
     t.float "longitude"
     t.float "position"
     t.integer "state", default: 0
-    t.float "fuel"
+    t.float "fuel", default: 0.0
+    t.string "location"
+  end
+
+  create_table "fines", force: :cascade do |t|
+    t.integer "price"
+    t.string "motive"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "licenses", force: :cascade do |t|
@@ -65,7 +74,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_203349) do
     t.integer "state"
     t.datetime "taken_at"
     t.datetime "finished_at"
+    t.integer "fine_id"
     t.index ["car_id"], name: "index_rentals_on_car_id"
+    t.index ["fine_id"], name: "index_rentals_on_fine_id"
     t.index ["user_id"], name: "index_rentals_on_user_id"
   end
 
@@ -92,7 +103,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_203349) do
   end
 
   create_table "wallets", force: :cascade do |t|
-    t.integer "money", default: 0
+    t.float "money", default: 0.0
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -102,6 +113,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_203349) do
   add_foreign_key "cards", "users"
   add_foreign_key "cards", "wallets"
   add_foreign_key "rentals", "cars"
+  add_foreign_key "rentals", "fines"
   add_foreign_key "rentals", "users"
   add_foreign_key "users", "licenses"
   add_foreign_key "users", "wallets"

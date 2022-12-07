@@ -1,41 +1,58 @@
-<div class="container">
-  <span class="add-car-span">
-  <h2>Alquier N°<%= @rental.id %></h2>
-  </span>
-  <table class="table">
-    <tr>
-      <thead>
-        <th>Cliente </th>
-        <th>DNI </th>
-        <th>Numero de auto </th>
-        <th>Tiempo total </th>
-        <th>Tomado el </th>
-        <th>A las </th>
-        <th>Tiempo límite </th>
-        <th>Tiempo restante </th>
-        <th>¿Fue extendido? </th>
-        <th>Precio total </th>
-      </thead>
-    </tr>
-    <tbody class="table">
+
+  <div class="container">
+    <span class="add-car-span">
+    <h2>Alquiler N°<%= @rental_actual.id %></h2>
+    </span>
+    <table class="table">
       <tr>
-        <td><%= @rental.user.name %></td>
-        <td><%= @rental.user.dni %></td>
-        <td><%= @rental.car.car_number %></td>
-        <td><%= @rental.hours %></td>
-        <td><%= @rental.taken_at.strftime("%d-%m-%Y")	 %></td>
-        <td><%= @rental.taken_at.strftime("%R")	 %></td>
-        <td><%= time_limit.strftime("%d-%m-%Y %R")  %></td>
-        <td><%= remaining_time(@rental).to_i %> Horas</td>
-        <td><%= @rental.extended? ? 'Si' : 'No' %></td>
-        <td><%= @rental.total_price %></td>
+        <thead>
+          <th>Cliente: </th>
+          <th>Numero de auto: </th>
+          <th>Tiempo total: </th>
+          <th>Tiempo restante: </th>
+          <th>Precio total: </th>
+        </thead>
       </tr>
-    </tbody>
-  </table>
-  <% if current_user.supervisor? || current_user.admin?%>
-    <td><%= link_to 'Cobrar multa', new_fine_path(@rental.id), class: 'btn' %></td>
-  <% end %>
-  <% if @rental.user.id.eql? current_user.id %>
-    <td><%= link_to 'Extender alquiler', edit_rental_path(@rental, car_id: @rental.car_id), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
-  <% end %>
-</div>
+      <tbody class="table">
+        <tr>
+          <td><%= @rental_actual.user.name %></td>
+          <td><%= @rental_actual.car.car_number %></td>
+          <td><%= @rental_actual.hours %></td>
+          <td><%= @rental_actual.timeout %></td>
+          <td><%= @rental_actual.total_price %></td>
+        </tr>
+      </tbody>
+    </table>
+    <td><%= link_to 'Extender alquiler', edit_rental_path(@rental_actual, car_id: @rental_actual.car_id), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
+  </div>
+
+
+  <div class="container">
+    <span class="add-car-span">
+         <h2>Alquileres antigüos</h2>
+    </span>
+    <% @rental_viejos.each do |r| %>
+      <table class="table">
+        <tr>
+          <thead>
+            <h2>Alquiler N°<%= r.id %></h2>
+          </thead>
+        </tr>
+    </span>
+        <tr>
+          <thead>
+            <th>Cliente: </th>
+            <th>Numero de auto: </th>
+            <th>Tiempo total: </th>
+            <th>Precio total: </th>
+          </thead>
+        </tr>
+          <tr>
+            <td><%= r.user.name %></td>
+            <td><%= r.car.car_number %></td>
+            <td><%= r.hours %></td>
+            <td><%= r.total_price %></td>
+          </tr>
+      </table>
+      <%end%>
+  </div>

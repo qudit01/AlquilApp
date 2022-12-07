@@ -17,6 +17,7 @@
         </tr>
           <tr>
             <td><%= image_tag c.photo.url(:thumb).to_s %></td>
+            <td><%= link_to 'Alquilar', new_rental_path(user_id: current_user, car_id: c.id), data: {turbo_frame: 'modal'}, class: 'btn'%></td>
             <td><%= link_to "Ver mas detalles", car_path(c) ,  class: 'btn'%></td>
         </table>
     <% end %>
