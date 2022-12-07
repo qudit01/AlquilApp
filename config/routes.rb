@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   resources :cars, shallow: true do
     member do
       post 'remove_car', to: :remove_car
+      post 'block', to: :block
     end
   end
 

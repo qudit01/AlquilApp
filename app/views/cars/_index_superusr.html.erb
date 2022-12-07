@@ -1,7 +1,9 @@
 <div class="container">
   <span class="add-car-span">
     <h2>Listado de Automoviles</h2>
-    <%= link_to "Agregar auto", new_car_path, class: 'btn' %>
+    <% if current_user.admin? %>
+      <%= link_to "Agregar auto", new_car_path, class: 'btn' %>
+    <% end %>
   </span>
   <table class="table">
     <tr>
@@ -30,8 +32,16 @@
         <td><%= car.kilometers %></td>
         <td><%= car.taken? ? 'Si' : 'No' %></td>
         <% if car.available? %>
-          <td><%= link_to "Modificar", edit_car_path(car), data: {turbo_frame: 'modal'},  class: 'btn' %></td>
-          <td><%= button_to "Eliminar auto", remove_car_car_path(car), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }, class: 'btn'%></td>
+          <% if current_user.supervisor? %>
+            <td><%= link_to "Modificar", edit_car_path(car), data: {turbo_frame: 'modal'},  class: 'btn' %></td>
+            <% if !car.blocked? %>
+              <td><%= button_to "Bloquear auto", block_car_path(car), method: :post, form: { data: { turbo_confirm: '¿Está seguro que desea bloquear este auto?' } }, class: 'btn'%></td>
+            <% else %>
+              <td><%= button_to "Desbloquear auto", block_car_path(car), method: :post, class: 'btn'%></td>
+            <% end %>
+          <% else %>
+            <td><%= button_to "Eliminar auto", remove_car_car_path(car), method: :post, form: { data: { turbo_confirm: 'Confirmar eliminacion' } }, class: 'btn'%></td>
+          <% end %>
         <% end %>
       </tr>
     </tbody>
