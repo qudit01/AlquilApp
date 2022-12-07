@@ -1,5 +1,6 @@
 class Fine < ApplicationRecord
     belongs_to :rental
+    belongs_to :user
 
     enum state: { unpaid: 0, paid: 1 }
 

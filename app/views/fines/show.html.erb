@@ -1,10 +1,33 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @fine %>
-
-<div>
-  <%= link_to "Edit this fine", edit_fine_path(@fine) %> |
-  <%= link_to "Back to fines", fines_path %>
-
-  <%= button_to "Destroy this fine", @fine, method: :delete %>
+<div class="container">
+  <span class="add-car-span">
+  <h2>Multa N°<%= @fine.id %></h2>
+  </span>
+  <table class="table">
+    <tr>
+      <thead>
+        <th>Infractor: </th>
+        <th>Tipo: </th>
+        <th>Motivo: </th>
+        <th>Monto: </th>
+        <th>Estado: </th>
+      </thead>
+    </tr>
+    <tbody class="table">
+      <tr>
+        <td><%= @fine.user.name %></td>
+        <td><%= @fine.typefine %></td>
+        <td><%= @fine.motive %></td>
+        <td>$<%=@fine.price %></td>
+        <td><%= @fine&.estado %></td>
+        <%if current_user.client? && @fine.unpaid?%>
+          <td><%= link_to 'Pagar multa', payfine_path(@fine.id), class: 'btn'%></td>
+        <%end%>
+      </tr>
+    </tbody>
+  </table>
+ <%if current_user.admin? || current_user.supervisor?%>
+    <td><%= link_to 'Volver a multas', fines_path(), class: 'btn'%></td>
+  <%else%>
+    <td><%= link_to 'Volver a mis multas', fines_path(), class: 'btn'%></td>
+  <%end%>
 </div>
