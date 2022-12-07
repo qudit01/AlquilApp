@@ -8,7 +8,7 @@ class CarPolicy < ApplicationPolicy
   end
 
   def update?
-    supervisor?
+    admin? || supervisor?
   end
 
   def remove_car?
