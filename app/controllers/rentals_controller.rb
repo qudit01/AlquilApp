@@ -1,5 +1,5 @@
 class RentalsController < ApplicationController
-  before_action :find_data
+  before_action :find_data, except: %i[show index]
   before_action :find_rental, only: %i[destroy show]
 
   def delete
@@ -16,24 +16,25 @@ class RentalsController < ApplicationController
   end
 
   def edit
-    @rental=current_user.rental
+    @rental = current_user.rentals.last
   end
 
   def update
-    @rental=current_user.rental
-    hr=@rental.hours
-    h=rental_params[:hours].to_f
-    if current_user.can_rent?(rental_params[:hours].to_f * rental_params[:price].to_f)
+    @rental = current_user.rentals.last
+    hr = @rental.hours
+    h = rental_params[:hours].to_f
+    if current_user.can_rent_on_money?(rental_params[:hours].to_f * rental_params[:price].to_f)
       if @rental.update rental_params
         update_user_and_car
-        @rental.hours= hr+h
+        @rental.hours = hr + h
+        @rental.extended!
         @rental.save
         redirect_to user_path(current_user), notice: '¡Alquiler extendido con exito!'
       else
         render :edit, alert: 'Ocurrio un error inesperado, por favor intente nuevamente'
       end
     else
-      redirect_to user_path(current_user), alert:'No cuenta con suficiente dinero para este alquiler. Por favor, ingrese más dinero en la billetera virtual y vuelva a intentarlo'
+      redirect_to user_path(current_user), alert: 'No cuenta con suficiente dinero para este alquiler. Por favor, ingrese más dinero en la billetera virtual y vuelva a intentarlo'
     end
   end
 
@@ -46,8 +47,8 @@ class RentalsController < ApplicationController
                          car: @car,
                          hours: rental_params[:hours],
                          price: rental_params[:hours].to_f * rental_params[:price].to_f)
-    if current_user.can_rent_on_time?(@car)
-      if current_user.can_rent_on_money?(@rental.price)
+    if current_user.can_rent_on_time? @car
+      if current_user.can_rent_on_money? @rental.price
         @rental.taken_at = DateTime.now
         @rental.travelling!
         if @rental.valid?
@@ -65,12 +66,13 @@ class RentalsController < ApplicationController
 
   def update_user_and_car
     current_user.travelling!
-    current_user.wallet.save
     @car.taken!
     @car.save
   end
 
-  def index; end
+  def index
+    @rentals = Rental.right_now
+  end
 
   def generate
     redirect_to user_path(current_user), 'Alquiler exitoso!'
