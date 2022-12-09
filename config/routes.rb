@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reports
   resources :fines
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -51,9 +52,8 @@ Rails.application.routes.draw do
   resources :locations, only: :create
 
   get 'history', to: 'licenses#history'
-<<<<<<< HEAD
-  get 'payfine', to: 'fines#pay_fine'
-=======
 
->>>>>>> 20f20d701ed23a234651f4c2cc62a80af5aec90e
+  resources :reports
+  get 'reports_fines', to: 'reports#fines'
+  get 'reports_fines_generate', to: 'reports#fines_generate'
 end

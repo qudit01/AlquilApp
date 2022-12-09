@@ -9,7 +9,7 @@
       <% else %>
         <li><%= link_to current_user&.name+' ('+current_user&.rol+')' , user_path(current_user), class:"nav_item"%></li>
         <li><%= link_to 'Administracion de multas', fines_path(), class: 'nav_item"'%></li>
-        <% end %>
+      <% end %>
       <% if current_user %>
         <% if current_user.client? %>
           <% if current_user.licenses.last.nil? %>

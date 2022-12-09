@@ -1,0 +1,42 @@
+<span class="add-car-span">
+    <h2>Configura tu reporte de multas</h2>
+    </span>
+<h4><p align='left'>Elije el rango de fecha de obtencion de multas</h4>
+<%= form_with method: 'get', url: reports_fines_generate_path(fines: @fines) do |f| %>
+    <%= f.label 'Desde' %>
+    <%= f.date_field :desde %>
+
+    <%= f.label 'Hasta' %>
+    <%= f.date_field :hasta %>
+<br>
+
+<h4><p align='left'>Selecciona el estado de las multas que deseas ver (puedes seleccionar mas de una)</h4>  
+    <%= f.label 'Pagas' %>
+    <%= f.check_box :pagas %>
+    <%= f.label 'Pendientes de pago' %>
+    <%= f.check_box :inpagas%>
+<br>
+<h4><p align='left'>Selecciona el tipo de las multas que deseas ver (puedes seleccionar mas de una)</h4>
+    <%= f.label 'Tanque no lleno' %>
+    <%= f.check_box :tanque%>
+
+    <%= f.label 'Transito' %>
+    <%= f.check_box :transito%>
+
+    <%= f.label 'Daños a terceros' %>
+    <%= f.check_box :terceros %>
+<br>
+    <%= f.label 'Daños al vehiculo' %>
+    <%= f.check_box :vehiculo%>
+
+    <%= f.label 'Uso indebido' %>
+    <%= f.check_box :indebido %>
+
+    <%= f.label 'Otros' %>
+    <%= f.check_box :otros%>
+<br>
+    <div class="form-submit-close-btns">
+      <%= f.submit 'Generar reporte', class:'btn new_user' %>
+    </div>
+  </div>
+<% end %>
