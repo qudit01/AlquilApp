@@ -80,6 +80,7 @@ class RentalsController < ApplicationController
 
   def destroy
     current_user.wallet.money -= @rental.price * @rental.hours * (@rental.time_passed? ? 3 : 1)
+    current_user.wallet.save
     @rental.update(finished_at: DateTime.now, state: 'finished')
     current_user.stall!
     @car.available!

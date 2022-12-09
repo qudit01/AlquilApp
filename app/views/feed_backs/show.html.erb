@@ -1,0 +1,21 @@
+<h1>¡Tarjeta cargada con éxito!</h1>
+<table class="table table-hover">
+<tr>
+    <thead>
+      <th>Dueño</th>
+      <th>Banco</th>
+      <th>Numero</th>
+      <th>Tipo de tarjeta</th>
+      <th>Fecha de expiración</th>
+      <th>Pin</th>
+    </thead>
+  </tr>
+  <tr>
+    <td><%= @card.owner %></td>
+    <td><%= @card.bank %></td>
+    <td><%= @card.number %></td>
+    <td><%= @card.kind %></td>
+    <td><%= @card.expiration %></td>
+    <td><%= @card.pin %></td>
+  </tr>
+</table>

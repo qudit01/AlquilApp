@@ -1,10 +1,11 @@
 class User < ApplicationRecord
+  authenticates_with_sorcery!
+
   has_one :wallet
   has_many :cards, through: :wallet
   has_many :rentals
   has_one :car, through: :rental
-
-  authenticates_with_sorcery!
+  has_many :feed_backs
   has_many :licenses
   enum role: { client: 0, supervisor: 1, admin: 2 }
   enum state: { stall: 0, travelling: 1 }

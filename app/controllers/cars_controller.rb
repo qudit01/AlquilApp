@@ -16,7 +16,8 @@ class CarsController < ApplicationController
   def index
     if current_user.admin? || current_user.supervisor?
       @cars = Car.where(remove: false)
-    elsif current_user.licenses.present?
+    else
+      if current_user.licenses.present?
         if current_user.licenses.last&.ok? || current_user.licenses.last&.toexpire?
           @cars = Car.where(remove: false, state: 'available')
           @cars.each do |car|

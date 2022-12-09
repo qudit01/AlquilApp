@@ -35,4 +35,50 @@
   <% if @rental.user.id.eql? current_user.id %>
     <td><%= link_to 'Extender alquiler', edit_rental_path(@rental, car_id: @rental.car_id), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
   <% end %>
+  <% if @rental.user.id.eql? current_user.id %>
+    <td>
+      <%= link_to 'FINALIZAR  VIAJE',
+              rental_path(id: current_user.rentals.last,
+                          car_id: current_user.rentals.last.car,
+                          action: :destroy),
+              data: { "turbo-method": :delete,
+                      turbo_confirm: '¿Estas segurx que deseas terminar el viaje?' },
+              style: 'color: red;
+                      float: right;',
+              class: 'btn' if current_user.travelling? %>
+    </td>
+  <% end %>
+
+  <div style="margin-top: 120px;" >
+    <span class="feed_back_history_span">
+      <h2>Informes</h2>
+      <% if @rental.feed_backs.empty? %>
+        <p style="margin-left: auto;">Aún no hay ningún informe presentado! Crea uno desde acá --> </p>
+      <% end %>
+      <% if @rental.user.id.eql? current_user.id %>
+        <%= link_to 'Generar informe', new_rental_feed_back_path(@rental), data: {turbo_frame: 'modal'}, class: 'btn', style: 'float: right;' %>
+      <% end %>
+    </span>
+    <table class="table">
+    <% if @rental.feed_backs.present? %>
+      <tr>
+        <thead>
+          <td>Comentario</td>
+          <td>Puntaje</td>
+        </thead>
+      </tr>
+    <% end %>
+    <% @rental.feed_backs.order(created_at: :desc).each do |feed_back| %>
+      <tr>
+        <td><%= feed_back.comment %></td>
+        <td><%= FeedBack.scores[feed_back.score] %></td>
+        <% if @rental.user.id.eql? current_user.id %>
+          <td><%= link_to 'Editar comentario', edit_feed_back_path(feed_back), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
+          <td><%= link_to 'Eliminar comentario', feed_back_path(feed_back, method: :destroy, rental_id: @rental), data: { "turbo-method": :delete, turbo_confirm: '¿Deseas eliminar el comentario?' }, class: 'btn', style: 'color: red;' %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </table>
+  </div>
 </div>
+
