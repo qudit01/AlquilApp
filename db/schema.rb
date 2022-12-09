@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[7.0].define(version: 2022_12_07_145746) do
+=======
+ActiveRecord::Schema[7.0].define(version: 2022_12_07_013546) do
+>>>>>>> 20f20d701ed23a234651f4c2cc62a80af5aec90e
   create_table "cards", force: :cascade do |t|
     t.integer "number", null: false
     t.integer "pin", null: false
@@ -69,6 +73,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_145746) do
     t.integer "rental_id"
     t.integer "state", default: 0
     t.integer "user_id"
+  end
+
+  create_table "feed_backs", force: :cascade do |t|
+    t.text "comment", default: ""
+    t.integer "score", null: false
+    t.integer "user_id", null: false
+    t.integer "car_id", null: false
+    t.integer "rental_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["car_id"], name: "index_feed_backs_on_car_id"
+    t.index ["rental_id"], name: "index_feed_backs_on_rental_id"
+    t.index ["user_id"], name: "index_feed_backs_on_user_id"
+  end
+
+  create_table "fines", force: :cascade do |t|
+    t.integer "price"
+    t.string "motive"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "licenses", force: :cascade do |t|
