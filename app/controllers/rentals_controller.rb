@@ -7,7 +7,7 @@ class RentalsController < ApplicationController
   end
 
   def show
-    if current_user.rentals.last.state == 0
+    if current_user.travelling?
       @rental_actual = Rental.find(current_user.rentals.last.id)
     else
       @rental_actual = nil
@@ -85,6 +85,7 @@ class RentalsController < ApplicationController
 
   def destroy
     current_user.wallet.money -= @rental.price * @rental.hours * (@rental.time_passed? ? 3 : 1)
+    current_user.wallet.save
     @rental.update(finished_at: DateTime.now, state: 'finished')
     current_user.stall!
     @car.available!

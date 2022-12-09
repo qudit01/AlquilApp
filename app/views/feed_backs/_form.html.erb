@@ -1,0 +1,38 @@
+<%= form_with model: @feed_back, url: url, method: method, local: true, class: 'form_margin_top' do |form| %>
+  <%= form.label 'Comentarios' %>
+  <%= form.text_field :comment, placeholder: 'Dejanos tu opinon!', class: 'textBox' %>
+  <div class="error_message"><%= @feed_back.errors[:text].to_sentence %></div>
+
+  <%= form.label 'Puntaje', class:'radio-buttons-label' %>
+    <section class="radio-buttons">
+      <span style="text-align: center;">
+        <%= form.radio_button(:score, :bad1) %>
+        <%= form.label(' ', 'Malo') %>
+      </span>
+      <span style="text-align: center;">
+        <%= form.radio_button(:score, :medium_bad) %>
+        <%= form.label(' ', 'No tan malo') %>
+      </span>
+      <span style="text-align: center;">
+        <%= form.radio_button(:score, :medium) %>
+        <%= form.label(' ', 'Ni malo ni bueno') %>
+      </span>
+      <span style="text-align: center;">
+        <%= form.radio_button(:score, :medium_good) %>
+        <%= form.label(' ', 'Podría estar mejor') %>
+      </span>
+      <span style="text-align: center;">
+        <%= form.radio_button(:score, :good) %>
+        <%= form.label(' ', 'Excelente') %>
+      </span>
+      <div class="error_message"><%= @feed_back.errors[:score].to_sentence %></div>
+    </section>
+
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.hidden_field :car_id, value: current_user.rentals.last.car.id %>
+  <%= form.hidden_field :rental_id, value: current_user.rentals.last.id %>
+  <div class="form-submit-close-btns">
+    <%= form.submit 'Finalizar reporte', class:'btn new_user' %>
+    <button data-action="click->turbomodals#submitEnd" class="btn new_user">Cerrar</button>
+  </div>
+<% end %>
