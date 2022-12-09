@@ -41,7 +41,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :rentals do
+  resources :rentals, shallow: true do
+    resources :feed_backs
     post 'generate', to: 'rentals#generate'
   end
 
@@ -50,5 +51,9 @@ Rails.application.routes.draw do
   resources :locations, only: :create
 
   get 'history', to: 'licenses#history'
+<<<<<<< HEAD
   get 'payfine', to: 'fines#pay_fine'
+=======
+
+>>>>>>> 20f20d701ed23a234651f4c2cc62a80af5aec90e
 end

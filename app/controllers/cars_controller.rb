@@ -17,22 +17,18 @@ class CarsController < ApplicationController
     authorize Car
     if @car.blocked?
       @car.blocked = false
-      if @car.save
-        redirect_to cars_path, notice: "Auto desbloqueado con exito"
-      end    
+      redirect_to cars_path, notice: "Auto desbloqueado con exito" if @car.save
     else
       @car.blocked = true
-      if @car.save
-        redirect_to cars_path, notice: "Auto bloqueado con exito"
-      end 
+      redirect_to cars_path, notice: "Auto bloqueado con exito" if @car.save
     end
   end
-  
 
   def index
     if current_user.admin? || current_user.supervisor?
       @cars = Car.where(remove: false)
-    elsif current_user.licenses.present?
+    else
+      if current_user.licenses.present?
         if current_user.licenses.last&.ok? || current_user.licenses.last&.toexpire?
           @cars = Car.where(remove: false, state: 'available')
           @cars.each do |car|
@@ -115,3 +111,4 @@ class CarsController < ApplicationController
   def image_params
     params[:car][:photo]
   end
+end

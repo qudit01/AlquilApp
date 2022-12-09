@@ -1,45 +1,92 @@
-<% if @rental_actual != nil %>
-  <div class="container">
-    <span class="add-car-span">
+<div class="container">
+  <span class="add-car-span">
     <h2>Alquiler actual</h2>
+  </span>
+  <table class="table">
+    <tr>
+      <thead>
+        <th>Cliente </th>
+        <th>DNI </th>
+        <th>Numero de auto </th>
+        <th>Tiempo total </th>
+        <th>Tomado el </th>
+        <th>A las </th>
+        <th>Tiempo límite </th>
+        <th>Tiempo restante </th>
+        <th>¿Fue extendido? </th>
+        <th>Precio total </th>
+      </thead>
+    </tr>
+    <tbody class="table">
+      <tr>
+        <td><%= @rental_actual.user.name %></td>
+        <td><%= @rental_actual.user.dni %></td>
+        <td><%= @rental_actual.car.car_number %></td>
+        <td><%= @rental_actual.hours %></td>
+        <td><%= @rental_actual.taken_at.strftime("%d-%m-%Y")	 %></td>
+        <td><%= @rental_actual.taken_at.strftime("%R")	 %></td>
+        <td><%= time_limit.strftime("%d-%m-%Y %R")  %></td>
+        <td><%= remaining_time(@rental_actual).to_i %> Horas</td>
+        <td><%= @rental_actual.extended? ? 'Si' : 'No' %></td>
+        <td><%= @rental_actual.total_price %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <% if @rental_actual.user.id.eql? current_user.id %>
+    <td><%= link_to 'Extender alquiler', edit_rental_path(@rental_actual, car_id: @rental_actual.car_id), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
+  <% end %>
+  <% if @rental_actual.user.id.eql? current_user.id %>
+    <td>
+      <%= link_to 'FINALIZAR  VIAJE',
+              rental_path(id: current_user.rentals.last,
+                          car_id: current_user.rentals.last.car,
+                          action: :destroy),
+              data: { "turbo-method": :delete,
+                      turbo_confirm: '¿Estas segurx que deseas terminar el viaje?' },
+              style: 'color: red;
+                      float: right;',
+              class: 'btn' if current_user.travelling? %>
+    </td>
+  <% end %>
+
+  <div style="margin-top: 60px;" >
+    <span class="feed_back_history_span">
+      <h2>Informes</h2>
+      <% if @rental_actual.feed_backs.empty? %>
+        <p style="margin-left: auto;">Aún no hay ningún informe presentado! Crea uno desde acá --> </p>
+      <% end %>
+      <% if @rental_actual.user.id.eql? current_user.id %>
+        <%= link_to 'Generar informe', new_rental_feed_back_path(@rental_actual), data: {turbo_frame: 'modal'}, class: 'btn', style: 'float: right;' %>
+      <% end %>
     </span>
     <table class="table">
+    <% if @rental_actual.feed_backs.present? %>
       <tr>
         <thead>
-          <th>Cliente: </th>
-          <th>Numero de auto: </th>
-          <th>Tiempo total: </th>
-          <th>Tiempo restante: </th>
-          <th>Precio total: </th>
+          <td>Comentario</td>
+          <td>Puntaje</td>
         </thead>
       </tr>
-      <tbody class="table">
-        <tr>
-          <td><%= @rental_actual.user.name %></td>
-          <td><%= @rental_actual.car.car_number %></td>
-          <td><%= @rental_actual.hours %></td>
-          <td><%= @rental_actual.timeout %></td>
-          <td><%= @rental_actual.total_price %></td>
-        </tr>
-      </tbody>
+    <% end %>
+    <% @rental_actual.feed_backs.order(created_at: :desc).each do |feed_back| %>
+      <tr>
+        <td><%= feed_back.comment %></td>
+        <td><%= FeedBack.scores[feed_back.score] %></td>
+        <% if @rental_actual.user.id.eql? current_user.id %>
+          <td><%= link_to 'Editar comentario', edit_feed_back_path(feed_back), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
+          <td><%= link_to 'Eliminar comentario', feed_back_path(feed_back, method: :destroy, rental_id: @rental_actual), data: { "turbo-method": :delete, turbo_confirm: '¿Deseas eliminar el comentario?' }, class: 'btn', style: 'color: red;' %></td>
+        <% end %>
+      </tr>
+    <% end %>
     </table>
-    <td><%= link_to 'Extender alquiler', edit_rental_path(@rental_actual, car_id: @rental_actual.car_id), data: {turbo_frame: 'modal'}, class: 'btn' %></td>
   </div>
-<% end %>
-
 
   <div class="container">
     <span class="add-car-span">
-         <h2>Alquileres antigüos</h2>
+      <h2>Alquileres antigüos</h2>
     </span>
-    <% @rental_viejos.each do |r| %>
       <table class="table">
-        <tr>
-          <thead>
-            <h3>Alquiler N°<%= r.id %></h3>
-          </thead>
-        </tr>
-    </span>
         <tr>
           <thead>
             <th>Cliente: </th>
@@ -48,12 +95,18 @@
             <th>Precio total: </th>
           </thead>
         </tr>
-          <tr>
-            <td><%= r.user.name %></td>
-            <td><%= r.car.car_number %></td>
-            <td><%= r.hours %></td>
-            <td><%= r.total_price %></td>
-          </tr>
-      </table>
-      <%end%>
+        <% @rental_viejos.each do |rental| %>
+        <h3>Alquiler N°<%= rental.id %></h3>
+          <tbody>
+            <tr>
+              <td><%= rental.user.name %></td>
+              <td><%= rental.car.car_number %></td>
+              <td><%= rental.hours %></td>
+              <td><%= rental.total_price %></td>
+            </tr>
+          </tbody>
+        <%end%>
+    </table>
   </div>
+</div>
+

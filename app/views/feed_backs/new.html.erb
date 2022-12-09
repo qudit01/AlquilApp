@@ -1,0 +1,12 @@
+<section class="index_user">
+<%= turbo_frame_tag :modal do %>
+  <div class="modals" data-controller="turbomodals">
+    <div class="form_container">
+      <div class="title">
+        <h1 class="add_edit_title"><%= 'Generar informe' %></h1>
+      </div>
+      <%= render 'form', method: :post, url: rental_feed_backs_path(rental_id: current_user.rentals.last) %>
+    </div>
+  </div>
+<% end %>
+</section>
