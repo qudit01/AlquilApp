@@ -1,0 +1,102 @@
+<span class="add-car-span">
+    <h2>Configura tu reporte de usuarios</h2>
+    </span>
+<h4><p align='left'>Elije el rango de fecha de obtencion de usuarios que se registraron</h4>
+<%= form_with method: 'get', url: reports_users_generate_path(users: @users) do |f| %>
+    <%= f.label 'Desde' %>
+    <%= f.date_field :desde, :value => Time.now.strftime('%Y-%m-%d') %>
+
+    <%= f.label 'Hasta' %>
+    <%= f.date_field :hasta, :value => Time.now.strftime('%Y-%m-%d')%>
+<br>
+
+<h4><p align='left'>Si desea filtrar por nombre y apellido, mail o dni, elija una y llene los datos</h4>
+<%= f.select :option_user, [['Ninguno'],['Nombre'], ['Email'], ['DNI']], class: 'form-control' %><br>
+<div id='nombre'>
+    <%= f.label 'Nombre' %>
+    <%= f.text_field :first_name%>
+    <%= f.label 'Apellido' %>
+    <%= f.text_field :last_name%>
+</div>
+<div id='email'>
+    <%= f.label 'Email' %>
+    <%= f.text_field :email%>
+</div>
+<div id='dni'>
+    <%= f.label 'DNI' %>
+    <%= f.number_field :dni%>
+</div>
+
+<h4><p align='left'>Si lo desea, elija un rango para la edad de los usuarios registrados</h4>
+    <%= f.label 'Minimo' %>
+    <%= f.number_field :min_edad%>
+<br>
+    <%= f.label 'Maximo' %>
+    <%= f.number_field :max_edad%>
+<br>
+
+<h4><p align='left'>Destilde las opciones que no desea ver</h4>
+<br>
+<h5><p align='left'>Por alquiler</h5>
+    <%= f.label 'Con alquiler en curso' %>
+    <%= f.check_box :travelling, checked: "checked"%>
+    <%= f.label 'Sin alquier en curso' %>
+    <%= f.check_box :stall, checked: "checked"%>
+<h5><p align='left'>Por multas</h5>
+    <%= f.label 'Con multas en su historial' %>
+    <%= f.check_box :fines, checked: "checked"%>
+    <%= f.label 'Sin multas en su historial' %>
+    <%= f.check_box :no_fines, checked: "checked"%>
+<br>
+<h5><p align='left'>Por restriccion de uso</h5>
+    <%= f.label 'Bloqueado' %>
+    <%= f.check_box :blocked, checked: "checked"%>
+    <%= f.label 'No bloqueado' %>
+    <%= f.check_box :no_blocked, checked: "checked"%>
+<br>
+<h5><p align='left'>Por dinero en cuenta</h5>
+    <%= f.label 'Con saldo negativo' %>
+    <%= f.check_box :negative_money, checked: "checked"%>
+    <%= f.label 'Sin saldo negativo' %>
+    <%= f.check_box :no_negative, checked: "checked"%>
+<br>
+
+<div class="form-submit-close-btns">
+    <%= f.submit 'Generar reporte', class:'btn new_user' %>
+</div>
+</div>
+<% end %>
+<script>
+      function ocultarField (){
+        if(document.getElementById('option_user').value == "Ninguno") {
+          document.getElementById("nombre").style.value='';
+          document.getElementById("nombre").style.display="none";
+          document.getElementById("email").style.value='';
+          document.getElementById("email").style.display="none";
+          document.getElementById("dni").style.value='';
+          document.getElementById("dni").style.display="none";
+        }
+        else if(document.getElementById('option_user').value == "Email"){
+          document.getElementById("email").style.display="";
+          document.getElementById("nombre").style.value='';
+          document.getElementById("nombre").style.display="none";
+          document.getElementById("dni").style.value='';
+          document.getElementById("dni").style.display="none";
+        }
+        else if(document.getElementById('option_user').value == "DNI") {
+          document.getElementById("dni").style.display="";
+          document.getElementById("nombre").style.value='';
+          document.getElementById("nombre").style.display="none";
+          document.getElementById("email").style.value='';
+          document.getElementById("email").style.display="none";
+        }
+        else{
+          document.getElementById("nombre").style.display="";
+          document.getElementById("dni").style.value='';
+          document.getElementById("dni").style.display="none";
+          document.getElementById("email").style.value='';
+          document.getElementById("email").style.display="none";
+        }
+      }
+      setInterval(ocultarField, 100);
+    </script>

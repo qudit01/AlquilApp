@@ -93,6 +93,80 @@ class ReportsController < ApplicationController
         @report.save
     end
 
+    def users
+        @users= User.all.where(role:'client')
+    end
+
+    def users_generate
+        @report = Report.new()
+        @users= User.all.where(role:'client')
+
+        if (params[:travelling]=='0')
+            @users -= @users.select{|users| users.state == 'travelling'}
+        end
+
+        if (params[:stall]=='0')
+            @users -= @users.select{|users| users.state == 'stall'}
+        end
+
+        if (params[:fines]=='0')
+            @users -= @users.select{|users| users.fines.length > 0}
+        end
+
+        if (params[:no_fines]=='0')
+            @users -= @users.select{|users| users.fines.length == 0}
+        end
+
+        if (params[:negative_money]=='0')
+            @users -= @users.select{|users| users.wallet.money < 0}
+        end
+
+        if (params[:no_negative]=='0')
+            @users -= @users.select{|users| users.wallet.money >= 0}
+        end
+
+        if (params[:blocked]=='0')
+            @users -= @users.select{|users| users.blocked?}
+        end
+
+        if (params[:no_blocked]=='0')
+            @users -= @users.select{|users| !users.blocked?}
+        end
+
+        if (params[:first_name]!='' && params[:last_name]!='')
+            @users -= @users.select{|users| users.name != (params[:first_name]+' '+params[:last_name])}
+        end
+
+        if (params[:email]!='')
+            @users -= @users.select{|users| users.email != params[:email]}
+        end
+
+        if (params[:dni]!='')
+            @users -= @users.select{|users| users.dni != params[:dni].to_i}
+        end
+
+        if (params[:min_edad]!='')
+            @users -= @users.select{|users| users&.age < params[:min_edad].to_i}
+        end
+
+        if (params[:min_edad]!='')
+            @users -= @users.select{|users| users&.age < params[:min_edad].to_i}
+        end
+        if (params[:max_edad]!='')
+            @users -= @users.select{|users| users&.age > params[:max_edad].to_i}
+        end
+
+        @users -= @users.select{|users| users.created_at < params[:desde]}
+        @users -= @users.select{|users| users.created_at > params[:hasta]}
+
+        @monto=0
+        @users.each do |u|
+            @monto = @monto + u.wallet.money
+        end
+        @report.users = @users.length
+        @report.save
+    end
+
     def create
     end
 
