@@ -30,13 +30,13 @@
 </div>
 <br>
 
-<h4><p align='left'>Selecciona el estado de los alquileres que deseas ver (puedes seleccionar mas de una)</h4>  
+<h4><p align='left'>Destilde el estado de los alquileres que NO desea ver</h4>  
     <%= f.label 'En curso' %>
-    <%= f.check_box :travelling %>
+    <%= f.check_box :travelling, checked: "checked"%>
     <%= f.label 'Extendido' %>
-    <%= f.check_box :extended%>
+    <%= f.check_box :extended, checked: "checked"%>
     <%= f.label 'Finalizado' %>
-    <%= f.check_box :finished%>
+    <%= f.check_box :finished, checked: "checked"%>
 <br>
 <h4><p align='left'>Si desea solo ver alquileres con infracciones tilde abajo</h4>  
 <%= f.label 'Con infracciones asociadas' %>

@@ -10,30 +10,30 @@
     <%= f.date_field :hasta, :value => Time.now.strftime('%Y-%m-%d')%>
 <br>
 
-<h4><p align='left'>Selecciona el estado de las multas que deseas ver (puedes seleccionar mas de una)</h4>  
+<h4><p align='left'>Destilde el estado de las multas que NO deseaa ver (puedes seleccionar mas de una)</h4>  
     <%= f.label 'Pagas' %>
-    <%= f.check_box :pagas %>
+    <%= f.check_box :pagas, checked: "checked"%>
     <%= f.label 'Pendientes de pago' %>
-    <%= f.check_box :inpagas%>
+    <%= f.check_box :inpagas, checked: "checked"%>
 <br>
-<h4><p align='left'>Selecciona el tipo de las multas que deseas ver (puedes seleccionar mas de una)</h4>
+<h4><p align='left'>Dstilde el tipo de las multas que NO desea ver (puedes seleccionar mas de una)</h4>
     <%= f.label 'Tanque no lleno' %>
-    <%= f.check_box :tanque%>
+    <%= f.check_box :tanque, checked: "checked"%>
 
     <%= f.label 'Transito' %>
-    <%= f.check_box :transito%>
+    <%= f.check_box :transito, checked: "checked"%>
 
     <%= f.label 'Daños a terceros' %>
-    <%= f.check_box :terceros %>
+    <%= f.check_box :terceros, checked: "checked" %>
 <br>
     <%= f.label 'Daños al vehiculo' %>
-    <%= f.check_box :vehiculo%>
+    <%= f.check_box :vehiculo, checked: "checked"%>
 
     <%= f.label 'Uso indebido' %>
-    <%= f.check_box :indebido %>
+    <%= f.check_box :indebido, checked: "checked" %>
 
     <%= f.label 'Otros' %>
-    <%= f.check_box :otros%>
+    <%= f.check_box :otros, checked: "checked"%>
 <br>
     <div class="form-submit-close-btns">
       <%= f.submit 'Generar reporte', class:'btn new_user' %>
