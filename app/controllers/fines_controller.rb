@@ -47,13 +47,13 @@ class FinesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_fine
-      @fine = Fine.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_fine
+    @fine = Fine.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def fine_params
-      params.require(:fine).permit(:price, :motive, :typefine)
-    end
+  # Only allow a list of trusted parameters through.
+  def fine_params
+    params.require(:fine).permit(:price, :motive, :typefine)
+  end
 end
