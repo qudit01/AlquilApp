@@ -4,10 +4,10 @@
 <h4><p align='left'>Elije el rango de fecha de obtencion de alquileres</h4>
 <%= form_with method: 'get', url: reports_rentals_generate_path(rentals: @rentals) do |f| %>
     <%= f.label 'Desde' %>
-    <%= f.date_field :desde, :value => Time.now.strftime('%Y-%m-%d') %>
+    <%= f.date_field :desde, :value => Time.now.strftime('%Y-%m-%d'), :required => true %>
 
     <%= f.label 'Hasta' %>
-    <%= f.date_field :hasta, :value => Time.now.strftime('%Y-%m-%d')%>
+    <%= f.date_field :hasta, :value => Time.now.strftime('%Y-%m-%d'), :required => true%>
 <br>
 
 <h4><p align='left'>Si lo desea, elija un rango para la cantidad de horas alquiladas</h4>
@@ -20,11 +20,11 @@
 
 <h4><p align='left'>Si desea filtrar por auto, elija con que dato desea filtrar</h4>
 <%= f.select :option_car, [['Ninguno'],['Patente'], ['N° de Auto']], class: 'form-control' %><br>
-<div id='car_number'>
+<div id='car_number_field'>
     <%= f.label 'N° de Auto' %>
     <%= f.number_field :car_number%>
 </div>
-<div id='patente'>
+<div id='patente_field'>
     <%= f.label 'Patente' %>
     <%= f.text_field :patente%>
 </div>
@@ -49,20 +49,27 @@
 <script>
       function ocultarField (){
         if(document.getElementById('option_car').value == "Ninguno") {
-          document.getElementById("car_number").style.value='';
-          document.getElementById("car_number").style.display="none";
-          document.getElementById("patente").style.value='';
-          document.getElementById("patente").style.display="none";
+          document.getElementById("car_number_field").style.value='';
+          document.getElementById("car_number_field").style.display="none";
+          document.getElementById("patente_field").style.value='';
+          document.getElementById("patente_field").style.display="none";
+          document.getElementById("patente_field").style.display="none";
+          document.getElementById("patente").removeAttribute("required");
+          document.getElementById("car_number").removeAttribute("required");
         }
         else if(document.getElementById('option_car').value == "Patente"){
-            document.getElementById("car_number").style.value='';
-            document.getElementById("car_number").style.display="none";
-            document.getElementById("patente").style.display="";
+            document.getElementById("car_number_field").style.value='';
+            document.getElementById("car_number_field").style.display="none";
+            document.getElementById("patente_field").style.display="";
+            document.getElementById("car_number").removeAttribute("required");
+            document.getElementById("patente").setAttribute("required", "");
         }
         else {
-            document.getElementById("patente").style.value='';
-            document.getElementById("patente").style.display="none";
-            document.getElementById("car_number").style.display="";
+            document.getElementById("patente_field").style.value='';
+            document.getElementById("patente_field").style.display="none";
+            document.getElementById("car_number_field").style.display="";
+            document.getElementById("patente").removeAttribute("required");
+            document.getElementById("car_number").setAttribute("required", "");
         }
       }
       setInterval(ocultarField, 100);
