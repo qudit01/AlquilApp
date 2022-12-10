@@ -45,6 +45,54 @@ class ReportsController < ApplicationController
         @report.save
     end
 
+    def rentals
+        @rentals= Rental.all
+    end
+
+    def rentals_generate
+        @report = Report.new()
+        @rentals= Rental.all
+         if (params[:travelling]=='0')
+             @rentals -= @rentals.select{|rentals| rentals.state == 'travelling'}
+         end
+         if (params[:extended]=='0')
+            @rentals -= @rentals.select{|rentals| rentals.state == 'extended'}
+        end
+        if (params[:finished]=='0')
+            @rentals -= @rentals.select{|rentals| rentals.state == 'finished'}
+        end
+        if (params[:option_car == 'N° de Auto'])
+            if (params[:car_number]!='')
+                @rentals -= @rentals.select{|rentals| rentals.car.car_number != params[:car_number].to_i}
+            end
+        end
+        if (params[:option_car == 'Patente'])
+            if (params[:patente]!='')
+                @rentals -= @rentals.select{|rentals| rentals.car.plate != params[:patente]}
+            end
+        end
+        if (params[:min_horas]!='')
+            @rentals -= @rentals.select{|rentals| rentals.hours.to_i < params[:min_horas].to_i}
+        end
+        if (params[:max_horas]!='')
+            @rentals -= @rentals.select{|rentals| rentals.hours.to_i > params[:max_horas].to_i}
+        end
+        if(params[:fines] == '1')
+            @rentals -= @rentals.select{|rentals| rentals.fines.length == 0}
+        end
+
+
+        @rentals -= @rentals.select{|rentals| rentals.created_at < params[:desde]}
+        @rentals -= @rentals.select{|rentals| rentals.created_at > params[:hasta]}
+
+        @monto=0
+        @rentals.each do |r|
+            @monto = @monto + r.price
+        end
+        @report.rentals = @rentals.length
+        @report.save
+    end
+
     def create
     end
 

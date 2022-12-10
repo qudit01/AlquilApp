@@ -1,0 +1,69 @@
+<span class="add-car-span">
+    <h2>Configura tu reporte de alquileres</h2>
+    </span>
+<h4><p align='left'>Elije el rango de fecha de obtencion de alquileres</h4>
+<%= form_with method: 'get', url: reports_rentals_generate_path(rentals: @rentals) do |f| %>
+    <%= f.label 'Desde' %>
+    <%= f.date_field :desde, :value => Time.now.strftime('%Y-%m-%d') %>
+
+    <%= f.label 'Hasta' %>
+    <%= f.date_field :hasta, :value => Time.now.strftime('%Y-%m-%d')%>
+<br>
+
+<h4><p align='left'>Si lo desea, elija un rango para la cantidad de horas alquiladas</h4>
+    <%= f.label 'Minimo' %>
+    <%= f.number_field :min_horas%>
+<br>
+    <%= f.label 'Maximo' %>
+    <%= f.number_field :max_horas%>
+<br>
+
+<h4><p align='left'>Si desea filtrar por auto, elija con que dato desea filtrar</h4>
+<%= f.select :option_car, [['Ninguno'],['Patente'], ['N° de Auto']], class: 'form-control' %><br>
+<div id='car_number'>
+    <%= f.label 'N° de Auto' %>
+    <%= f.number_field :car_number%>
+</div>
+<div id='patente'>
+    <%= f.label 'Patente' %>
+    <%= f.text_field :patente%>
+</div>
+<br>
+
+<h4><p align='left'>Selecciona el estado de los alquileres que deseas ver (puedes seleccionar mas de una)</h4>  
+    <%= f.label 'En curso' %>
+    <%= f.check_box :travelling %>
+    <%= f.label 'Extendido' %>
+    <%= f.check_box :extended%>
+    <%= f.label 'Finalizado' %>
+    <%= f.check_box :finished%>
+<br>
+<h4><p align='left'>Si desea solo ver alquileres con infracciones tilde abajo</h4>  
+<%= f.label 'Con infracciones asociadas' %>
+<%= f.check_box :fines %>
+<div class="form-submit-close-btns">
+    <%= f.submit 'Generar reporte', class:'btn new_user' %>
+</div>
+</div>
+<% end %>
+<script>
+      function ocultarField (){
+        if(document.getElementById('option_car').value == "Ninguno") {
+          document.getElementById("car_number").style.value='';
+          document.getElementById("car_number").style.display="none";
+          document.getElementById("patente").style.value='';
+          document.getElementById("patente").style.display="none";
+        }
+        else if(document.getElementById('option_car').value == "Patente"){
+            document.getElementById("car_number").style.value='';
+            document.getElementById("car_number").style.display="none";
+            document.getElementById("patente").style.display="";
+        }
+        else {
+            document.getElementById("patente").style.value='';
+            document.getElementById("patente").style.display="none";
+            document.getElementById("car_number").style.display="";
+        }
+      }
+      setInterval(ocultarField, 100);
+    </script>

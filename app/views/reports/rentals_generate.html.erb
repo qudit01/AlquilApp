@@ -1,0 +1,35 @@
+<div class="container">
+<% if @rentals.empty?%>
+  <h1>No existen alquileres generados con los filtros que elegiste</h1>
+  <td><%= link_to "Volver al menu de reportes", reports_path(@report), class:'btn new_user'  %></td>
+<%else%>
+    <span class="add-car-span">
+        <h2>Reporte de alquileres desde el <%= params[:desde].to_date.strftime('%d-%m-%Y')%> hasta el <%= params[:hasta].to_date.strftime('%d-%m-%Y')%></h2>
+    </span>
+    <table class="table">
+    <% @rentals.each do |r| %>
+      <tr>
+        <thead>
+          <th>Usuario: </th>
+          <th>Auto N°: </th>
+          <th>Patente: </th>
+          <th>Coste: </th>
+          <th>Estado: </th>
+          <th>Horas alquiladas: </th>
+        </thead>
+      </tr>
+      <tr>
+        <td><%= r.user.name %></td>
+        <td><%= r.car.car_number %></td>
+        <td><%= r.car.plate %></td>
+        <td><%= r.price %></td>
+        <td><%= r&.estado %></td>
+        <td><%= r.hours.to_i %></td>
+        <td><%= link_to "Ver detalle de alquiler", rental_path(r, car_id: r.car, user_id: r.user), class:'btn new_user'  %></td>
+      </tr>
+    <% end %>
+    </table>
+    <h1>Cantidad de alquileres encontrados: <%= @report.rentals%>.</h1>
+    <h1>Monto total: $<%= @monto%></h1>
+    <td><%= link_to "Volver al menu de reportes", reports_path(@report), class:'btn new_user'  %></td>
+<% end %>

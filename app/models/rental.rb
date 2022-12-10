@@ -26,6 +26,18 @@ class Rental < ApplicationRecord
     (taken_at.hour + hours - DateTime.now.hour).negative?
   end
 
+  def estado
+    if state=='travelling'
+      "#{'En curso'}"
+    else
+      if state=='extended'
+        "#{'Extendido'}"
+      else
+        "#{'Finalizado'}"
+      end
+    end
+  end
+
   private
 
   def money?
