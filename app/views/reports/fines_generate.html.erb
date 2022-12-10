@@ -4,7 +4,7 @@
   <td><%= link_to "Volver al menu de reportes", reports_path(@report), class:'btn new_user'  %></td>
 <%else%>
     <span class="add-car-span">
-        <h2>Reporte de multas desde <%= params[:desde]%> hasta <%= params[:hasta]%></h2>
+        <h2>Reporte de multas desde el <%= params[:desde].to_date.strftime('%d-%m-%Y')%> hasta el <%= params[:hasta].to_date.strftime('%d-%m-%Y')%></h2>
     </span>
     <table class="table">
     <% @fines.each do |f| %>

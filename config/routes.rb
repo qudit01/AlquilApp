@@ -57,5 +57,8 @@ Rails.application.routes.draw do
   get 'reports_fines_generate', to: 'reports#fines_generate'
   get 'payfine', to: 'fines#pay_fine'
 
+  get 'reports_rentals', to: 'reports#rentals'
+  get 'reports_rentals_generate', to: 'reports#rentals_generate'
+
   resources :reset_passwords, only: %i[new create update edit]
 end
