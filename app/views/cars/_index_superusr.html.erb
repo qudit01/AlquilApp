@@ -2,7 +2,7 @@
   <span class="add-car-span">
     <h2>Listado de Automoviles</h2>
     <% if current_user.admin? %>
-      <%= link_to "Agregar auto", new_car_path, class: 'btn' %>
+      <%= link_to "Agregar auto", new_car_path, class: 'btn', data: { turbo_frame: 'modal' }  %>
     <% end %>
   </span>
   <table class="table">

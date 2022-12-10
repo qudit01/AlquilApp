@@ -5,10 +5,10 @@
       <li><%= link_to 'Listado de usuarios', users_path, class:"nav_item" if current_user&.admin? || current_user&.supervisor? %></li>
       <% if current_user.client? %>
         <li><%= link_to current_user&.name , user_path(current_user), class:"nav_item"%></li>
-        <li><%= link_to 'Ver mis multas', fines_path(), class: 'nav_item"'%></li>
+        <li><%= link_to 'Ver mis multas', fines_path, class: 'nav_item"'%></li>
       <% else %>
         <li><%= link_to current_user&.name+' ('+current_user&.rol+')' , user_path(current_user), class:"nav_item"%></li>
-        <li><%= link_to 'Administracion de multas', fines_path(), class: 'nav_item"'%></li>
+        <li><%= link_to 'Administracion de multas', fines_path, class: 'nav_item"'%></li>
         <% end %>
       <% if current_user %>
         <% if current_user.client? %>

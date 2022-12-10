@@ -19,7 +19,7 @@
               <td><%= "#{rental.car.brand} #{rental.car.model} #{rental.car.car_number} " %></td>
               <td><%= rental.price %></td>
               <td><%= remaining_time(rental) %> Horas</td>
-              <td><%= link_to 'Inspeccionar', rental_path(rental, car_id: rental.car), class: 'btn' %></td>
+              <td><%= link_to 'Inspeccionar', rental_path(rental, car_id: rental.car, user_id: rental.user), class: 'btn' %></td>
             </tr>
           <% end %>
         </tbody>
