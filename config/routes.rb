@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :reports
-  resources :fines
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -46,6 +44,7 @@ Rails.application.routes.draw do
     resources :feed_backs
     post 'generate', to: 'rentals#generate'
   end
+  resources :fines
 
   resources :licenses
 
@@ -56,4 +55,5 @@ Rails.application.routes.draw do
   resources :reports
   get 'reports_fines', to: 'reports#fines'
   get 'reports_fines_generate', to: 'reports#fines_generate'
+  get 'payfine', to: 'fines#pay_fine'
 end
