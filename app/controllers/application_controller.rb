@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_action :require_login
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  include Pundit
   include Pundit::Authorization
 
   private

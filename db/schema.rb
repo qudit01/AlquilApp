@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_07_145746) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_10_014459) do
   create_table "cards", force: :cascade do |t|
     t.integer "number", null: false
     t.integer "pin", null: false
@@ -45,6 +45,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_145746) do
     t.float "fuel"
     t.string "location"
     t.boolean "blocked", default: false
+  end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
   create_table "feed_backs", force: :cascade do |t|
@@ -97,6 +112,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_145746) do
     t.index ["user_id"], name: "index_rentals_on_user_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "users"
+    t.integer "fines"
+    t.integer "rentals"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -115,9 +138,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_145746) do
     t.float "longitude"
     t.integer "state", default: 0
     t.integer "fine_id"
+    t.string "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
+    t.datetime "reset_password_email_sent_at"
+    t.integer "access_count_to_reset_password_page", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["fine_id"], name: "index_users_on_fine_id"
     t.index ["license_id"], name: "index_users_on_license_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
     t.index ["wallet_id"], name: "index_users_on_wallet_id"
   end
 

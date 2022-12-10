@@ -11,5 +11,6 @@
   <%= form.password_field :password, class:'textBox', placeholder: 'Ingrese su contraseña' %>
   <br>
   <%= form.submit 'Iniciar sesión', class: 'btn' %>
+  <%= link_to 'Olvidaste tu contraseña?', new_reset_password_path, class: 'btn', data: { turbo_frame: 'modal' } %>
   <br>
 <% end %>
