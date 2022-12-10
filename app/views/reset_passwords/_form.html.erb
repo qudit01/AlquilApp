@@ -1,0 +1,31 @@
+<h1>Completá el campo con tu email</h1>
+
+<section>
+  <% if flash[:success] %>
+    <div class="success"><%= flash[:success] %></div>
+  <% end %>
+
+  <% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="alert"><%= flash[:alert] %></div>
+  <% end %>
+
+  <% if flash[:error] %>
+    <div class="alert"><%= flash[:error] %></div>
+  <% end %>
+</section>
+
+<%= form_tag reset_passwords_path, method: :post do %>
+  <div class="form-group">
+    <%= label_tag :email %>
+    <%= email_field_tag :email, nil, class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-submit-close-btns">
+    <%= submit_tag 'Enviar instrucciones', class: 'btn new_user' %>
+    <%= link_to 'Cerrar', login_path, class: 'btn new_user' %>
+  </div>
+<% end %>
