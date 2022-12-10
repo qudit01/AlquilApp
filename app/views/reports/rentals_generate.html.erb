@@ -31,5 +31,6 @@
     </table>
     <h1>Cantidad de alquileres encontrados: <%= @report.rentals%>.</h1>
     <h1>Monto total: $<%= @monto%></h1>
-    <td><%= link_to "Volver al menu de reportes", reports_path(@report), class:'btn new_user'  %></td>
+    <td><%= link_to "Volver a reportes", reports_path(@report), class:'btn'  %></td>
+    <td><%= link_to "Imprimir reporte", "#", class: "btn", onclick: "window.print()" %></td>
 <% end %>
