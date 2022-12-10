@@ -34,5 +34,6 @@
     </table>
     <h1>Cantidad de usuarios encontrados: <%= @report.users%>.</h1>
     <h1>Balance de dinero total: $<%= @monto%></h1>
-    <td><%= link_to "Volver al menu de reportes", reports_path(@report), class:'btn new_user'  %></td>
-<% end %>
+    <td><%= link_to "Volver a reportes", reports_path(@report), class:'btn d-print-none'  %></td>
+    <td><%= link_to "Imprimir reporte", "#", class: "btn", onclick: "window.print()" %></td>
+    <% end %>

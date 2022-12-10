@@ -4,25 +4,25 @@
 <h4><p align='left'>Elije el rango de fecha de obtencion de usuarios que se registraron</h4>
 <%= form_with method: 'get', url: reports_users_generate_path(users: @users) do |f| %>
     <%= f.label 'Desde' %>
-    <%= f.date_field :desde, :value => Time.now.strftime('%Y-%m-%d') %>
+    <%= f.date_field :desde, :value => Time.now.strftime('%Y-%m-%d'), :required => true %>
 
     <%= f.label 'Hasta' %>
-    <%= f.date_field :hasta, :value => Time.now.strftime('%Y-%m-%d')%>
+    <%= f.date_field :hasta, :value => Time.now.strftime('%Y-%m-%d'), :required => true%>
 <br>
 
 <h4><p align='left'>Si desea filtrar por nombre y apellido, mail o dni, elija una y llene los datos</h4>
 <%= f.select :option_user, [['Ninguno'],['Nombre'], ['Email'], ['DNI']], class: 'form-control' %><br>
-<div id='nombre'>
+<div id='nombre_field'>
     <%= f.label 'Nombre' %>
     <%= f.text_field :first_name%>
     <%= f.label 'Apellido' %>
-    <%= f.text_field :last_name%>
+    <%= f.text_field :last_name %>
 </div>
-<div id='email'>
+<div id='email_field'>
     <%= f.label 'Email' %>
     <%= f.text_field :email%>
 </div>
-<div id='dni'>
+<div id='dni_field'>
     <%= f.label 'DNI' %>
     <%= f.number_field :dni%>
 </div>
@@ -69,33 +69,49 @@
 <script>
       function ocultarField (){
         if(document.getElementById('option_user').value == "Ninguno") {
-          document.getElementById("nombre").style.value='';
-          document.getElementById("nombre").style.display="none";
-          document.getElementById("email").style.value='';
-          document.getElementById("email").style.display="none";
-          document.getElementById("dni").style.value='';
-          document.getElementById("dni").style.display="none";
+          document.getElementById("nombre_field").style.value='';
+          document.getElementById("nombre_field").style.display="none";
+          document.getElementById("email_field").style.value='';
+          document.getElementById("email_field").style.display="none";
+          document.getElementById("dni_field").style.value='';
+          document.getElementById("dni_field").style.display="none";
+          document.getElementById("dni").removeAttribute("required");
+          document.getElementById("email").removeAttribute("required");
+          document.getElementById("first_name").removeAttribute("required");
+          document.getElementById("last_name").removeAttribute("required");
         }
         else if(document.getElementById('option_user').value == "Email"){
-          document.getElementById("email").style.display="";
-          document.getElementById("nombre").style.value='';
-          document.getElementById("nombre").style.display="none";
-          document.getElementById("dni").style.value='';
-          document.getElementById("dni").style.display="none";
+          document.getElementById("email_field").style.display="";
+          document.getElementById("nombre_field").style.value='';
+          document.getElementById("nombre_field").style.display="none";
+          document.getElementById("dni_field").style.value='';
+          document.getElementById("dni_field").style.display="none";
+          document.getElementById("email").setAttribute('required', '');
+          document.getElementById("dni").removeAttribute("required");
+          document.getElementById("first_name").removeAttribute("required");
+          document.getElementById("last_name").removeAttribute("required");
         }
         else if(document.getElementById('option_user').value == "DNI") {
-          document.getElementById("dni").style.display="";
-          document.getElementById("nombre").style.value='';
-          document.getElementById("nombre").style.display="none";
-          document.getElementById("email").style.value='';
-          document.getElementById("email").style.display="none";
+          document.getElementById("dni_field").style.display="";
+          document.getElementById("nombre_field").style.value='';
+          document.getElementById("nombre_field").style.display="none";
+          document.getElementById("email_field").style.value='';
+          document.getElementById("email_field").style.display="none";
+          document.getElementById("dni").setAttribute("required", "");
+          document.getElementById("email").removeAttribute("required");
+          document.getElementById("first_name").removeAttribute("required");
+          document.getElementById("last_name").removeAttribute("required");
         }
         else{
-          document.getElementById("nombre").style.display="";
-          document.getElementById("dni").style.value='';
-          document.getElementById("dni").style.display="none";
-          document.getElementById("email").style.value='';
-          document.getElementById("email").style.display="none";
+          document.getElementById("nombre_field").style.display="";
+          document.getElementById("dni_field").style.value='';
+          document.getElementById("dni_field").style.display="none";
+          document.getElementById("email_field").style.value='';
+          document.getElementById("email_field").style.display="none";
+          document.getElementById("dni").removeAttribute("required");
+          document.getElementById("email").removeAttribute("required");
+          document.getElementById("first_name").setAttribute("required", "");
+          document.getElementById("last_name").setAttribute("required", "");
         }
       }
       setInterval(ocultarField, 100);
