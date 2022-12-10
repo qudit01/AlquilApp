@@ -78,10 +78,17 @@ class RentalsController < ApplicationController
 
   def index
     @rentals = if current_user.client?
-                 current_user.rentals.order(created_at: :desc)
+                 current_user.rentals.where(state: 2)
                else
                  Rental.right_now
                end
+    if current_user.client?
+      if current_user.travelling? 
+        @rental_actual = current_user.rentals.last
+      else
+        @rental_actual = nil
+      end
+    end
   end
 
   def generate
