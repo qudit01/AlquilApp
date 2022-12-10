@@ -60,5 +60,8 @@ Rails.application.routes.draw do
   get 'reports_rentals', to: 'reports#rentals'
   get 'reports_rentals_generate', to: 'reports#rentals_generate'
 
+  get 'reports_users', to: 'reports#users'
+  get 'reports_users_generate', to: 'reports#users_generate'
+
   resources :reset_passwords, only: %i[new create update edit]
 end
