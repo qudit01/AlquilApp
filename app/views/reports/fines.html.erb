@@ -4,10 +4,10 @@
 <h4><p align='left'>Elije el rango de fecha de obtencion de multas</h4>
 <%= form_with method: 'get', url: reports_fines_generate_path(fines: @fines) do |f| %>
     <%= f.label 'Desde' %>
-    <%= f.date_field :desde %>
+    <%= f.date_field :desde, :value => Time.now.strftime('%Y-%m-%d') %>
 
     <%= f.label 'Hasta' %>
-    <%= f.date_field :hasta %>
+    <%= f.date_field :hasta, :value => Time.now.strftime('%Y-%m-%d')%>
 <br>
 
 <h4><p align='left'>Selecciona el estado de las multas que deseas ver (puedes seleccionar mas de una)</h4>  

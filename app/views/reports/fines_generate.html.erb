@@ -1,1 +1,31 @@
-<%= @report.fines%>
+<div class="container">
+<% if @fines.empty?%>
+  <h1>No existen multas generadas con los filtros que elegiste</h1>
+  <td><%= link_to "Volver al menu de reportes", reports_path(@report), class:'btn new_user'  %></td>
+<%else%>
+    <span class="add-car-span">
+        <h2>Reporte de multas desde <%= params[:desde]%> hasta <%= params[:hasta]%></h2>
+    </span>
+    <table class="table">
+    <% @fines.each do |f| %>
+      <tr>
+        <thead>
+          <th>Infractor: </th>
+          <th>Tipo: </th>
+          <th>Estado: </th>
+          <th>Monto: </th>
+        </thead>
+      </tr>
+      <tr>
+        <td><%= f.user.name %></td>
+        <td><%= f.typefine %></td>
+        <td><%= f&.estado %></td>
+        <td>$<%=f.price %></td>
+        <td><%= link_to "Ver detalle de multa", fine_path(f), class:'btn new_user'  %></td>
+      </tr>
+    <% end %>
+    </table>
+    <h1>Cantidad de multas encontradas: <%= @report.fines%>.</h1>
+    <h1>Monto total: $<%= @monto%></h1>
+    <td><%= link_to "Volver al menu de reportes", reports_path(@report), class:'btn new_user'  %></td>
+<% end %>
