@@ -33,7 +33,7 @@ class ReportsController < ApplicationController
             @fines -= @fines.select{|fines| fines.typefine == 'Uso indebido'}
         end
         if (params[:otros]=='0')
-            @fines -= @fines.select{|fines| fines.typefine == 'Daños a terceros'}
+            @fines -= @fines.select{|fines| fines.typefine == 'Otros'}
         end
         @fines -= @fines.select{|fines| fines.created_at < params[:desde]}
         @fines -= @fines.select{|fines| fines.created_at > params[:hasta]}
