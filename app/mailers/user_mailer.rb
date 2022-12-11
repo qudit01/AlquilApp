@@ -5,4 +5,10 @@ class UserMailer < ApplicationMailer
     mail(to: user.email,
          subject: 'Solicitud de cambio de contraseña')
   end
+
+  def accepted_license_email(user)
+    @user = user
+    @url = 'http://localhost:3000'
+    mail(to: @user.email, subject: 'Noticas sobre el estado de tu licencia')
+  end
 end
