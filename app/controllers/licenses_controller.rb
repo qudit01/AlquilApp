@@ -65,12 +65,13 @@ class LicensesController < ApplicationController
       else
         render :edit
       end
+      UserMailer.accepted_license_email(@license.user).deliver_later
     end
   end
 
   def history
-    @licenses_expired = current_user.license.where(state: 2)
-    @licenses_rejected = current_user.license.where(state: 4)
+    @licenses_expired = current_user.licenses.where(state: 2)
+    @licenses_rejected = current_user.licenses.where(state: 4)
   end
 
   private
