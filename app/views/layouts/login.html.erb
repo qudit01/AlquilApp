@@ -12,22 +12,5 @@
   </head>
   <body class="body_login">
     <%= yield %>
-  <section>
-      <% if flash[:success] %>
-        <div class="success"><%= flash[:success] %></div>
-      <% end %>
-
-      <% if flash[:notice] %>
-        <div class="notice"><%= flash[:notice] %></div>
-      <% end %>
-
-      <% if flash[:alert] %>
-        <div class="alert"><%= flash[:alert] %></div>
-      <% end %>
-
-      <% if flash[:error] %>
-        <div class="alert"><%= flash[:error] %></div>
-      <% end %>
-    </section>
   </body>
 </html>
