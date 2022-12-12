@@ -16,7 +16,8 @@
         <th>Modelo: </th>
         <th>Seguro: </th>
         <th>Kilometros: </th>
-        <th>Siendo usado? </th>
+        <th>¿Siendo usado? </th>
+        <th>Ubicación </th>
       </thead>
     </tr>
   <% @cars.each do |car| %>
@@ -31,6 +32,7 @@
         <td><%= car.insurance %></td>
         <td><%= car.kilometers %></td>
         <td><%= car.taken? ? 'Si' : 'No' %></td>
+        <td><%= car.location %></td>
         <% if car.available? %>
           <% if current_user.supervisor? %>
             <td><%= link_to "Modificar", edit_car_path(car), data: {turbo_frame: 'modal'},  class: 'btn' %></td>

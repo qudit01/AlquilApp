@@ -7,7 +7,6 @@
         <h2>Reporte de alquileres desde el <%= params[:desde].to_date.strftime('%d-%m-%Y')%> hasta el <%= params[:hasta].to_date.strftime('%d-%m-%Y')%></h2>
     </span>
     <table class="table">
-    <% @rentals.each do |r| %>
       <tr>
         <thead>
           <th>Usuario: </th>
@@ -18,6 +17,7 @@
           <th>Horas alquiladas: </th>
         </thead>
       </tr>
+    <% @rentals.each do |r| %>
       <tr>
         <td><%= r.user.name %></td>
         <td><%= r.car.car_number %></td>
