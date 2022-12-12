@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
 
     def index
-        if current_user.supervisor? || current_user.admin?
+        if current_user.supervisor?
             Report.delete_all
         else
             redirect_to user_path(current_user)
@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
     end
     
     def fines
-        if current_user.supervisor? || current_user.admin?
+        if current_user.supervisor?
             @fines= Fine.all
         else
             redirect_to user_path(current_user)
@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
     end
 
     def fines_generate
-        if current_user.supervisor? || current_user.admin?
+        if current_user.supervisor?
             @report = Report.new()
             @fines= Fine.all
             if (params[:pagas]=='0')
@@ -61,7 +61,7 @@ class ReportsController < ApplicationController
     end
 
     def rentals
-        if current_user.supervisor? || current_user.admin?
+        if current_user.supervisor?
             @rentals= Rental.all
         else
             redirect_to user_path(current_user)
@@ -70,7 +70,7 @@ class ReportsController < ApplicationController
     end
 
     def rentals_generate
-        if current_user.supervisor? || current_user.admin?
+        if current_user.supervisor?
             @report = Report.new()
             @rentals= Rental.all
             if (params[:travelling]=='0')
@@ -119,7 +119,7 @@ class ReportsController < ApplicationController
     end
 
     def users
-        if current_user.supervisor? || current_user.admin?
+        if current_user.supervisor?
             @users= User.all.where(role:'client')
         else
             redirect_to user_path(current_user)
@@ -128,7 +128,7 @@ class ReportsController < ApplicationController
     end
 
     def users_generate
-        if current_user.supervisor? || current_user.admin?
+        if current_user.supervisor?
             @report = Report.new()
             @users= User.all.where(role:'client')
 
