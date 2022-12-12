@@ -2,7 +2,6 @@
   <nav class="nav_pad">
     <ul class="nav_links">
       <li><%= show_rental_link %></li>
-      <li><%= link_to 'Listado de usuarios', users_path, class:"nav_item" if current_user&.admin? || current_user&.supervisor? %></li>
       <% if current_user.client? %>
         <li><%= link_to current_user&.name , user_path(current_user), class:"nav_item"%></li>
         <li><%= link_to 'Ver mis multas', fines_path, class: 'nav_item"'%></li>
@@ -21,13 +20,14 @@
             <%= link_to 'Ver estado de licencia', license_path(current_user.licenses.last), data: {turbo_frame: 'modal'}, class: 'nav_item' %>
           </li>
           <% end %>
-        <% else %>
+        <% elsif current_user.supervisor? %>
           <li><%= link_to 'Inspeccionar alquileres', rentals_path, class: 'nav_item' %></li>
           <li>
               <%= link_to 'Verificar licencias', licenses_path, class: 'nav_item' %>
           </li>
+        <% else %>
           <li>
-              <%= link_to 'Administracion de automoviles', cars_path, class: 'nav_item' %>
+            <%= link_to 'Administrar supervisores', users_path, class: 'nav_item' %>
           </li>
           <li><%= link_to "Ir a reportes", reports_path(), class:'nav_item'  %></li>
           <% if current_user.admin? %>

@@ -64,4 +64,7 @@ Rails.application.routes.draw do
   get 'reports_users_generate', to: 'reports#users_generate'
 
   resources :reset_passwords, only: %i[new create update edit]
+
+  post 'update_price', to: 'prices#update_price'
+  get 'edit_price', to: 'prices#edit_price'
 end

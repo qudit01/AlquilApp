@@ -3,6 +3,12 @@ class UserMailer < ApplicationMailer
     @user = user
     @url  = edit_reset_password_url(@user.reset_password_token)
     mail(to: user.email,
-         subject: 'Tu contraseña ha sido restablecida')
+         subject: 'Solicitud de cambio de contraseña')
+  end
+
+  def accepted_license_email(user)
+    @user = user
+    @url = 'http://localhost:3000'
+    mail(to: @user.email, subject: 'Noticas sobre el estado de tu licencia')
   end
 end
