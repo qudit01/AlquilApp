@@ -7,7 +7,6 @@
         <h2>Reporte de usuarios registrados desde el <%= params[:desde].to_date.strftime('%d-%m-%Y')%> hasta el <%= params[:hasta].to_date.strftime('%d-%m-%Y')%></h2>
     </span>
     <table class="table">
-    <% @users.each do |u| %>
       <tr>
         <thead>
           <th>Nombre: </th>
@@ -20,6 +19,7 @@
           <th>Tiene multas?: </th>
         </thead>
       </tr>
+    <% @users.each do |u| %>
       <tr>
         <td><%= u.name %></td>
         <td><%= u&.age %></td>
