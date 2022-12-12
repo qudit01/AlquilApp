@@ -1,5 +1,5 @@
 class RentalsController < ApplicationController
-  before_action :find_data, except: %i[show index]
+  before_action :find_data, except: %i[show index edit_price]
   before_action :find_rental, only: %i[destroy show]
 
   def delete
@@ -29,7 +29,7 @@ class RentalsController < ApplicationController
     @rental = current_user.rentals.last
     hr = @rental.hours
     h = rental_params[:hours].to_f
-    if current_user.can_rent_on_money?(rental_params[:hours].to_f * rental_params[:price].to_f)
+    if current_user.can_rent_on_money?(rental_params[:hours].to_f * $price_per_hour.to_f)
       if @rental.update rental_params
         update_user_and_car
         @rental.hours = hr + h
@@ -52,7 +52,7 @@ class RentalsController < ApplicationController
     @rental = Rental.new(user: current_user,
                          car: @car,
                          hours: rental_params[:hours],
-                         price: rental_params[:hours].to_f * rental_params[:price].to_f)
+                         price: rental_params[:hours].to_f * $price_per_hour.to_f)
     if current_user.can_rent_on_time? @car
       if current_user.can_rent_on_money? @rental.price
         @rental.taken_at = DateTime.now
@@ -89,13 +89,14 @@ class RentalsController < ApplicationController
   end
 
   def destroy
-    current_user.wallet.money -= @rental.price * @rental.hours * (@rental.time_passed? ? 3 : 1)
+    current_user.wallet.money -= @rental.price * (@rental.time_passed? ? 3 : 1)
     current_user.wallet.save
     @rental.update(finished_at: DateTime.now, state: 'finished')
     current_user.stall!
     @car.available!
     redirect_to cars_path, notice: 'Viaje finalizado con éxito!'
   end
+
 
   private
 

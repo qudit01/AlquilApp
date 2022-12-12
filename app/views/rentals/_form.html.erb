@@ -6,9 +6,9 @@
   <%= f.label 'Tiempo a usar el vehículo (en horas)' %>
   <%= f.number_field :hours, class: 'textBox', default: 1, min: 1, max: 24, step: 1 %>
 
-  <%= f.hidden_field :price, value: 22.5 %>
-  <p>Precio base del servicio por un mínimo de media hora: $22.5</p>
-  <p>Precio estimado: $<span id="rental-estimate-price">22.5</span></p>
+  <% f.hidden_field :price, value: $price_per_hour %>
+  <p>Precio base del servicio por un mínimo de una hora: <span id="price_per_hour"><%= $price_per_hour %></span></p>
+  <p>Precio estimado: $<span id="rental-estimate-price"> <%= $price_per_hour %></span></p>
   <div class="form-submit-close-btns">
     <%= f.submit 'Confirmar reserva', class:'btn new_user' %>
     <button data-action='click->turbomodals#submitEnd' class='btn new_user'>Cerrar</button>
@@ -17,11 +17,13 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function(event) {
-    document.getElementById('rental-estimate-price').innerHTML = (document.getElementById('rental_hours').value * 22.5);
+    var price_per_hour = parseInt(document.getElementById('price_per_hour').innerHTML);
+    document.getElementById('rental-estimate-price').innerHTML = (document.getElementById('rental_hours').value * price_per_hour);
     document.getElementById('rental_price').innerHTML = document.getElementById('rental-estimate-price').innerHTML
   });
   document.getElementById('rental_hours').addEventListener('change', function () {
-    document.getElementById('rental-estimate-price').innerHTML = (document.getElementById('rental_hours').value * 22.5);
+    var price_per_hour = parseInt(document.getElementById('price_per_hour').innerHTML);
+    document.getElementById('rental-estimate-price').innerHTML = (document.getElementById('rental_hours').value * price_per_hour);
     document.getElementById('rental_price').innerHTML = document.getElementById('rental-estimate-price').innerHTML
   });
 </script>
