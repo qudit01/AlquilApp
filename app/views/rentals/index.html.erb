@@ -1,0 +1,29 @@
+<% if @rentals.empty? %>
+  <h1>Actualmente no hay ningún alquiler en curso</h1>
+<% else %>
+  <section class="index_user">
+    <section>
+      <table class='users_table'>
+        <thead>
+          <tr class='head_table'>
+            <th class='name'>Usuario</th>
+            <th class='name'>Auto</th>
+            <th class='name'>Coste</th>
+            <th class='name'>Tiempo restante</th>
+          </tr>
+        </thead>
+        <tbody id="users">
+          <% @rentals.each do |rental| %>
+            <tr>
+              <td><%= rental.user.name %></td>
+              <td><%= "#{rental.car.brand} #{rental.car.model} #{rental.car.car_number} " %></td>
+              <td><%= rental.price %></td>
+              <td><%= remaining_time(rental) %> Horas</td>
+              <td><%= link_to 'Inspeccionar', rental_path(rental, car_id: rental.car, user_id: rental.user), class: 'btn' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+  </section>
+<% end %>

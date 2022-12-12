@@ -1,0 +1,14 @@
+<div class="container">
+    <h1>Página principal</h1>
+
+    <div class="form-submit-close-btns">
+        <%= form_tag update_price_path, method: :post do %>
+            <%= label_tag 'Precio por hora' %>
+            <%= number_field_tag :price, $price_per_hour, class: 'form-control' %>
+
+            <br> <%= submit_tag 'Modificar precio', class: 'btn new_user' %> <br>
+        <% end %>
+
+    <td><%= link_to "Ir a reportes", reports_path(), class:'btn'  %></td>
+    </div>
+</div>
