@@ -67,6 +67,14 @@ class User < ApplicationRecord
     wallet.money
   end
 
+  def estado
+    if state=='travelling'
+      "#{'Alquiler en curso'}"
+    else
+      "#{'Sin alquiler'}"
+    end
+end
+
   private
 
   def age_validation

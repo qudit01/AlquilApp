@@ -25,12 +25,12 @@
         <td><%= r.price %></td>
         <td><%= r&.estado %></td>
         <td><%= r.hours.to_i %></td>
-        <td><%= link_to "Ver detalle de alquiler", rental_path(r, car_id: r.car, user_id: r.user), class:'btn new_user'  %></td>
+        <td><%= link_to "Ver detalle de alquiler", rental_path(r, car_id: r.car, user_id: r.user), class:'btn new_user oculto-impresion'  %></td>
       </tr>
     <% end %>
     </table>
     <h1>Cantidad de alquileres encontrados: <%= @report.rentals%>.</h1>
     <h1>Monto total: $<%= @monto%></h1>
-    <td><%= link_to "Volver a reportes", reports_path(@report), class:'btn'  %></td>
-    <td><%= link_to "Imprimir reporte", "#", class: "btn", onclick: "window.print()" %></td>
+    <td><%= link_to "Volver a reportes", reports_path(@report), class:'btn oculto-impresion'  %></td>
+    <td><%= link_to "Imprimir reporte", "#", class: "btn oculto-impresion", onclick: "window.print()" %></td>
 <% end %>

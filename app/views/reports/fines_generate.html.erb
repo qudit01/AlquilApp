@@ -21,12 +21,12 @@
         <td><%= f.typefine %></td>
         <td><%= f&.estado %></td>
         <td>$<%=f.price %></td>
-        <td><%= link_to "Ver detalle de multa", fine_path(f), class:'btn new_user'  %></td>
+        <td><%= link_to "Ver detalle de multa", fine_path(f), class:'btn new_user oculto-impresion'  %></td>
       </tr>
     <% end %>
     </table>
     <h1>Cantidad de multas encontradas: <%= @report.fines%>.</h1>
     <h1>Monto total: $<%= @monto%></h1>
-    <td><%= link_to "Volver a reportes", reports_path(@report), class:'btn'  %></td>
-    <td><%= link_to "Imprimir reporte", "#", class: "btn", onclick: "window.print()" %></td>
+    <td><%= link_to "Volver a reportes", reports_path(@report), class:'btn oculto-impresion'  %></td>
+    <td><%= link_to "Imprimir reporte", "#", class: "btn oculto-impresion", onclick: "window.print()" %></td>
 <% end %>

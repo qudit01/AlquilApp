@@ -14,9 +14,9 @@
           <th>Edad: </th>
           <th>DNI: </th>
           <th>Email: </th>
-          <th>Estado: </th>
+          <th>Estado de alquiler: </th>
           <th>Dinero en cuenta: </th>
-          <th>Bloqueado?: </th>
+          <th>Estado: </th>
           <th>Tiene multas?: </th>
         </thead>
       </tr>
@@ -25,15 +25,23 @@
         <td><%= u&.age %></td>
         <td><%= u.dni %></td>
         <td><%= u.email %></td>
-        <td><%= u.state %></td>
+        <td><%= u&.estado %></td>
         <td>$<%= u.wallet.money %></td>
-        <td><%= u.blocked %></td>
-        <td><%= !u.fines.empty? %></td>
+        <%if u.blocked %>
+          <td>Bloqueado</td>
+        <%else%>
+          <td>Habilitado</td>
+        <%end%>
+        <%if !u.fines.empty? %>  
+          <td>Si</td>
+        <%else%>
+          <td>No</td>
+        <%end%>
       </tr>
     <% end %>
     </table>
     <h1>Cantidad de usuarios encontrados: <%= @report.users%>.</h1>
     <h1>Balance de dinero total: $<%= @monto%></h1>
-    <td><%= link_to "Volver a reportes", reports_path(@report), class:'btn d-print-none'  %></td>
-    <td><%= link_to "Imprimir reporte", "#", class: "btn", onclick: "window.print()" %></td>
+    <td><%= link_to "Volver a reportes", reports_path(@report), class:'btn oculto-impresion'  %></td>
+    <td><%= link_to "Imprimir reporte", "#", class: "btn oculto-impresion", onclick: "window.print()" %></td>
     <% end %>
